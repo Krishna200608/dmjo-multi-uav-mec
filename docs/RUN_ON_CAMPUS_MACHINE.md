@@ -1,33 +1,47 @@
-# Running DMJO on the Campus Machine
+# Running MAPPO Multi-UAV MEC on the Campus Machine
 
-This document is the runbook for training and evaluating the final DMJO codebase on a machine with stronger compute than the laptop. The project to run is:
+This is the runbook for producing final project results on the campus machine.
+The final method is MAPPO-based, not diffusion-based.
+
+Repository:
 
 ```text
-Diffusion_DRL_MultiUAV-DMJO
+git@github.com:Krishna200608/dmjo-multi-uav-mec.git
 ```
 
-The older `uav_trajectory_rl` folder is only a verified reference project. Do not train that folder for the final DMJO results.
+Project folder:
 
-## 1. What Changed Before This Run
+```text
+dmjo-multi-uav-mec
+```
 
-The DMJO code was recently corrected so the main runtime behavior now matches the final project plan:
+Do not train the older `uav_trajectory_rl` folder for final results.
 
-- Per-UAV action is 5D: `[dx, dy, dh, offload_bias, schedule_hint]`.
-- NOMA serves at most two selected IoT devices per UAV per slot.
-- Runtime ablations now actually affect actor construction, cache lookup, trajectory mode, and macro timescale.
-- `GreedyOffloading` and `LocalExecution` now use explicit environment policy modes.
-- PPO rollout updates no longer train on zero-padded partial rollouts.
-- New tests pass in the local environment.
+## 1. Important Method Update
 
-Because of these changes, any previous DMJO checkpoints/results should be treated as stale. Fresh training runs are required.
+Use this command family for final results:
+
+```bash
+python train.py --method MAPPO ...
+```
+
+Do not present the project as diffusion-based.
+
+Compatibility notes:
+
+- `MAPPO` is the main method and default.
+- `DMJO` is only a backward-compatible alias for the MAPPO path.
+- `--ablation no_diffusion` is a compatibility label only; the full MAPPO method
+  is already non-diffusion.
+- Old checkpoints/plots from diffusion-labelled runs are stale.
 
 ## 2. Machine Requirements
 
 Minimum:
 
-- Python 3.10 or newer.
-- Enough disk space for `results/` checkpoints, logs, plots, and videos.
-- CPU-only runs work but will be very slow for full training.
+- Python 3.10 or newer. Python 3.11 is recommended.
+- Enough disk space for `results/`.
+- CPU-only runs work, but full training will be slow.
 
 Recommended:
 
@@ -35,13 +49,13 @@ Recommended:
 - Recent NVIDIA driver.
 - `tmux` or `screen` for long unattended runs.
 
-Check GPU availability:
+Check GPU:
 
 ```bash
 nvidia-smi
 ```
 
-Check PyTorch CUDA from inside the project environment:
+Check PyTorch CUDA after environment setup:
 
 ```bash
 python -c "import torch; print(torch.__version__); print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NO CUDA')"
@@ -54,69 +68,83 @@ True
 <GPU name>
 ```
 
-If CUDA is not available, use `--device cpu`, but expect long training time.
+If CUDA is unavailable, use `--device cpu`.
 
-## 3. Copy the Project to the Campus Machine
+## 3. Get the Code
 
-Copy the full folder:
-
-```text
-Diffusion_DRL_MultiUAV-DMJO
-```
-
-Recommended destination example:
+Clone fresh on the campus machine:
 
 ```bash
-~/dmjo/Diffusion_DRL_MultiUAV-DMJO
+mkdir -p ~/dmjo
+cd ~/dmjo
+git clone git@github.com:Krishna200608/dmjo-multi-uav-mec.git
+cd dmjo-multi-uav-mec
 ```
 
-Before training, move into the project:
+If SSH is not configured on that machine, use HTTPS instead:
 
 ```bash
-cd ~/dmjo/Diffusion_DRL_MultiUAV-DMJO
+git clone https://github.com/Krishna200608/dmjo-multi-uav-mec.git
 ```
-
-Do not rely on old `results/` contents. If old results exist, archive them separately before starting fresh runs.
 
 ## 4. Create the Python Environment
 
-### Option A: venv
+### Linux venv
 
 ```bash
-python3 -m venv .venv
+cd ~/dmjo/dmjo-multi-uav-mec
+python3.11 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-Install PyTorch with CUDA if the default install does not provide CUDA. Use the command recommended by the official PyTorch selector for the campus machine CUDA version.
-
-Example for many CUDA 12.x systems:
+If the campus network requires the proxy:
 
 ```bash
-pip install --upgrade torch --index-url https://download.pytorch.org/whl/cu121
+export HTTP_PROXY=http://172.31.2.4:8080
+export HTTPS_PROXY=http://172.31.2.4:8080
+
+python -m pip install --upgrade pip --proxy http://172.31.2.4:8080
+python -m pip install -r requirements.txt --proxy http://172.31.2.4:8080
 ```
 
-Then verify:
+### Conda alternative
+
+```bash
+conda create -n mappo-uav python=3.11 -y
+conda activate mappo-uav
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+### CUDA PyTorch
+
+If `pip install -r requirements.txt` installs a CPU-only PyTorch build, install
+the CUDA build that matches the campus machine. Use the official PyTorch selector
+for the exact CUDA version.
+
+Example for many CUDA 12.1 systems:
+
+```bash
+python -m pip install --upgrade torch --index-url https://download.pytorch.org/whl/cu121
+```
+
+With proxy:
+
+```bash
+python -m pip install --upgrade torch --index-url https://download.pytorch.org/whl/cu121 --proxy http://172.31.2.4:8080
+```
+
+Then verify CUDA:
 
 ```bash
 python -c "import torch; print(torch.cuda.is_available())"
 ```
 
-### Option B: conda
+## 5. Quick Verification
 
-```bash
-conda create -n dmjo python=3.10 -y
-conda activate dmjo
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-Install a CUDA-enabled PyTorch build if needed, then verify CUDA as above.
-
-## 5. Quick Verification Before Long Training
-
-Run the test suite:
+Run tests:
 
 ```bash
 python -m pytest tests -q
@@ -128,74 +156,73 @@ Expected:
 10 passed
 ```
 
-Run a very short smoke test on GPU:
+Run a tiny MAPPO smoke test:
 
 ```bash
-python train.py --method DMJO --ablation full --total-steps 2 --device cuda --no-training-video --smoke-test
+python train.py --method MAPPO --ablation full --total-steps 2 --device cuda --no-training-video --smoke-test
 ```
 
-If there is no CUDA GPU:
+CPU fallback:
 
 ```bash
-python train.py --method DMJO --ablation full --total-steps 2 --device cpu --no-training-video --smoke-test
+python train.py --method MAPPO --ablation full --total-steps 2 --device cpu --no-training-video --smoke-test
 ```
 
 Expected signs:
 
-- It prints `Agent: DMJO`.
+- It prints `Agent: MAPPO`.
+- It prints `diffusion=False`.
 - It prints `Training complete!`.
-- It prints `Total steps : 2`.
+- It prints `Total steps    : 2`.
 
 ## 6. Medium Sanity Run
 
-Before spending many hours/days, run a medium sanity run:
+Before a full run, do a medium sanity run:
 
 ```bash
 python -u train.py \
-  --method DMJO \
+  --method MAPPO \
   --ablation full \
   --total-steps 50000 \
   --device cuda \
   --no-training-video
 ```
 
-Check that these folders/files appear:
+Check outputs:
 
 ```text
-results/checkpoints/DMJO/full/
-results/logs/DMJO/full/training_log.jsonl
+results/checkpoints/MAPPO/full/
+results/logs/MAPPO/full/training_log.jsonl
 results/logs/training_metrics.jsonl
 results/trajectories/
 ```
 
-Note: `--no-training-video` skips periodic mid-training videos. Final videos/plots/sweeps may still run at the end unless `--smoke-test` is used.
+## 7. Full Main Training Run
 
-## 7. Full Training Commands
-
-The default full training budget is:
+Default full training budget:
 
 ```text
 TOTAL_TIMESTEPS = 5,000,000
 ```
 
-Main DMJO run:
+Run:
 
 ```bash
 python -u train.py \
-  --method DMJO \
+  --method MAPPO \
   --ablation full \
   --device cuda \
   --no-training-video
 ```
 
-Output path:
+Output:
 
 ```text
-results/checkpoints/DMJO/full/
-results/logs/DMJO/full/
+results/checkpoints/MAPPO/full/
+results/logs/MAPPO/full/
 ```
 
-Important checkpoint files:
+Important files:
 
 ```text
 best_model.pt
@@ -203,12 +230,11 @@ final_model.pt
 model_step*.pt
 ```
 
-## 8. Full Comparison Runs
+## 8. Baseline Comparison Runs
 
-Run all six methods fresh if comparison plots/tables are needed:
+Run these fresh for final comparison:
 
 ```bash
-python -u train.py --method DMJO             --ablation full --device cuda --no-training-video
 python -u train.py --method MAPPO            --ablation full --device cuda --no-training-video
 python -u train.py --method MADDPG           --ablation full --device cuda --no-training-video
 python -u train.py --method MATD3            --ablation full --device cuda --no-training-video
@@ -219,7 +245,6 @@ python -u train.py --method LocalExecution   --ablation full --device cuda --no-
 Output folders:
 
 ```text
-results/checkpoints/DMJO/full/
 results/checkpoints/MAPPO/full/
 results/checkpoints/MADDPG/full/
 results/checkpoints/MATD3/full/
@@ -227,41 +252,37 @@ results/checkpoints/GreedyOffloading/full/
 results/checkpoints/LocalExecution/full/
 ```
 
-Rule-based methods are much cheaper, but running them through the same CLI keeps logs and outputs consistent.
+`GreedyOffloading` and `LocalExecution` are rule-based and should be much
+cheaper to run.
 
 ## 9. Ablation Runs
 
-For the DMJO ablation study:
+Use these for the final ablation study:
 
 ```bash
-python -u train.py --method DMJO --ablation full             --device cuda --no-training-video
-python -u train.py --method DMJO --ablation single_timescale --device cuda --no-training-video
-python -u train.py --method DMJO --ablation no_diffusion     --device cuda --no-training-video
-python -u train.py --method DMJO --ablation no_mappo_traj    --device cuda --no-training-video
-python -u train.py --method DMJO --ablation no_coop_cache    --device cuda --no-training-video
-python -u train.py --method DMJO --ablation minimal          --device cuda --no-training-video
+python -u train.py --method MAPPO --ablation full             --device cuda --no-training-video
+python -u train.py --method MAPPO --ablation single_timescale --device cuda --no-training-video
+python -u train.py --method MAPPO --ablation no_mappo_traj    --device cuda --no-training-video
+python -u train.py --method MAPPO --ablation no_coop_cache    --device cuda --no-training-video
+python -u train.py --method MAPPO --ablation minimal          --device cuda --no-training-video
 ```
 
-Output folders:
-
-```text
-results/checkpoints/DMJO/full/
-results/checkpoints/DMJO/single_timescale/
-results/checkpoints/DMJO/no_diffusion/
-results/checkpoints/DMJO/no_mappo_traj/
-results/checkpoints/DMJO/no_coop_cache/
-results/checkpoints/DMJO/minimal/
-```
-
-## 10. Recommended Long-Run Pattern
-
-Use `tmux`:
+Compatibility-only run:
 
 ```bash
-tmux new -s dmjo
-cd ~/dmjo/Diffusion_DRL_MultiUAV-DMJO
+python -u train.py --method MAPPO --ablation no_diffusion --device cuda --no-training-video
+```
+
+Do not use `no_diffusion` as a final scientific ablation, because the main
+method is already non-diffusion.
+
+## 10. Long-Run Pattern With tmux
+
+```bash
+tmux new -s mappo-uav
+cd ~/dmjo/dmjo-multi-uav-mec
 source .venv/bin/activate
-python -u train.py --method DMJO --ablation full --device cuda --no-training-video 2>&1 | tee run_dmjo_full.log
+python -u train.py --method MAPPO --ablation full --device cuda --no-training-video 2>&1 | tee run_mappo_full.log
 ```
 
 Detach:
@@ -273,27 +294,33 @@ Ctrl-b then d
 Reattach:
 
 ```bash
-tmux attach -t dmjo
+tmux attach -t mappo-uav
 ```
 
-If multiple GPUs are available, select one:
+Choose a GPU if multiple are available:
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 python -u train.py --method DMJO --ablation full --device cuda --no-training-video
+CUDA_VISIBLE_DEVICES=0 python -u train.py --method MAPPO --ablation full --device cuda --no-training-video
 ```
 
-## 11. Monitoring Training
+## 11. Monitoring
 
-In another terminal:
+Training log:
 
 ```bash
-tail -f results/logs/DMJO/full/training_log.jsonl
+tail -f results/logs/MAPPO/full/training_log.jsonl
 ```
 
-Or monitor the terminal log if using `tee`:
+Terminal log:
 
 ```bash
-tail -f run_dmjo_full.log
+tail -f run_mappo_full.log
+```
+
+GPU:
+
+```bash
+watch -n 2 nvidia-smi
 ```
 
 Watch for:
@@ -301,37 +328,29 @@ Watch for:
 - Increasing total steps.
 - Checkpoints saved under `results/checkpoints/<method>/<ablation>/`.
 - No `nan`, `inf`, CUDA out-of-memory, or shape errors.
-- Reasonable latency/reward movement over time.
-
-GPU monitoring:
-
-```bash
-watch -n 2 nvidia-smi
-```
+- `diffusion=False` in startup logs.
 
 ## 12. Evaluation
 
-Evaluate a trained model with `train.py --eval`.
-
-Example for DMJO full:
+Evaluate the best MAPPO model:
 
 ```bash
 python train.py \
-  --method DMJO \
+  --method MAPPO \
   --ablation full \
   --eval \
-  --checkpoint results/checkpoints/DMJO/full/best_model.pt \
+  --checkpoint results/checkpoints/MAPPO/full/best_model.pt \
   --device cuda
 ```
 
-For final model:
+Evaluate the final MAPPO model:
 
 ```bash
 python train.py \
-  --method DMJO \
+  --method MAPPO \
   --ablation full \
   --eval \
-  --checkpoint results/checkpoints/DMJO/full/final_model.pt \
+  --checkpoint results/checkpoints/MAPPO/full/final_model.pt \
   --device cuda
 ```
 
@@ -339,7 +358,7 @@ Custom environment evaluation:
 
 ```bash
 python test_custom.py \
-  --checkpoint results/checkpoints/DMJO/full/best_model.pt \
+  --checkpoint results/checkpoints/MAPPO/full/best_model.pt \
   --num-iot 120 \
   --num-uavs 6 \
   --num-jammers 2 \
@@ -347,11 +366,10 @@ python test_custom.py \
   --device cuda
 ```
 
-Important: `--checkpoint` in `train.py` is currently for evaluation mode only. The training loop does not resume optimizer/model state from a checkpoint automatically.
+Important: `--checkpoint` in `train.py` is evaluation-only. Training does not
+resume optimizer/model state from a checkpoint automatically.
 
 ## 13. Generate Figures
-
-After training/evaluation data exists:
 
 ```bash
 python plot_ieee.py
@@ -363,11 +381,9 @@ Expected output:
 results/plots/
 ```
 
-Plots are saved as `.png` and `.pdf` where supported by the plotting script.
+## 14. What to Bring Back
 
-## 14. What to Bring Back From the Campus Machine
-
-Copy back at least:
+Copy back:
 
 ```text
 results/checkpoints/
@@ -378,59 +394,54 @@ results/trajectories/
 run_*.log
 ```
 
-The most important files are:
+Most important:
 
 ```text
-results/checkpoints/<method>/<ablation>/best_model.pt
-results/checkpoints/<method>/<ablation>/final_model.pt
-results/logs/<method>/<ablation>/training_log.jsonl
-results/plots/*.png
-results/plots/*.pdf
+results/checkpoints/MAPPO/full/best_model.pt
+results/checkpoints/MAPPO/full/final_model.pt
+results/logs/MAPPO/full/training_log.jsonl
+results/plots/
 ```
 
 ## 15. Troubleshooting
 
-### CUDA is not detected
-
-Run:
+CUDA not detected:
 
 ```bash
 nvidia-smi
 python -c "import torch; print(torch.cuda.is_available())"
 ```
 
-If `nvidia-smi` works but PyTorch says `False`, install a CUDA-enabled PyTorch wheel.
+If `nvidia-smi` works but PyTorch says `False`, install a CUDA-enabled PyTorch
+build.
 
-### CUDA out of memory
-
-Try:
+CUDA out of memory:
 
 - Close other GPU jobs.
-- Use a different GPU via `CUDA_VISIBLE_DEVICES`.
+- Use a different GPU with `CUDA_VISIBLE_DEVICES`.
 - Run one method at a time.
-- Reduce plotting/video generation by using `--no-training-video`.
+- Keep `--no-training-video`.
 
-### Run interrupted
+Interrupted run:
 
-Current training does not automatically resume from `model_step*.pt`. Keep terminal logs and use `best_model.pt` / `final_model.pt` for evaluation. If a full training run is interrupted early, start a fresh run or add resume support before relying on continuation.
+- Current training does not automatically resume from `model_step*.pt`.
+- Use `best_model.pt` or `final_model.pt` for evaluation.
+- Start a fresh run if the training run was interrupted too early.
 
-### Results look inconsistent
+Inconsistent results:
 
-Make sure:
-
-- Old `results/` were archived before fresh runs.
-- The command used the intended `--method` and `--ablation`.
-- Evaluation checkpoint path matches the method/ablation folder.
-- `python -m pytest tests -q` passes on the campus machine.
+- Archive old `results/` before fresh runs.
+- Check command uses `--method MAPPO`.
+- Check the checkpoint path matches `results/checkpoints/MAPPO/<ablation>/`.
+- Re-run `python -m pytest tests -q`.
 
 ## 16. Minimal Command Checklist
 
 ```bash
-cd ~/dmjo/Diffusion_DRL_MultiUAV-DMJO
+cd ~/dmjo/dmjo-multi-uav-mec
 source .venv/bin/activate
 python -m pytest tests -q
-python train.py --method DMJO --ablation full --total-steps 2 --device cuda --no-training-video --smoke-test
-python -u train.py --method DMJO --ablation full --device cuda --no-training-video 2>&1 | tee run_dmjo_full.log
+python train.py --method MAPPO --ablation full --total-steps 2 --device cuda --no-training-video --smoke-test
+python -u train.py --method MAPPO --ablation full --device cuda --no-training-video 2>&1 | tee run_mappo_full.log
 python plot_ieee.py
 ```
-

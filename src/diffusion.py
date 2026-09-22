@@ -1,7 +1,10 @@
 """
-Diffusion-Gaussian Hybrid Actor for MAPPO
-============================================
-Dual-head architecture (Paper §IV.D):
+Legacy Diffusion/Gaussian Actor Experiments
+===========================================
+The final project uses plain MAPPO with `GaussianOnlyActor`. The diffusion
+actor below is retained only for backward compatibility with older experiments.
+
+Old dual-head architecture:
 
   HEAD 1 — Gaussian MLP
     obs → μ, σ → Normal(μ, σ) → differentiable log_prob and entropy for PPO.
@@ -12,12 +15,7 @@ Dual-head architecture (Paper §IV.D):
 
   Both heads share the same obs encoder so they co-evolve during training.
 
-GaussianOnlyActor: drop-in replacement removing the diffusion head.
-  Used by ablation rows 3 (w/o Diffusion) and 6 (Minimal).
-  Exposes identical public methods so MAPPOAgent needs no conditional logic.
-
-References:
-  Paper §IV.D; [P6] Liang et al., Section IV-C
+GaussianOnlyActor is the active actor used by the MAPPO implementation.
 """
 
 import torch
@@ -140,7 +138,7 @@ class DenoisingNetwork(nn.Module):
 
 class DiffusionActor(nn.Module):
     """
-    Dual-head actor for Diffusion-MAPPO (Paper §IV.D).
+    Legacy dual-head actor from the earlier diffusion experiment.
 
     Rollout (get_action_and_log_prob):
       Blends diffusion and Gaussian samples; scores action with Gaussian head

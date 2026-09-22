@@ -60,24 +60,26 @@ def test_ablation_config_affects_env_and_cache_lookup():
     assert partner is None
 
 
-def test_no_diffusion_ablation_uses_gaussian_actor():
+def test_full_and_legacy_no_diffusion_modes_use_gaussian_actor():
     previous_mode = cfg.ABLATION_MODE
     try:
-        cfg.apply_ablation("no_diffusion")
-        env = MultiUAVMECEnv(
-            seed=4,
-            domain_cfg=small_domain(),
-            ablation_config=cfg.current_ablation_config(),
-        )
-        agent = make_agent(
-            "DMJO",
-            env.local_obs_dim,
-            env.global_state_dim,
-            env.agent_action_dim,
-            env.n_agents,
-            device="cpu",
-        )
-        assert isinstance(agent.actor, GaussianOnlyActor)
+        for mode in ("full", "no_diffusion"):
+            settings = cfg.apply_ablation(mode)
+            env = MultiUAVMECEnv(
+                seed=4,
+                domain_cfg=small_domain(),
+                ablation_config=cfg.current_ablation_config(),
+            )
+            agent = make_agent(
+                "MAPPO",
+                env.local_obs_dim,
+                env.global_state_dim,
+                env.agent_action_dim,
+                env.n_agents,
+                device="cpu",
+            )
+            assert settings["use_diffusion"] is False
+            assert isinstance(agent.actor, GaussianOnlyActor)
     finally:
         cfg.apply_ablation(previous_mode)
 

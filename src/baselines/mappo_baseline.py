@@ -1,18 +1,9 @@
 """
-MAPPO Baseline  (Table I — Row 2)
-===================================
-Standard Multi-Agent PPO **without** diffusion-enhanced offloading.
-
-Differences from DMJO (Row 1):
-  • Actor : GaussianOnlyActor  — Gaussian MLP, no denoiser head
-  • No auxiliary diffusion loss term in the PPO update
-  • Uses the same centralised critic and GAE advantage estimation
-  • NOMA pairing and cooperative caching are still active in the *env*,
-    but the policy is not diffusion-guided.
-
-The class is a thin wrapper around the existing MAPPOAgent machinery
-with USE_DIFFUSION forced to False so the file is self-contained and
-does not depend on the config flag.
+Legacy MAPPO Baseline Wrapper
+=============================
+The final project's primary `src.mappo_agent.MAPPOAgent` is already a plain
+Gaussian MAPPO implementation. This class is retained for old imports and
+experiments that expected a separate baseline wrapper.
 
 Interface (identical to MAPPOAgent):
     get_actions(obs_all, state, num_active) → actions, log_probs, values
@@ -65,12 +56,12 @@ class _CentralisedCritic(nn.Module):
 # ================================================================
 class MAPPOBaseline:
     """
-    Multi-Agent PPO without diffusion-enhanced offloading (Row 2).
+    Legacy plain MAPPO wrapper.
 
     Actor  : GaussianOnlyActor (standard Gaussian MLP)
-    Critic : CentralisedCritic (identical to DMJO)
+    Critic : CentralisedCritic
     Update : PPO clipped objective + entropy bonus
-             (no auxiliary diffusion loss — d_loss term is absent)
+             (no auxiliary diffusion loss)
     """
 
     METHOD = "MAPPO"

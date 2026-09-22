@@ -1,5 +1,5 @@
 """
-plot_ieee.py  ─  IEEE two-column plots for Diffusion-MAPPO Multi-UAV MEC
+plot_ieee.py  -  IEEE two-column plots for MAPPO Multi-UAV MEC
 =========================================================================
 ALL plots read from saved files — NO env simulation at plot time.
 
@@ -354,7 +354,7 @@ def _plot_line_sweep(key, marker, ci, fname):
     d = s[key]
     fig, ax = plt.subplots(figsize=(COL_W, 2.6))
     h, = ax.plot(d["x"], d["y"], f"-{marker}", color=SWEEP_COLORS[ci],
-                 lw=1.4, ms=5, label="Diffusion-MAPPO")
+                 lw=1.4, ms=5, label="MAPPO")
     if d.get("yerr"):
         ax.fill_between(d["x"],
                         np.array(d["y"]) - np.array(d["yerr"]),
@@ -449,7 +449,7 @@ def plot_P10():
     fig.tight_layout()
     stem = os.path.join(OUT_DIR, "P10_latency_vs_task_size")
     _savefig(fig, stem)
-    save_legend([mpatches.Patch(fc="#2196F3", label="Diffusion-MAPPO")],
+    save_legend([mpatches.Patch(fc="#2196F3", label="MAPPO")],
                 f"{stem}_legend")
 
 
@@ -1100,7 +1100,7 @@ def plot_P8(step=None, output_dir=None,
 def env_only_mode(args):
     """
     Standalone trajectory generator that produces complex, winding UAV paths
-    visually matching a trained Diffusion-MAPPO policy (reference figures).
+    visually matching a trained MAPPO policy (reference figures).
 
     Navigation model — 3 behaviour modes per UAV per waypoint:
       MODE 0 (55 %): Cluster-seek   — target a random IoT device in own cluster

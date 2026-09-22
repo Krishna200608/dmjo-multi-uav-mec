@@ -1,6 +1,6 @@
 # src/baselines/__init__.py
 # ----------------------------------------------------------------
-# Baseline agents for comparison against DMJO (Ours).
+# Baseline agents for comparison against the MAPPO method.
 # All agents expose the same interface as MAPPOAgent:
 #   get_actions(obs_all, state, num_active)  → actions, log_probs, values
 #   get_values(state)                        → values

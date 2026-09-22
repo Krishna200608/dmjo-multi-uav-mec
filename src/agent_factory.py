@@ -1,17 +1,17 @@
 """
-Agent Factory  —  single-point model switcher
+Agent Factory - single-point model switcher
 ===============================================
 Change METHOD below (or pass --method on the CLI) to run any of the
-six comparison methods from Table I without touching train.py.
+comparison methods without touching train.py.
 
 Supported methods
 -----------------
-  "DMJO"            — Diffusion-enhanced Joint Offloading (Ours, Row 1)
-  "MAPPO"           — Multi-agent PPO, no diffusion        (Row 2)
-  "MADDPG"          — Deterministic multi-agent AC          (Row 3)
-  "MATD3"           — Double-Q deterministic MARL           (Row 4)
-  "GreedyOffloading"— Nearest-UAV, cache-unaware            (Row 5)
-  "LocalExecution"  — All tasks local at WD                 (Row 6)
+  "MAPPO"           - MAPPO-based joint MEC optimization (ours)
+  "DMJO"            - backward-compatible alias for MAPPO
+  "MADDPG"          - deterministic multi-agent actor-critic baseline
+  "MATD3"           - double-Q deterministic MARL baseline
+  "GreedyOffloading"- nearest-UAV, cache-unaware baseline
+  "LocalExecution"  - all tasks local at WD baseline
 
 Quick usage in train.py
 -----------------------
@@ -28,10 +28,10 @@ Quick usage in train.py
 
 CLI integration (add to train.py argparse):
 -------------------------------------------
-    parser.add_argument('--method', default='DMJO',
+    parser.add_argument('--method', default='MAPPO',
         choices=['DMJO','MAPPO','MADDPG','MATD3',
                  'GreedyOffloading','LocalExecution'],
-        help='Comparison method (Table I)')
+        help='Training/evaluation method')
 
 Notes
 -----
@@ -44,9 +44,9 @@ Notes
   file (no model weights).
 
 * All agents expose the identical interface:
-      get_actions(obs, state, num_active) → actions, log_probs, values
-      get_values(state)                   → values
-      update(buffer)                      → metrics dict
+      get_actions(obs, state, num_active) -> actions, log_probs, values
+      get_values(state)                   -> values
+      update(buffer)                      -> metrics dict
       save(path) / load(path)
 """
 
@@ -56,9 +56,9 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # ================================================================
-# ▼▼▼  CHANGE THIS LINE TO SWITCH MODELS  ▼▼▼
+# CHANGE THIS LINE TO SWITCH MODELS
 # ================================================================
-METHOD = "DMJO"
+METHOD = "MAPPO"
 # ================================================================
 # Choices: "DMJO" | "MAPPO" | "MADDPG" | "MATD3"
 #        | "GreedyOffloading" | "LocalExecution"
@@ -87,38 +87,33 @@ def make_agent(method: str, obs_dim: int, state_dim: int,
     """
     m = method.strip()
 
-    if m == "DMJO":
-        # ── Row 1: Full Diffusion-MAPPO (this project's main method) ──
+    if m in {"MAPPO", "DMJO"}:
+        # MAPPO is the final claimed method. DMJO is kept as a legacy alias
+        # for old commands/checkpoint folder names and runs the same policy.
         from src.mappo_agent import MAPPOAgent
         return MAPPOAgent(obs_dim, state_dim, action_dim, n_agents,
                           device=device, **kwargs)
 
-    elif m == "MAPPO":
-        # ── Row 2: MAPPO without diffusion ────────────────────────────
-        from src.baselines.mappo_baseline import MAPPOBaseline
-        return MAPPOBaseline(obs_dim, state_dim, action_dim, n_agents,
-                             device=device, **kwargs)
-
     elif m == "MADDPG":
-        # ── Row 3: Deterministic MARL ─────────────────────────────────
+        # Deterministic MARL baseline.
         from src.baselines.maddpg_agent import MADDPGAgent
         return MADDPGAgent(obs_dim, state_dim, action_dim, n_agents,
                            device=device, **kwargs)
 
     elif m == "MATD3":
-        # ── Row 4: Double-Q deterministic MARL ───────────────────────
+        # Double-Q deterministic MARL baseline.
         from src.baselines.matd3_agent import MATD3Agent
         return MATD3Agent(obs_dim, state_dim, action_dim, n_agents,
                           device=device, **kwargs)
 
     elif m == "GreedyOffloading":
-        # ── Row 5: Nearest-UAV greedy (no learning) ──────────────────
+        # Nearest-UAV greedy rule baseline.
         from src.baselines.greedy_agent import GreedyOffloadingAgent
         return GreedyOffloadingAgent(obs_dim, state_dim, action_dim,
                                      n_agents, device=device, **kwargs)
 
     elif m == "LocalExecution":
-        # ── Row 6: All tasks computed locally (no learning) ──────────
+        # All tasks computed locally.
         from src.baselines.local_agent import LocalExecutionAgent
         return LocalExecutionAgent(obs_dim, state_dim, action_dim,
                                    n_agents, device=device, **kwargs)
@@ -161,8 +156,8 @@ def is_rule_based(agent) -> bool:
 # Pretty summary
 # ================================================================
 _METHOD_DESCRIPTIONS = {
-    "DMJO":             "Diffusion-enhanced joint offloading, caching, trajectory, and NOMA (Ours)",
-    "MAPPO":            "Multi-agent PPO without diffusion-enhanced offloading",
+    "MAPPO":            "MAPPO-based joint offloading, caching, trajectory, and NOMA (ours)",
+    "DMJO":             "Legacy alias for MAPPO; no diffusion is used",
     "MADDPG":           "Deterministic multi-agent actor-critic baseline",
     "MATD3":            "Double-Q deterministic multi-agent DRL baseline",
     "GreedyOffloading": "Nearest-UAV association without caching awareness",
@@ -177,7 +172,7 @@ def describe(method: str) -> str:
 if __name__ == "__main__":
     print("Available methods (Table I):\n")
     for no, (k, v) in enumerate(_METHOD_DESCRIPTIONS.items(), 1):
-        marker = " ← active" if k == METHOD else ""
+        marker = " <- active" if k == METHOD else ""
         print(f"  {no}. {k:<20s}  {v}{marker}")
     print(f"\nTo switch: edit METHOD = '...' in src/agent_factory.py")
     print(f"           or pass --method <name> on the CLI")

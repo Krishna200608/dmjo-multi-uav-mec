@@ -1,21 +1,18 @@
 """
-Diffusion-MAPPO Agent
-=======================
+MAPPO Agent
+===========
 Multi-Agent PPO with:
-  - Shared Diffusion Actor for decentralised execution (Paper §IV.E)
-  - Centralised Critic with global state (CTDE paradigm)
+  - Gaussian MLP actor for decentralised execution
+  - Centralised critic with global state (CTDE paradigm)
   - GAE advantage estimation
   - PPO clipped objective with KL early stopping and entropy bonus
-  - Auxiliary diffusion denoising loss
 
-Actor class is selected by config.USE_DIFFUSION:
-  True  → DiffusionActor      (full model, ablation rows 1, 2, 4, 5)
-  False → GaussianOnlyActor   (ablation rows 3 and 6)
-Both classes expose identical public methods.
+This is the final project policy class. The repository still contains a
+legacy diffusion actor module for old experiments, but the claimed method is
+plain MAPPO and this agent always uses the Gaussian actor.
 
 References:
   Yu et al. (2022) "The Surprising Effectiveness of PPO in MARL"
-  Paper §IV.D–IV.E
 """
 
 import os
@@ -28,15 +25,13 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import config as cfg
 from config import (
     MAPPO_LR_ACTOR, MAPPO_LR_CRITIC, MAPPO_CLIP_EPS,
     MAPPO_ENTROPY_COEF, MAPPO_VALUE_COEF, MAPPO_MAX_GRAD_NORM,
     MAPPO_PPO_EPOCHS, MAPPO_NUM_MINI_BATCHES,
     MAPPO_HIDDEN_DIM, MAPPO_CRITIC_HIDDEN_DIM,
-    DIFFUSION_DENOISING_STEPS,
 )
-from src.diffusion import DiffusionActor, GaussianOnlyActor
+from src.diffusion import GaussianOnlyActor
 from src.buffer import RolloutBuffer
 
 
@@ -64,7 +59,7 @@ class CentralisedCritic(nn.Module):
 
 class MAPPOAgent:
     """
-    Diffusion-MAPPO agent.
+    Plain MAPPO agent.
 
     share_actor=True (default): one shared actor for all UAVs —
       better sample efficiency; per-agent heterogeneity is captured
@@ -72,7 +67,7 @@ class MAPPOAgent:
     share_actor=False: independent actor per agent.
     """
 
-    METHOD = "DMJO"   # must match the key used in agent_factory.py / train.py
+    METHOD = "MAPPO"
 
     def __init__(self, obs_dim, state_dim, action_dim, n_agents,
                  device='cpu', share_actor=True):
@@ -82,22 +77,18 @@ class MAPPOAgent:
         self.n_agents    = n_agents
         self.device      = device
         self.share_actor = share_actor
-        ActorClass = DiffusionActor if cfg.USE_DIFFUSION else GaussianOnlyActor
-
         if share_actor:
-            self.actor  = ActorClass(
+            self.actor  = GaussianOnlyActor(
                 obs_dim, action_dim,
                 hidden_dim=MAPPO_HIDDEN_DIM,
-                K=DIFFUSION_DENOISING_STEPS,
             ).to(device)
             self.actors    = [self.actor] * n_agents
             actor_params   = list(self.actor.parameters())
         else:
             self.actors = [
-                ActorClass(
+                GaussianOnlyActor(
                     obs_dim, action_dim,
                     hidden_dim=MAPPO_HIDDEN_DIM,
-                    K=DIFFUSION_DENOISING_STEPS,
                 ).to(device)
                 for _ in range(n_agents)
             ]
@@ -184,8 +175,8 @@ class MAPPOAgent:
         Run PPO update over one rollout buffer.
         Returns a dict of averaged training metrics.
         """
-        metrics   = dict(actor_loss=0.0, critic_loss=0.0, entropy=0.0,
-                         diffusion_loss=0.0, approx_kl=0.0)
+        metrics = dict(actor_loss=0.0, critic_loss=0.0, entropy=0.0,
+                       approx_kl=0.0)
         if getattr(buffer, 'step', 0) <= 0:
             return metrics
 
@@ -213,7 +204,7 @@ class MAPPOAgent:
                 advantages = (advantages - advantages.mean()) / (advantages.std().clamp(min=1e-8))
 
                 # Actor update
-                actor_loss_sum, entropy_sum, diff_loss_sum = 0.0, 0.0, 0.0
+                actor_loss_sum, entropy_sum = 0.0, 0.0
                 skip_batch = False
                 # Bug fix: accumulate ratios from ALL actors for a correct KL
                 # estimate rather than keeping only the last actor's ratio.
@@ -231,9 +222,7 @@ class MAPPOAgent:
                     surr1  = ratio * advantages
                     surr2  = torch.clamp(ratio, 1 - MAPPO_CLIP_EPS, 1 + MAPPO_CLIP_EPS) * advantages
                     a_loss = -torch.min(surr1, surr2).mean()
-                    d_loss = actor.compute_diffusion_loss(obs, actions)
-
-                    total_loss = a_loss + MAPPO_ENTROPY_COEF * (-entropy.mean()) + 0.1 * d_loss
+                    total_loss = a_loss + MAPPO_ENTROPY_COEF * (-entropy.mean())
 
                     if total_loss.abs().item() > 1e4:
                         skip_batch = True
@@ -248,7 +237,6 @@ class MAPPOAgent:
 
                     actor_loss_sum += a_loss.item()
                     entropy_sum    += entropy.mean().item()
-                    diff_loss_sum  += d_loss.item()
                     ratio_sum       = (ratio.detach() if ratio_sum is None
                                        else ratio_sum + ratio.detach())
 
@@ -286,7 +274,6 @@ class MAPPOAgent:
                 metrics['actor_loss']     += actor_loss_sum / n_a
                 metrics['critic_loss']    += critic_loss.item()
                 metrics['entropy']        += entropy_sum / n_a
-                metrics['diffusion_loss'] += diff_loss_sum / n_a
                 metrics['approx_kl']      += approx_kl.item()
                 n_updates += 1
 

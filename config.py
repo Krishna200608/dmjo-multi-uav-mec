@@ -1,8 +1,10 @@
 """
-Configuration — Diffusion-MAPPO Multi-UAV Task Offloading
-===========================================================
-Paper: Diffusion-based Task Offloading, Cooperative Service Caching,
-       and NOMA Resource Allocation in Jammer-Aware Multi-UAV MEC-IoT Networks
+Configuration - MAPPO Multi-UAV MEC Joint Optimization
+======================================================
+Final project direction: a plain MAPPO-based multi-UAV MEC approach with
+trajectory control, task offloading, cooperative caching, NOMA scheduling,
+jamming, and wind. Diffusion actor code is retained only as legacy optional
+experiment code and is not part of the claimed method.
 """
 
 import numpy as np
@@ -169,15 +171,18 @@ VIDEO_PLOT_STEPS      = 200
 ENABLE_TRAINING_VIDEO = False
 
 # ============================================================
-# 8. DIFFUSION MODEL (Paper §IV.D)
+# 8. LEGACY ACTOR EXPERIMENT SETTINGS
 # ============================================================
+# These constants are kept so old checkpoints/scripts that import the
+# diffusion actor module do not break. The final project does not enable
+# diffusion in any default or documented run.
 DIFFUSION_DENOISING_STEPS = 3
 DIFFUSION_BETA_A          = 0.1
 DIFFUSION_BETA_B          = 20.0
 DIFFUSION_HIDDEN_DIM      = 256
 
 # ============================================================
-# 9. MAPPO TRAINING (Paper §IV.E)
+# 9. MAPPO TRAINING
 # ============================================================
 MAPPO_LR_ACTOR        = 3e-4
 MAPPO_LR_CRITIC       = 1e-4
@@ -222,21 +227,22 @@ ALPHA_LATENCY = 0.6
 BETA_ENERGY   = 0.4
 
 # ============================================================
-# 12. ABLATION FLAGS (Paper Table V)
+# 12. ABLATION FLAGS
 # ============================================================
 # Supported modes (set via --ablation CLI flag in train.py):
-#   "full"             — complete DMJO framework (default)
-#   "single_timescale" — K_c = 1, every slot is a macro step (row 2)
-#   "no_diffusion"     — Gaussian-only actor, no denoiser (row 3)
-#   "no_mappo_traj"    — fixed circular UAV orbits (row 4)
-#   "no_coop_cache"    — local + BS only, tier-2 A2A disabled (row 5)
-#   "minimal"          — no diffusion and no cooperative cache (row 6)
+#   "full"             - complete MAPPO MEC framework (default)
+#   "single_timescale" - K_c = 1, every slot is a macro step
+#   "no_diffusion"     - legacy alias; same actor as full because final MAPPO
+#                        is already non-diffusion
+#   "no_mappo_traj"    - fixed circular UAV orbits
+#   "no_coop_cache"    - local + BS only, tier-2 A2A disabled
+#   "minimal"          - no cooperative cache, plain MAPPO actor
 ABLATION_MODE    = "full"
 
-USE_DIFFUSION    = True    # False → GaussianOnlyActor (rows 3, 6)
-USE_COOP_CACHE   = True    # False → skip tier-2 A2A fetch (rows 5, 6)
-USE_LEARNED_TRAJ = True    # False → fixed circular orbit (row 4)
-CACHE_TIMESCALE_K_C = MACRO_TIMESCALE_K_C   # set to 1 for row 2
+USE_DIFFUSION    = False   # Final project uses Gaussian MAPPO, not diffusion.
+USE_COOP_CACHE   = True    # False -> skip tier-2 A2A fetch.
+USE_LEARNED_TRAJ = True    # False -> fixed circular orbit.
+CACHE_TIMESCALE_K_C = MACRO_TIMESCALE_K_C   # set to 1 for single_timescale
 
 ABLATION_CHOICES = (
     "full",
@@ -249,21 +255,21 @@ ABLATION_CHOICES = (
 
 
 def resolve_ablation(mode: str = "full") -> dict:
-    """Return the runtime ablation settings for a named DMJO variant."""
+    """Return the runtime ablation settings for a named MAPPO-MEC variant."""
     if mode not in ABLATION_CHOICES:
         raise ValueError(f"Unknown ablation mode {mode!r}. Choose from {ABLATION_CHOICES}.")
 
     settings = {
         "full": {
             "mode": "full",
-            "use_diffusion": True,
+            "use_diffusion": False,
             "use_coop_cache": True,
             "use_learned_traj": True,
             "cache_timescale_k_c": CACHE_UPDATE_INTERVAL,
         },
         "single_timescale": {
             "mode": "single_timescale",
-            "use_diffusion": True,
+            "use_diffusion": False,
             "use_coop_cache": True,
             "use_learned_traj": True,
             "cache_timescale_k_c": 1,
@@ -277,14 +283,14 @@ def resolve_ablation(mode: str = "full") -> dict:
         },
         "no_mappo_traj": {
             "mode": "no_mappo_traj",
-            "use_diffusion": True,
+            "use_diffusion": False,
             "use_coop_cache": True,
             "use_learned_traj": False,
             "cache_timescale_k_c": CACHE_UPDATE_INTERVAL,
         },
         "no_coop_cache": {
             "mode": "no_coop_cache",
-            "use_diffusion": True,
+            "use_diffusion": False,
             "use_coop_cache": False,
             "use_learned_traj": True,
             "cache_timescale_k_c": CACHE_UPDATE_INTERVAL,

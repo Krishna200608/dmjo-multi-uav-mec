@@ -1,6 +1,6 @@
 """
-Multi-Agent Environment for Diffusion-MAPPO
-=============================================
+Multi-Agent Environment for MAPPO Multi-UAV MEC
+===============================================
 CTDE (Centralised Training, Decentralised Execution) environment.
 
 Each UAV agent receives:

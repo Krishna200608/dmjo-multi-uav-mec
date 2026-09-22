@@ -1,19 +1,19 @@
 """
-Training Pipeline — Diffusion-MAPPO  (Multi-method comparison edition)
+Training Pipeline - MAPPO Multi-UAV MEC  (multi-method comparison edition)
 ========================================================================
 Supports all six Table I comparison methods via --method flag or by
 editing METHOD in src/agent_factory.py:
 
-    python train.py                                  # DMJO (default)
-    python train.py --method MAPPO                   # Row 2
-    python train.py --method MADDPG                  # Row 3
-    python train.py --method MATD3                   # Row 4
-    python train.py --method GreedyOffloading        # Row 5
-    python train.py --method LocalExecution          # Row 6
+    python train.py                                  # MAPPO (default, ours)
+    python train.py --method DMJO                    # legacy alias for MAPPO
+    python train.py --method MADDPG
+    python train.py --method MATD3
+    python train.py --method GreedyOffloading
+    python train.py --method LocalExecution
 
 All other flags work unchanged for every method:
     python train.py --method MATD3 --total-steps 5000000 --device cuda
-    python train.py --method DMJO  --eval --checkpoint results/checkpoints/DMJO/best_model.pt
+    python train.py --method MAPPO --eval --checkpoint results/checkpoints/MAPPO/full/best_model.pt
 
 Video speed controls:
     python train.py --video-frames 960 --video-fps 24    <- 40 s (default, cinema quality)
@@ -403,7 +403,7 @@ def _plot_metric(ax, data, title, color, ylabel, window=20):
 
 def _render_frame(env, smooth_uavs, display_iots, active_pairs,
                   lerp_t, frame_idx, total_frames,
-                  history, info, train_step, method_name="DMJO"):
+                  history, info, train_step, method_name="MAPPO"):
     """
     Render one video frame as an H x W x 4 ndarray.
 
@@ -853,7 +853,7 @@ class VideoRecorder3D:
         self.fps          = fps
         os.makedirs(output_dir, exist_ok=True)
 
-    def record(self, env, agent, train_step, tag='', method_name="DMJO"):
+    def record(self, env, agent, train_step, tag='', method_name="MAPPO"):
         """
         Record one video.
 
@@ -961,7 +961,7 @@ def train(args):
 
     print(f"{'='*60}")
     print(f"  Multi-UAV MEC Training")
-    print(f"  Method      : {method}  —  {method_desc}")
+    print(f"  Method      : {method}  -  {method_desc}")
     print(f"  Ablation    : {_cfg.ABLATION_MODE}")
     print(f"  Device      : {device}")
     print(f"  Steps       : {args.total_steps:,}")
@@ -1000,7 +1000,7 @@ def train(args):
     _rule_based  = is_rule_based(agent)   # Greedy / Local  → no gradient updates
     _has_diffusion = hasattr(agent, 'actor') and hasattr(
         getattr(agent, 'actor', None), 'diffusion_blend')
-    _has_anneal    = hasattr(agent, 'actor') and hasattr(
+    _has_anneal = _has_diffusion and hasattr(
         getattr(agent, 'actor', None), 'anneal_blend')
 
     print(f"Agent: {agent.METHOD}  |  off_policy={_off_policy}  "
@@ -1218,14 +1218,15 @@ def train(args):
         # ── Policy update ─────────────────────────────────────────────
         if not _rule_based:
             if not _off_policy:
-                # On-policy (DMJO / MAPPO): GAE + PPO update
+                # On-policy MAPPO-style methods: GAE + PPO update.
                 with torch.no_grad():
                     last_values = agent.get_values(state)
                 buffer.compute_gae(last_values, float(done))
 
             update_info = agent.update(buffer)
 
-            # ── Anneal diffusion blend (DMJO only) ────────────────────
+            # Legacy diffusion experiments expose an annealed blend. The final
+            # MAPPO method does not enter this branch.
             if _has_anneal:
                 progress = global_step / args.total_steps
                 if agent.share_actor:
@@ -1236,7 +1237,7 @@ def train(args):
 
             # ── Update log ────────────────────────────────────────────
             if global_step % LOG_INTERVAL < MAPPO_ROLLOUT_LENGTH:
-                # Build log line; include diffusion_loss only when present
+                # Build log line; include diffusion_loss only for legacy runs.
                 diff_str = ""
                 if _has_diffusion and 'diffusion_loss' in update_info:
                     diff_str = f"diff={update_info['diffusion_loss']:.4f} "
@@ -1369,21 +1370,21 @@ def evaluate(args):
 # ================================================================
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Multi-UAV MEC Training — Table I comparison methods')
+        description='MAPPO Multi-UAV MEC training and comparison methods')
 
     # ── Method selection ────────────────────────────────────────────
     parser.add_argument(
-        '--method', type=str, default='DMJO',
+        '--method', type=str, default='MAPPO',
         choices=['DMJO', 'MAPPO', 'MADDPG', 'MATD3',
                  'GreedyOffloading', 'LocalExecution'],
         help=(
-            'Comparison method (Table I of the paper):\n'
-            '  DMJO             — Diffusion-enhanced joint offloading (Ours, Row 1)\n'
-            '  MAPPO            — Multi-agent PPO, no diffusion        (Row 2)\n'
-            '  MADDPG           — Deterministic multi-agent AC          (Row 3)\n'
-            '  MATD3            — Double-Q deterministic MARL           (Row 4)\n'
-            '  GreedyOffloading — Nearest-UAV, cache-unaware            (Row 5)\n'
-            '  LocalExecution   — All tasks executed locally at WD      (Row 6)'
+            'Comparison method:\n'
+            '  MAPPO            - MAPPO-based joint MEC optimization (ours)\n'
+            '  DMJO             - legacy alias for MAPPO; no diffusion is used\n'
+            '  MADDPG           - deterministic multi-agent AC baseline\n'
+            '  MATD3            - double-Q deterministic MARL baseline\n'
+            '  GreedyOffloading - nearest-UAV, cache-unaware baseline\n'
+            '  LocalExecution   - all tasks executed locally at WD'
         ),
     )
 
@@ -1402,19 +1403,19 @@ if __name__ == '__main__':
     parser.add_argument('--smoke-test', action='store_true',
                         help='Skip post-training videos, plots, and sweeps')
 
-    # ── Ablation args (DMJO internal ablations — Table V) ───────────
+    # ── Ablation args for the MAPPO-MEC framework ───────────────────
     parser.add_argument(
         '--ablation', type=str, default='full',
         choices=['full', 'single_timescale', 'no_diffusion',
                  'no_mappo_traj', 'no_coop_cache', 'minimal'],
         help=(
-            'DMJO ablation variant (Table V). Only meaningful with --method DMJO:\n'
-            '  full             — complete DMJO framework (default)\n'
-            '  single_timescale — K_C=1, cache updated every slot (row 2)\n'
-            '  no_diffusion     — Gaussian-only actor, no denoiser (row 3)\n'
-            '  no_mappo_traj    — fixed circular UAV orbits (row 4)\n'
-            '  no_coop_cache    — local + BS only, no A2A tier (row 5)\n'
-            '  minimal          — no diffusion AND no coop cache (row 6)'
+            'MAPPO-MEC ablation variant:\n'
+            '  full             - complete MAPPO-MEC framework (default)\n'
+            '  single_timescale - K_C=1, cache updated every slot\n'
+            '  no_diffusion     - legacy alias; MAPPO is already non-diffusion\n'
+            '  no_mappo_traj    - fixed circular UAV orbits\n'
+            '  no_coop_cache    - local + BS only, no A2A tier\n'
+            '  minimal          - no cooperative cache, plain MAPPO actor'
         ),
     )
 

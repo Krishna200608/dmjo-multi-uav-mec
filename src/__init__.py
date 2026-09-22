@@ -1,5 +1,5 @@
 """
-DMJO source package.
+MAPPO multi-UAV MEC source package.
 
 Submodules are intentionally imported explicitly by callers. Avoiding eager
 imports here keeps runtime ablation flags from being captured before train.py

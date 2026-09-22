@@ -1,5 +1,5 @@
 """
-test_custom.py — Test a trained Diffusion-MAPPO model on a custom environment
+test_custom.py - Test a trained MAPPO model on a custom environment
 ==============================================================================
 
 Auto-selects the best available checkpoint in this priority order:
@@ -593,7 +593,7 @@ def test(args):
 
     # ── Print header ──────────────────────────────────────────────
     print(f"\n{'='*62}")
-    print(f"  Diffusion-MAPPO  —  Custom Environment Test")
+    print(f"  MAPPO Multi-UAV MEC  -  Custom Environment Test")
     print(f"{'='*62}")
     print(f"  Checkpoint  : {os.path.basename(checkpoint_path)}")
     print(f"  Source      : {checkpoint_label}")
@@ -746,7 +746,7 @@ def _dbm_to_watt(dbm):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Test trained Diffusion-MAPPO on a custom environment',
+        description='Test trained MAPPO Multi-UAV MEC on a custom environment',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
