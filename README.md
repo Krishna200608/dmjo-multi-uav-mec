@@ -48,16 +48,21 @@ was previously shaped around a diffusion-based draft. After the project update:
 
 Fresh results should be generated with `--method MAPPO`.
 
+For AI coding agents or future maintainers, read `AGENTS.md` first, then
+`docs/AI_AGENT_CONTEXT.md`.
+
 ## Repository Structure
 
 ```text
 dmjo-multi-uav-mec/
+|-- AGENTS.md
 |-- config.py
 |-- train.py
 |-- test_custom.py
 |-- plot_ieee.py
 |-- requirements.txt
 |-- docs/
+|   |-- AI_AGENT_CONTEXT.md
 |   |-- MAPPO_Project_Tracker.md
 |   `-- RUN_ON_CAMPUS_MACHINE.md
 |-- tests/

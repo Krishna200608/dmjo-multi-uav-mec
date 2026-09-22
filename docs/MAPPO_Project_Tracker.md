@@ -1,5 +1,8 @@
 # MAPPO Project Tracker
 
+AI agents should read `AGENTS.md` and `docs/AI_AGENT_CONTEXT.md` before using
+this tracker.
+
 ## Current Direction
 
 This codebase is MAPPO-first: a flexible multi-UAV MEC-IoT framework with
