@@ -1,174 +1,191 @@
-# MAPPO Multi-UAV MEC: Joint Trajectory, Offloading, Cooperative Caching, and NOMA Optimization
+# Priority-Aware Task Offloading and 3D Trajectory Optimization in NOMA-Enabled Multi-UAV MEC-IoT Networks Using MAPPO
 
-Multi-Agent Proximal Policy Optimization (MAPPO) for UAV-assisted Mobile Edge Computing (MEC) in Jammer-Aware IoT Networks.
-
-This repository hosts the official implementation of our paper on **MAPPO-based Multi-UAV Mobile Edge Computing**. The learning architecture is formulated around **Multi-Agent Proximal Policy Optimization (MAPPO)** under the Centralised Training with Decentralised Execution (CTDE) paradigm, featuring a centralised critic and decentralised UAV actors.
+Cooperative Multi-Agent Proximal Policy Optimization (MAPPO) framework for joint 3D trajectory control, priority-aware computation offloading, cooperative service caching, and uplink Non-Orthogonal Multiple Access (NOMA) in heterogeneous aerial edge computing networks.
 
 ---
 
-## Academic Context & Base Paper
+## Overview
 
-This research builds upon and substantially expands the theoretical and physical foundation established in:
+In massive Internet of Things (IoT) deployments, resource-constrained ground devices (GDs) generate heterogeneous computation workloads ranging from delay-tolerant background telemetry to latency-critical robotic control and emergency signaling. Traditional terrestrial edge networks struggle with sparse infrastructure and fixed coverage bottlenecks.
 
-> **Base Paper:**  
-> M. Li, M. Dong, H. Wang, and H. Wang, *"3-D Trajectory Design Based on Deep Reinforcement Learning for UAV-Assisted Communication Networks"*, **IEEE Transactions on Network Science and Engineering**, vol. 13, no. 1, pp. 248–261, 2026.  
+This repository provides an autonomous multi-UAV mobile edge computing (MEC) platform where a fleet of rotary-wing unmanned aerial vehicles (UAVs) equipped with edge compute servers and wireless transceivers provides on-demand computing and communication services to mobile ground devices.
+
+The optimization framework operates under the **Centralized Training with Decentralized Execution (CTDE)** paradigm using **Multi-Agent Proximal Policy Optimization (MAPPO)**. To resolve the joint continuous-discrete dimensionality curse, the framework establishes a **hybrid analytical-RL decoupling**: decentralized MAPPO actors steer macro-level spatial navigation and offloading association, while uplink NOMA transmit powers and Successive Interference Cancellation (SIC) decoding orders are resolved analytically.
+
+```
+                      +------------------------------------------+
+                      |      Centralized Critic (Global State)   |
+                      +--------------------+---------------------+
+                                           | GAE & Advantage
+                                           v
+       +-----------------------------------+-----------------------------------+
+       |                                   |                                   |
++------v------------------+       +--------v----------------+       +----------v--------------+
+|   UAV Actor 1 (Local)   |       |   UAV Actor 2 (Local)   |       |   UAV Actor J (Local)   |
+| 3D Velocity & Offloading|       | 3D Velocity & Offloading|       | 3D Velocity & Offloading|
++------+------------------+       +--------+----------------+       +----------+--------------+
+       |                                   |                                   |
+       | 3D Navigation                     | 3D Navigation                     | 3D Navigation
+       v                                   v                                   v
++---------------------------------------------------------------------------------------------+
+|                  Uplink NOMA Power Allocation (Closed-Form Convex Bisection)                 |
++---------------------------------------------------------------------------------------------+
+       ^                                   ^                                   ^
+       |                                   |                                   |
+  [GD Group 1]                       [GD Group 2]                        [GD Group I]
+  (Priority: Urgency + Criticality; Gauss-Markov Mobility; Elevation-Dependent LoS/NLoS Links)
+```
+
+---
+
+## Base Research & Architectural Evolution
+
+This system builds upon and expands the physical and mathematical foundation of:
+
+> **Base Literature:**  
+> Min Li, Miao Dong, Hong Wang, and Heng Wang, *"3-D Trajectory Design Based on Deep Reinforcement Learning for UAV-Assisted Communication Networks"*, **IEEE Transactions on Network Science and Engineering**, vol. 13, pp. 10551–10571, 2026.  
+> DOI: [10.1109/TNSE.2026.3715712](https://doi.org/10.1109/TNSE.2026.3715712)  
 > *Document location: `docs/Base Paper/3-D_Trajectory_Design_Based_on_Deep_Reinforcement_Learning_for_UAV-Assisted_Communication_Networks.pdf`*
 
-### Research Evolution & Architectural Extensions
+### System Dimension Comparison
 
-While the base paper investigated 3-D trajectory design for a **single UAV** acting as an aerial communication relay for moving ground users via single-agent RL (PKTD3-TD), our paper advances this framework into a comprehensive **Multi-UAV Mobile Edge Computing (MEC)** and cooperative networking architecture:
-
-| System Dimension | Base Paper (Li et al., *IEEE TNSE* 2026) | Our Work (Final Multi-UAV MEC Architecture) |
+| Feature Dimension | Base Work (Li et al., *IEEE TNSE* 2026) | This Implementation (PA-MUJO Framework) |
 |---|---|---|
-| **Fleet Topology** | Single UAV relay / aerial base station | **Multi-UAV cooperative fleet** with heterogeneous compute & flight profiles |
-| **Learning Paradigm** | Single-Agent TD3 (PKTD3-TD with prior knowledge) | **Multi-Agent PPO (MAPPO)** with Centralised Critic & Decentralised Actors (CTDE) |
-| **Decision Variables** | 3-D Trajectory displacement only ($\Delta x, \Delta y, \Delta h$) | **Joint 5-D Action**: 3-D Trajectory, Offloading Bias, and NOMA Schedule Hint |
-| **Computation Layer** | None (pure communication / data relaying) | **2-Tier MEC**: Local IoT execution vs. UAV edge server / BS cloud computing |
-| **Service Caching** | None | **3-Tier Cooperative Caching**: Local UAV $\leftrightarrow$ A2A Peer Fetch $\leftrightarrow$ Macro BS Backhaul |
-| **Multiple Access** | Orthogonal Multiple Access (OMA / TDMA) | **Power-domain Uplink NOMA** with Successive Interference Cancellation (SIC) |
-| **Hostile Dynamics** | Random user mobility (Gauss-Markov) | Random user mobility + **Active RF jammers** + **Wind vector turbulence** |
-| **System Objective** | Maximize network throughput; minimize propulsion energy | **Jointly minimize end-to-end task completion latency and UAV energy consumption** |
+| **Fleet Topology** | Single UAV aerial communication relay | **Heterogeneous Multi-UAV Fleet** ($J \ge 5$) with diverse compute, cache, and battery profiles |
+| **Learning Paradigm** | Single-agent continuous RL (PKTD3-TD) | **Multi-Agent PPO (MAPPO)** with CTDE, GAE, and clipped surrogate objectives |
+| **Compute Layer** | None (pure data relaying) | **Two-Tier MEC**: Local IoT execution vs. Aerial UAV edge processing with queue backlog evolution |
+| **Workload Urgency** | Uniform / Agnostic | **Composite Urgency-Criticality Prioritization** ($\Omega_i[t]$) preventing priority inversion |
+| **Multiple Access** | Orthogonal Multiple Access (OMA / TDMA) | **Power-Domain Uplink NOMA** with SIC and analytical bisection power allocation |
+| **Channel Model** | Probabilistic A2G LoS/NLoS links | **Elevation-dependent A2G probabilistic channels** with Rician fading and dynamic Doppler shifts |
+| **Aerodynamics** | Non-linear rotary-wing propulsion power | **Analytical rotary-wing propulsion** (blade profile, induced power, parasitic drag) + flight budgets |
+| **Safety Guarantees**| Boundary enforcement | **Strict inter-UAV collision distance** ($d_{\min}$), altitude limits ($z_{\min}, z_{\max}$), and flight envelopes |
+| **Objective** | Network throughput maximization | **Priority-weighted latency minimization** regularized by fleet energy consumption |
 
 ---
 
-## What This Project Optimizes
+## Core System Modules
 
-The environment models a jammer-aware multi-UAV MEC-IoT network featuring:
+### 1. Priority-Aware Workload Modeling
+To eliminate **priority inversion**—where delay-tolerant telemetry monopolizes edge buffers and starves mission-critical requests—each task $i$ is governed by a dynamic composite priority weight $\Omega_i[t] \in (0, 1]$:
 
-- **MAPPO 3-D Trajectory Control**: Autonomous navigation of multiple heterogeneous UAVs in continuous 3-D space with collision avoidance and flight constraints.
-- **Adaptive Task Offloading**: Dynamic allocation between low-power local IoT computation and high-speed MEC edge offloading.
-- **3-Tier Cooperative Caching**: Service resolution across local UAV cache, Air-to-Air (A2A) peer cooperative cache sharing, and Base Station (BS) backhaul retrieval.
-- **Uplink NOMA Scheduling**: Non-Orthogonal Multiple Access with SIC serving at most two IoT devices per active UAV per time slot.
-- **Realistic Physical Dynamics**: Rician small-scale fading, probabilistic LoS/NLoS channel modeling, wind drift, and active malicious jamming interference.
-- **Comprehensive Baseline Suite**: Rigorous comparison against MADDPG, MATD3, Greedy Offloading, and Local Execution.
+$$\Omega_i[t] = \mu_u \Omega_i^{\mathrm{urg}}[t] + \mu_c \Omega_i^{\mathrm{cls}}[t]$$
 
-### Optimization Objective
+- **Dynamic Urgency $\Omega_i^{\mathrm{urg}}[t]$:** Exponential function of the remaining deadline margin:
+  $$\Omega_i^{\mathrm{urg}}[t] = \exp\left(-\frac{\tau_i^{\max}[t] - \Delta t_i[t]}{\tau_i^{\max}[t]}\right)$$
+- **Application Criticality $\Omega_i^{\mathrm{cls}}[t]$:** Discrete semantic classes reflecting operational criticality (e.g., class 1: background telemetry $\omega=0.2$; class 4: safety-critical actuation $\omega=1.0$).
+- **Normalized System Metric:** The optimization minimizes the priority-weighted average latency:
+  $$\bar{T}_{\mathrm{pri}}[t] = \frac{\sum_{i \in \mathcal{I}} \Omega_i[t] T_i^{\mathrm{task}}[t]}{\sum_{i \in \mathcal{I}} \Omega_i[t]}$$
 
-The primary objective is to minimize total system cost, defined as the weighted trade-off between task completion latency and UAV energy expenditure:
+### 2. 3D UAV Kinematics & Aerodynamic Propulsion
+Each UAV $j \in \mathcal{J}$ navigates in continuous 3D space with position $\mathbf{p}_j[t] = [x_j[t], y_j[t], z_j[t]]^\top$. Propulsion power follows the non-linear rotary-wing aerodynamic model:
 
-$$\text{Cost}(t) = \alpha \cdot \text{Latency}(t) + \beta \cdot E_{\text{UAV}}(t)$$
+$$P_j^{\mathrm{prop}}[t] = P_0 \left(1 + \frac{3 v_j^2[t]}{U_{\mathrm{tip}}^2}\right) + P_i \left(\sqrt{1 + \frac{v_j^4[t]}{4 v_0^4}} - \frac{v_j^2[t]}{2 v_0^2}\right)^{1/2} + \frac{1}{2} d_0 \rho_{\mathrm{air}} s_{\mathrm{rotor}} A_{\mathrm{rotor}} v_j^3[t]$$
 
-where:
-- $\text{Latency}(t)$ is the end-to-end execution delay across all generated tasks in slot $t$ (incorporating transmission, queuing, caching fetch, and compute delays).
-- $E_{\text{UAV}}(t)$ is the sum of UAV aerodynamic propulsion energy (flight dynamics) and edge CPU computation energy.
-- $\alpha = 0.6$ and $\beta = 0.4$ are the default weighting coefficients balancing QoS latency constraints and aerial energy budgets.
+Kinematic safety constraints enforce:
+- Velocity envelope: $\|\mathbf{p}_j[t+1] - \mathbf{p}_j[t]\|_2 \le V_{\max} \delta$
+- Altitude bounds: $z_{\min} \le z_j[t] \le z_{\max}$
+- Collision avoidance: $\|\mathbf{p}_j[t] - \mathbf{p}_{j'}[t]\|_2 \ge d_{\min}, \quad \forall j \neq j'$
+
+### 3. NOMA-Enhanced Uplink Transmission & SIC
+Ground devices offloading to the same UAV in time slot $t$ share bandwidth via power-domain NOMA:
+- Multiplexing cluster cap: $|\mathcal{S}_j[t]| \le S_{\max} = 2$.
+- Successive Interference Cancellation (SIC): Received signals are decoded sequentially in ascending order of effective channel gains.
+- Transmit Power Allocation: Conditionally optimized via analytical convex bisection, guaranteeing QoS rate thresholds while eliminating continuous power variables from the RL policy.
+
+### 4. Air-to-Ground Probabilistic Propagation
+Elevation angle $\theta_{i,j}[t] = \frac{180}{\pi} \arcsin\left(\frac{z_j[t]}{d_{i,j}[t]}\right)$ dictates the Line-of-Sight probability:
+
+$$\mathbb{P}^{\mathrm{LoS}}_{i,j}[t] = \frac{1}{1 + a \exp\left(-b \left[\theta_{i,j}[t] - a\right]\right)}$$
+
+Total path loss combines free-space propagation with excess LoS/NLoS attenuation and Rician small-scale fading.
+
+### 5. Ground Device Mobility
+Mobile ground terminals follow the Gauss-Markov mobility model with memory parameters $\alpha_v, \alpha_\varphi \in [0, 1]$, simulating correlated vehicular and robotic movement across the service zone.
 
 ---
 
-## Important Naming Note
+## Multi-Agent Decision Process (MAMDP)
 
-Some file names and command-line options still contain `DMJO` because the code was previously shaped around a diffusion-based draft. After the project update:
+### Observation & State Spaces
+- **Local Observation $\mathbf{o}_j[t] \in \mathcal{O}_j$ (Decentralized Actor):**  
+  Own 3D coordinates, velocity vector, remaining battery fraction, local edge queue backlog, channel gains to candidate ground devices, composite priority weights of nearby tasks, and relative displacement vectors to neighboring UAVs within sensing range.
+- **Global State $\mathbf{s}[t] \in \mathcal{S}$ (Centralized Critic):**  
+  Concatenation of all UAV positions, velocities, battery levels, complete ground device locations, channel state matrices, and global queue backlogs across the entire fleet.
 
-- `MAPPO` is the main method and the default CLI method.
-- `DMJO` is kept strictly as a backward-compatible CLI alias.
-- `--ablation no_diffusion` is kept only for compatibility; the full method is already non-diffusion.
-- The file `src/diffusion.py` remains only as legacy optional experiment code.
+### Action Space
+Each UAV agent outputs a 5-D continuous action vector $\mathbf{a}_j[t] \in [-1, 1]^5$:
+- $a_{j,1}, a_{j,2}, a_{j,3}$: Continuous 3D displacement adjustments ($\Delta x, \Delta y, \Delta z$).
+- $a_{j,4}$: Offloading mode preference bias (local-first vs. edge offloading).
+- $a_{j,5}$: NOMA device scheduling selection hint.
 
-Fresh results should always be generated with `--method MAPPO`.
+### Multi-Objective Reward Function
+The team reward balances latency minimization, energy frugality, and physical safety:
 
-For AI coding agents or future maintainers, read [AGENTS.md](file:///d:/Lab/Data%20Management%20in%20Mobile%20and%20Sensor%20Networks/dmjo-multi-uav-mec/AGENTS.md) first, followed by [docs/AI_AGENT_CONTEXT.md](file:///d:/Lab/Data%20Management%20in%20Mobile%20and%20Sensor%20Networks/dmjo-multi-uav-mec/docs/AI_AGENT_CONTEXT.md).
+$$r_j[t] = -\left( \bar{T}_{\mathrm{pri}}[t] + \lambda_{\mathrm{eng}} E_j^{\mathrm{total}}[t] + \lambda_{\mathrm{col}} \Pi_j^{\mathrm{col}}[t] + \lambda_{\mathrm{bnd}} \Pi_j^{\mathrm{bnd}}[t] + \lambda_{\mathrm{ddl}} \Pi_j^{\mathrm{ddl}}[t] \right)$$
+
+where $\Pi_j^{\mathrm{col}}$, $\Pi_j^{\mathrm{bnd}}$, and $\Pi_j^{\mathrm{ddl}}$ represent penalty functions for collision violations, territory border exceedances, and deadline expiration events.
 
 ---
 
-## Repository Structure
+## Repository Layout
 
 ```text
 dmjo-multi-uav-mec/
-|-- AGENTS.md
-|-- README.md
-|-- config.py
-|-- train.py
-|-- test_custom.py
-|-- plot_ieee.py
-|-- requirements.txt
+|-- AGENTS.md                  # Development guidelines & environment context
+|-- README.md                  # Project documentation & system specification
+|-- config.py                  # Physical parameters, network settings, and hyperparameters
+|-- train.py                   # Main distributed training & evaluation pipeline
+|-- test_custom.py             # Custom environment scenario evaluation
+|-- plot_ieee.py               # IEEE publication-quality plotting script
+|-- requirements.txt           # Python dependency specifications
 |-- docs/
-|   |-- AI_AGENT_CONTEXT.md
-|   |-- MAPPO_Project_Tracker.md
-|   |-- RUN_ON_CAMPUS_MACHINE.md
-|   `-- Base Paper/
-|       `-- 3-D_Trajectory_Design_Based_on_Deep_Reinforcement_Learning_for_UAV-Assisted_Communication_Networks.pdf
+|   |-- AI_AGENT_CONTEXT.md    # Technical architectural context
+|   |-- MAPPO_Project_Tracker.md# Implementation roadmap & status
+|   |-- RUN_ON_CAMPUS_MACHINE.md# Multi-node HPC execution guide
+|   `-- Base Paper/            # Reference PDF (Li et al., IEEE TNSE 2026)
 |-- tests/
-|   |-- test_buffer.py
-|   |-- test_dmjo_env.py
-|   `-- test_method_smoke.py
+|   |-- test_buffer.py         # Rollout buffer & GAE unit tests
+|   |-- test_dmjo_env.py       # Physical simulation & channel model tests
+|   `-- test_method_smoke.py   # Multi-agent baseline smoke tests
 `-- src/
     |-- __init__.py
-    |-- env.py
-    |-- mappo_agent.py
-    |-- caching.py
-    |-- channel_model.py
-    |-- buffer.py
-    |-- metrics.py
-    |-- logger.py
-    |-- agent_factory.py
-    |-- diffusion.py          # legacy optional experiment code
-    `-- baselines/
-        |-- mappo_baseline.py # legacy wrapper
-        |-- maddpg_agent.py
-        |-- matd3_agent.py
-        |-- greedy_agent.py
-        `-- local_agent.py
+    |-- env.py                 # Multi-UAV MEC vector environment & physics
+    |-- mappo_agent.py         # MAPPO Actor-Critic with CTDE & GAE
+    |-- channel_model.py       # Probabilistic A2G channels & NOMA SIC
+    |-- caching.py             # 3-tier cooperative edge caching logic
+    |-- buffer.py              # Centralized/decentralized experience replay buffer
+    |-- metrics.py             # QoS, priority latency, & energy trackers
+    |-- logger.py              # TensorBoard & console logging utilities
+    |-- agent_factory.py       # Factory interface for MAPPO & baselines
+    |-- diffusion.py           # Optional legacy ablation baseline
+    `-- baselines/             # Benchmark suite
+        |-- maddpg_agent.py    # Multi-Agent Deep Deterministic Policy Gradient
+        |-- matd3_agent.py     # Multi-Agent Twin Delayed DDPG
+        |-- greedy_agent.py    # Priority-heuristic greedy offloading
+        `-- local_agent.py     # Local-only computation baseline
 ```
 
 ---
 
-## Action Space
+## Installation & Setup
 
-Each UAV agent emits a 5-D continuous action vector $\mathbf{a}_i \in [-1, 1]^5$:
+### Prerequisites
+- Python 3.10 or newer (tested on Python 3.10 and 3.11)
+- CUDA 11.8+ / 12.X (optional, for GPU acceleration)
 
-```text
-[dx, dy, dh, offload_bias, schedule_hint]
-```
+### Virtual Environment Setup
 
-- `dx`, `dy`, `dh`: 3-D UAV displacement in horizontal and vertical axes, scaled by maximum flight speeds.
-- `offload_bias < 0`: Local-first task handling (IoT device attempts local execution).
-- `offload_bias >= 0`: UAV/cache-first MEC offloading handling.
-- `schedule_hint`: Selects the primary eligible IoT device for NOMA uplink transmission.
-
-> **Note**: NOMA uplink service is strictly capped at at most two IoT devices per active UAV per time slot.
-
----
-
-## Policy Modes
-
-The environment supports explicit policy modes:
-
-```text
-learned
-greedy_offloading
-local_execution
-```
-
-Method mapping:
-
-| Method | Policy mode | Role |
-|---|---|---|
-| `MAPPO` | `learned` | Main proposed method |
-| `DMJO` | `learned` | Backward-compatible alias for MAPPO |
-| `MADDPG` | `learned` | Multi-agent off-policy baseline |
-| `MATD3` | `learned` | Multi-agent off-policy baseline |
-| `GreedyOffloading` | `greedy_offloading` | Nearest-UAV heuristic baseline |
-| `LocalExecution` | `local_execution` | Strictly local execution baseline |
-
----
-
-## Installation
-
-Python 3.10 or newer is recommended. Python 3.11 is verified locally.
-
-### Linux / macOS
-
+**Linux / macOS:**
 ```bash
 git clone git@github.com:Krishna200608/dmjo-multi-uav-mec.git
 cd dmjo-multi-uav-mec
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### Windows PowerShell
-
+**Windows PowerShell:**
 ```powershell
 cd "D:\Lab\Data Management in Mobile and Sensor Networks\dmjo-multi-uav-mec"
 .\.venv\Scripts\Activate.ps1
@@ -178,128 +195,89 @@ python -m pip install -r requirements.txt
 
 ---
 
-## Quick Verification
+## Verification & Testing
 
-Run unit test suite:
-
-```bash
-python -m pytest tests -q
-```
-
-Expected output:
-```text
-10 passed
-```
-
-Run a tiny CPU smoke test:
+Verify that the environment physics, buffers, and all agents execute properly:
 
 ```bash
+# Run unit test suite
+pytest tests -v
+
+# Run 2-step CPU smoke test
 python train.py --method MAPPO --ablation full --total-steps 2 --device cpu --no-training-video --smoke-test
-```
-
-Run with CUDA:
-
-```bash
-python train.py --method MAPPO --ablation full --total-steps 2 --device cuda --no-training-video --smoke-test
 ```
 
 ---
 
 ## Training
 
-### Main MAPPO Run (GPU)
+### Proposed Method (MAPPO)
+
+Train the complete proposed framework with continuous 3D navigation, NOMA, priority offloading, and cooperative caching:
 
 ```bash
+# GPU training (recommended)
 python -u train.py --method MAPPO --ablation full --device cuda --no-training-video
-```
 
-### CPU Run
-
-```bash
+# CPU training
 python -u train.py --method MAPPO --ablation full --device cpu --no-training-video
 ```
 
-Default total training budget:
-```text
-TOTAL_TIMESTEPS = 5,000,000
-```
+Default training length: `TOTAL_TIMESTEPS = 5,000,000`. Checkpoints and logs are saved automatically to `results/`.
 
-### Output Directories
+### Benchmark Baselines
 
-Generated artifacts are stored in `results/`:
-
-```text
-results/checkpoints/MAPPO/full/
-results/logs/MAPPO/full/
-results/trajectories/
-results/videos/
-```
-
-Key checkpoint weights:
-```text
-best_model.pt
-final_model.pt
-model_step*.pt
-```
-
----
-
-## Baseline Runs
+Train comparative baselines under identical environmental conditions:
 
 ```bash
-python -u train.py --method MAPPO            --ablation full --device cuda --no-training-video
+# Multi-Agent Continuous RL Baselines
 python -u train.py --method MADDPG           --ablation full --device cuda --no-training-video
 python -u train.py --method MATD3            --ablation full --device cuda --no-training-video
+
+# Heuristic & Classical Baselines
 python -u train.py --method GreedyOffloading --ablation full --device cuda --no-training-video
 python -u train.py --method LocalExecution   --ablation full --device cuda --no-training-video
-```
-
-Legacy `DMJO` alias run:
-
-```bash
-python -u train.py --method DMJO --ablation full --device cuda --no-training-video
 ```
 
 ---
 
 ## Ablation Study
 
-Evaluate the contribution of individual framework modules:
+Evaluate the performance impact of individual architectural components:
 
 ```bash
+# Full proposed system
 python -u train.py --method MAPPO --ablation full             --device cuda --no-training-video
+
+# Ablation 1: Single timescale (caching updated every time slot without timescale separation)
 python -u train.py --method MAPPO --ablation single_timescale --device cuda --no-training-video
+
+# Ablation 2: Fixed circular trajectory (no dynamic 3D velocity optimization)
 python -u train.py --method MAPPO --ablation no_mappo_traj    --device cuda --no-training-video
+
+# Ablation 3: No cooperative A2A cache sharing (local UAV cache + BS backhaul only)
 python -u train.py --method MAPPO --ablation no_coop_cache    --device cuda --no-training-video
+
+# Ablation 4: Minimal baseline (no cooperative caching, plain actor)
 python -u train.py --method MAPPO --ablation minimal          --device cuda --no-training-video
 ```
 
-| Ablation | Mechanism Description |
-|---|---|
-| `full` | Complete proposed MAPPO-MEC framework |
-| `single_timescale` | $K_C = 1$, caching updated every slot without two-timescale separation |
-| `no_mappo_traj` | Fixed circular UAV orbits; trajectory is not dynamically learned |
-| `no_coop_cache` | Cooperative A2A cache disabled; relies only on local UAV cache and BS backhaul |
-| `minimal` | No cooperative cache and plain non-specialized actor policy |
-
 ---
 
-## Evaluation
+## Evaluation & Metrics
 
-Model evaluation using saved weights:
+Evaluate trained policy checkpoints:
 
 ```bash
+# Standard evaluation
 python train.py \
   --method MAPPO \
   --ablation full \
   --eval \
   --checkpoint results/checkpoints/MAPPO/full/best_model.pt \
   --device cuda
-```
 
-Custom environment configuration evaluation:
-
-```bash
+# Custom network scale testing
 python test_custom.py \
   --checkpoint results/checkpoints/MAPPO/full/best_model.pt \
   --num-iot 120 \
@@ -309,36 +287,45 @@ python test_custom.py \
   --device cuda
 ```
 
-> **Important**: `--checkpoint` in `train.py` is for evaluation mode only. It does not resume training states.
-
----
-
-## Figures & Plotting
-
-After training metrics have been recorded under `results/`:
+### Result Visualization
+Generate publication-ready comparison curves and 3D trajectory plots:
 
 ```bash
 python plot_ieee.py
 ```
-
-Plots are exported directly to:
-```text
-results/plots/
-```
+Outputs are saved to `results/plots/`.
 
 ---
 
-## References
+## Key Configuration Parameters
+
+System defaults defined in `config.py`:
+
+| Parameter | Symbol | Value | Description |
+|---|---|---|---|
+| `AREA_RADIUS` | $R_{\mathrm{cov}}$ | 500 m | Circular operational zone radius |
+| `NUM_UAVS` | $J$ | 5 | Default number of UAV edge servers |
+| `NUM_USERS` | $I$ | 100 | Default number of active ground IoT devices |
+| `ALTITUDE_MIN` | $z_{\min}$ | 80 m | Minimum permissible flight altitude |
+| `ALTITUDE_MAX` | $z_{\max}$ | 130 m | Maximum permissible flight altitude |
+| `MAX_VELOCITY` | $V_{\max}$ | 20 m/s | Maximum UAV horizontal flight speed |
+| `COLLISION_DIST` | $d_{\min}$ | 10 m | Minimum inter-UAV separation safety threshold |
+| `NOMA_CLUSTER_CAP` | $S_{\max}$ | 2 | Maximum multiplexed devices per UAV subchannel |
+| `SLOT_DURATION` | $\delta$ | 1.0 s | Discrete time step interval |
+| `TOTAL_TIMESTEPS` | - | 5,000,000 | Total environment steps per training run |
+
+---
+
+## Base Literature Reference
 
 ```bibtex
-@article{li20263d,
-  title   = {3-D Trajectory Design Based on Deep Reinforcement Learning for UAV-Assisted Communication Networks},
-  author  = {Li, Meng and Dong, Meng and Wang, Haipeng and Wang, Hong},
-  journal = {IEEE Transactions on Network Science and Engineering},
-  volume  = {13},
-  number  = {1},
-  pages   = {248--261},
-  year    = {2026},
-  doi     = {10.1109/TNSE.2025.3482103}
+@article{li2026tnse,
+  author   = {Li, Min and Dong, Miao and Wang, Hong and Wang, Heng},
+  title    = {{3-D Trajectory Design Based on Deep Reinforcement Learning for UAV-Assisted Communication Networks}},
+  journal  = {IEEE Transactions on Network Science and Engineering},
+  volume   = {13},
+  pages    = {10551--10571},
+  year     = {2026},
+  doi      = {10.1109/TNSE.2026.3715712}
 }
 ```
