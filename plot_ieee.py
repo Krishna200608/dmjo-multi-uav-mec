@@ -32,6 +32,8 @@ Usage:
 """
 
 import argparse, json, os, sys, glob, warnings
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")

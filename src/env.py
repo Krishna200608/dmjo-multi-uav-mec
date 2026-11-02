@@ -616,12 +616,23 @@ class MultiUAVMECEnv:
 
         for i, dev in enumerate(self.devices):
             if probs[i] < TASK_GENERATION_PROB:
+                t_type = int(types[i])
+                dl = deadlines[i]
+                dl_min, dl_max = TASK_DEADLINE_RANGE
+                omega_urg = (dl_max - dl) / max(dl_max - dl_min, 1e-6)
+                type_weights = getattr(cfg, 'TASK_TYPE_WEIGHTS', [1.0, 0.85, 0.70, 0.55, 0.40, 0.30, 0.20, 0.10])
+                omega_cls = type_weights[t_type] if t_type < len(type_weights) else 0.5
+                mu_u = getattr(cfg, 'PRIORITY_MU_URGENCY', 0.5)
+                mu_c = getattr(cfg, 'PRIORITY_MU_CRITICALITY', 0.5)
+                omega = float(mu_u * omega_urg + mu_c * omega_cls)
+
                 dev.current_task = {
-                    'task_type':  int(types[i]),
+                    'task_type':  t_type,
                     'cpu_cycles': cycles[i],
                     'data_size':  sizes[i],
-                    'deadline':   deadlines[i],
+                    'deadline':   dl,
                     'tx_power':   tx_powers[i],
+                    'priority':   omega,
                 }
                 dev.tx_power = tx_powers[i]
             else:
@@ -1150,6 +1161,8 @@ class MultiUAVMECEnv:
 
                 data_sizes = [d.current_task['data_size'] if d.current_task
                               else TASK_DATA_SIZE for d in selected_devs]
+                priorities = [d.current_task['priority'] if (d.current_task and 'priority' in d.current_task)
+                              else 1.0 for d in selected_devs]
 
                 noma_results = self.noma.serve_cluster(
                     user_indices  = list(range(len(selected_devs))),
@@ -1158,6 +1171,7 @@ class MultiUAVMECEnv:
                     P_total       = uav.tx_power,
                     bandwidth     = uav.bandwidth,
                     noise_psd     = eff_noise_psd,
+                    priorities    = priorities,
                 )
 
                 for res in noma_results:
@@ -1311,11 +1325,22 @@ class MultiUAVMECEnv:
         # ----------------------------------------
         total_latency = sum(d.latency for d in self.devices)
         avg_latency   = total_latency / max(self.num_users, 1)
+
+        # Priority-weighted latency & deadline violations (Paper §III.F & §IV.A)
+        total_pri_latency = sum(d.latency * (d.current_task['priority'] if (d.current_task and 'priority' in d.current_task) else 1.0) for d in self.devices)
+        total_pri_weight  = sum((d.current_task['priority'] if (d.current_task and 'priority' in d.current_task) else 1.0) for d in self.devices if d.current_task)
+        avg_pri_latency   = total_pri_latency / max(total_pri_weight, 1.0)
+
+        deadline_violations = sum(1 for d in self.devices if d.current_task and d.latency > d.current_task.get('deadline', 999.0))
+        deadline_penalty = sum(getattr(cfg, 'PENALTY_DEADLINE_VIOLATION', 2.0) * d.current_task.get('priority', 1.0)
+                               for d in self.devices if d.current_task and d.latency > d.current_task.get('deadline', 999.0))
+
         # Baseline: theoretical steady-state latency
         baseline_latency = self.num_users / max(self.num_active * 2, 1)
 
-        global_reward = -(ALPHA_LATENCY * (avg_latency - baseline_latency) +
-                          BETA_ENERGY   * total_energy_uav / 1000)
+        global_reward = -(ALPHA_LATENCY * (avg_pri_latency - baseline_latency) +
+                          BETA_ENERGY   * total_energy_uav / 1000 +
+                          0.05 * deadline_penalty)
 
         # Collision penalty (only among active UAVs)
         for i in range(self.num_active):
@@ -1359,6 +1384,8 @@ class MultiUAVMECEnv:
         info = {
             'total_latency':           total_latency,
             'avg_latency':             avg_latency,
+            'avg_pri_latency':         avg_pri_latency,
+            'deadline_violations':     deadline_violations,
             'total_energy_uav':    total_energy_uav,
             'successful_tx':       successful_tx,
             'noma_pairs_formed':   noma_pairs_formed,

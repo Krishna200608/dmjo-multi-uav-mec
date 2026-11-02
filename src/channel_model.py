@@ -170,13 +170,16 @@ class NOMACommunication:
         return bw * np.log2(1.0 + self.compute_sinr_sic(
             user_idx, power_alloc, channel_gains, bandwidth, noise_psd))
 
-    def _cluster_delay(self, power_alloc, gains_sorted, sizes_sorted, bandwidth, noise_psd):
+    def _cluster_delay(self, power_alloc, gains_sorted, sizes_sorted, bandwidth, noise_psd, priorities_sorted=None):
         rates = self._compute_all_sinr_rates(
             np.asarray(power_alloc), np.asarray(gains_sorted), bandwidth, noise_psd)
-        return np.sum(np.asarray(sizes_sorted) / np.maximum(rates, 1e-10))
+        delays = np.asarray(sizes_sorted) / np.maximum(rates, 1e-10)
+        if priorities_sorted is not None:
+            delays = delays * np.asarray(priorities_sorted)
+        return np.sum(delays)
 
     def optimise_power_nuser(self, P_total, channel_gains, data_sizes,
-                              bandwidth, noise_psd=NOISE_PSD, n_bisect=25):
+                              bandwidth, noise_psd=NOISE_PSD, n_bisect=25, priorities=None):
         """
         N-user power optimisation via golden-section search (Paper Eq. 14).
 
@@ -197,6 +200,7 @@ class NOMACommunication:
         order        = np.argsort(channel_gains)
         gains_sorted = np.array(channel_gains)[order]
         sizes_sorted = np.array(data_sizes)[order]
+        pri_sorted   = np.array(priorities)[order] if priorities is not None else None
         eq_p         = P_total / N
 
         def build(alpha):
@@ -213,8 +217,8 @@ class NOMACommunication:
             if hi - lo < 1e-9:
                 break
             c, d = hi - (hi - lo) / gr, lo + (hi - lo) / gr
-            if (self._cluster_delay(build(c), gains_sorted, sizes_sorted, bandwidth, noise_psd) <
-                    self._cluster_delay(build(d), gains_sorted, sizes_sorted, bandwidth, noise_psd)):
+            if (self._cluster_delay(build(c), gains_sorted, sizes_sorted, bandwidth, noise_psd, pri_sorted) <
+                    self._cluster_delay(build(d), gains_sorted, sizes_sorted, bandwidth, noise_psd, pri_sorted)):
                 hi = d
             else:
                 lo = c
@@ -222,7 +226,7 @@ class NOMACommunication:
         return build((lo + hi) / 2), order
 
     def serve_cluster(self, user_indices, channel_gains, data_sizes,
-                      P_total, bandwidth, noise_psd=NOISE_PSD):
+                      P_total, bandwidth, noise_psd=NOISE_PSD, priorities=None):
         """
         Schedule all N devices in a UAV cluster using N-user SIC NOMA.
 
@@ -247,7 +251,7 @@ class NOMACommunication:
                      'rate': rate, 'tx_delay': sizes[0] / max(rate, 1e-10)}]
 
         alloc, order = self.optimise_power_nuser(
-            P_total, gains.tolist(), sizes.tolist(), bandwidth, noise_psd)
+            P_total, gains.tolist(), sizes.tolist(), bandwidth, noise_psd, priorities=priorities)
         gains_sorted = gains[order]
         sizes_sorted = sizes[order]
         rates        = self._compute_all_sinr_rates(alloc, gains_sorted, bandwidth, noise_psd)
