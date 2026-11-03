@@ -5,6 +5,9 @@ __pycache__/
 .ipynb_checkpoints/
 .pytest_cache/
 
+# Root temporary logs (logs must be saved in experiments/logs/ or results/logs/)
+/*.log
+
 # Ignore complete results folder
 results
 results/

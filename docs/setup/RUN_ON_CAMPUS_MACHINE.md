@@ -282,7 +282,7 @@ method is already non-diffusion.
 tmux new -s mappo-uav
 cd ~/dmjo/dmjo-multi-uav-mec
 source .venv/bin/activate
-python -u train.py --method MAPPO --ablation full --device cuda --no-training-video 2>&1 | tee run_mappo_full.log
+bash scripts/training/run_mappo_gpu.sh cuda 5000000
 ```
 
 Detach:
@@ -314,7 +314,7 @@ tail -f results/logs/MAPPO/full/training_log.jsonl
 Terminal log:
 
 ```bash
-tail -f run_mappo_full.log
+tail -f experiments/logs/run_mappo_full.log
 ```
 
 GPU:
@@ -442,6 +442,6 @@ cd ~/dmjo/dmjo-multi-uav-mec
 source .venv/bin/activate
 python -m pytest tests -q
 python train.py --method MAPPO --ablation full --total-steps 2 --device cuda --no-training-video --smoke-test
-python -u train.py --method MAPPO --ablation full --device cuda --no-training-video 2>&1 | tee run_mappo_full.log
+bash scripts/training/run_mappo_gpu.sh cuda 5000000
 python plot_ieee.py
 ```

@@ -15,8 +15,13 @@ set -u
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
-LOG_FILE="${PROJECT_DIR}/pipeline_orchestrator.log"
-REPORT_FILE="${PROJECT_DIR}/POST_TRAINING_REPORT.md"
+
+LOGS_DIR="${PROJECT_DIR}/experiments/logs"
+RESULTS_LOGS_DIR="${PROJECT_DIR}/results/logs"
+mkdir -p "${LOGS_DIR}" "${RESULTS_LOGS_DIR}" "${PROJECT_DIR}/docs/reports"
+
+LOG_FILE="${LOGS_DIR}/pipeline_orchestrator.log"
+REPORT_FILE="${PROJECT_DIR}/docs/reports/POST_TRAINING_REPORT.md"
 ZIP_FILE="${PROJECT_DIR}/dmjo_final_results.zip"
 
 cd "${PROJECT_DIR}" || exit 1
@@ -25,6 +30,7 @@ log() {
     local msg="[$(date '+%Y-%m-%d %H:%M:%S')] $1"
     echo "${msg}"
     echo "${msg}" >> "${LOG_FILE}"
+    echo "${msg}" >> "${RESULTS_LOGS_DIR}/pipeline_orchestrator.log" 2>/dev/null || true
 }
 
 log "========================================================================"
@@ -65,13 +71,17 @@ log "MAPPO training process has terminated. Verifying completion..."
 
 # Verify MAPPO completion
 FINAL_CHECKPOINT="${PROJECT_DIR}/results/checkpoints/MAPPO/full/final_model.pt"
+MAPPO_LOG="${LOGS_DIR}/run_mappo_full.log"
+[ ! -f "${MAPPO_LOG}" ] && [ -f "${RESULTS_LOGS_DIR}/run_mappo_full.log" ] && MAPPO_LOG="${RESULTS_LOGS_DIR}/run_mappo_full.log"
+[ ! -f "${MAPPO_LOG}" ] && [ -f "${PROJECT_DIR}/run_mappo_full.log" ] && MAPPO_LOG="${PROJECT_DIR}/run_mappo_full.log"
+
 if [ ! -f "${FINAL_CHECKPOINT}" ]; then
     # Check if run_mappo_full.log mentions completion or error
-    if grep -q "Training complete!  \[MAPPO\]" "${PROJECT_DIR}/run_mappo_full.log" 2>/dev/null; then
+    if [ -f "${MAPPO_LOG}" ] && grep -q "Training complete!  \[MAPPO\]" "${MAPPO_LOG}" 2>/dev/null; then
         log "WARNING: 'Training complete!' found in log, but final_model.pt missing. Checking best_model.pt..."
     else
         log "FATAL: MAPPO training appears to have terminated without completing 5,000,000 steps!"
-        log "Please check ${PROJECT_DIR}/run_mappo_full.log for details."
+        log "Please check ${MAPPO_LOG} for details."
         exit 1
     fi
 else
@@ -85,9 +95,10 @@ log "========================================================================"
 log "Starting Baseline 1: GreedyOffloading"
 log "========================================================================"
 
-GREEDY_LOG="${PROJECT_DIR}/run_greedy.log"
+GREEDY_LOG="${LOGS_DIR}/run_greedy.log"
 python -u train.py --method GreedyOffloading --ablation full --device cuda --no-training-video > "${GREEDY_LOG}" 2>&1
 GREEDY_EXIT=$?
+cp "${GREEDY_LOG}" "${RESULTS_LOGS_DIR}/run_greedy.log" 2>/dev/null || true
 
 if [ ${GREEDY_EXIT} -ne 0 ]; then
     log "FATAL: GreedyOffloading baseline failed with exit code ${GREEDY_EXIT}."
@@ -103,9 +114,10 @@ log "========================================================================"
 log "Starting Baseline 2: LocalExecution"
 log "========================================================================"
 
-LOCAL_LOG="${PROJECT_DIR}/run_local.log"
+LOCAL_LOG="${LOGS_DIR}/run_local.log"
 python -u train.py --method LocalExecution --ablation full --device cuda --no-training-video > "${LOCAL_LOG}" 2>&1
 LOCAL_EXIT=$?
+cp "${LOCAL_LOG}" "${RESULTS_LOGS_DIR}/run_local.log" 2>/dev/null || true
 
 if [ ${LOCAL_EXIT} -ne 0 ]; then
     log "FATAL: LocalExecution baseline failed with exit code ${LOCAL_EXIT}."
@@ -121,9 +133,10 @@ log "========================================================================"
 log "Generating IEEE publication plots via plot_ieee.py"
 log "========================================================================"
 
-PLOT_LOG="${PROJECT_DIR}/run_plot.log"
+PLOT_LOG="${LOGS_DIR}/run_plot.log"
 python plot_ieee.py > "${PLOT_LOG}" 2>&1
 PLOT_EXIT=$?
+cp "${PLOT_LOG}" "${RESULTS_LOGS_DIR}/run_plot.log" 2>/dev/null || true
 
 if [ ${PLOT_EXIT} -ne 0 ]; then
     log "WARNING: plot_ieee.py exited with code ${PLOT_EXIT}. Checking log..."
@@ -149,11 +162,8 @@ zip -r "${ZIP_FILE}" \
     results/checkpoints \
     results/logs \
     results/trajectories \
-    run_mappo_full.log \
-    run_greedy.log \
-    run_local.log \
-    run_plot.log \
-    pipeline_orchestrator.log >> "${LOG_FILE}" 2>&1
+    experiments/logs \
+    docs/reports/POST_TRAINING_REPORT.md >> "${LOG_FILE}" 2>&1
 
 if [ -f "${ZIP_FILE}" ]; then
     ZIP_SIZE=$(ls -lh "${ZIP_FILE}" | awk '{print $5}')

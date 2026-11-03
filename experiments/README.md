@@ -6,6 +6,10 @@ This directory documents the experimental protocols, parameter sweeps, and the e
 
 ## 1. Directory Organization
 
+* **`experiments/logs/`**: Version-controlled console outputs and pipeline execution logs:
+  * `run_mappo_full.log`: Console stdout/stderr stream from primary training run.
+  * `run_greedy.log`: Console log from greedy baseline run.
+  * `pipeline_orchestrator.log`: End-to-end automation orchestration trace.
 * **`results/checkpoints/`**: Trained neural network weights (.pt).
   * `MAPPO/full/best_model.pt`: Model achieving highest episodic evaluation reward (-23,275.82).
   * `MAPPO/full/final_model.pt`: Converged model checkpoint at 5,000,000 steps.

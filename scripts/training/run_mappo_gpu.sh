@@ -24,10 +24,19 @@ echo "========================================================================"
 echo "Launching ${METHOD} (${ABLATION}) on ${DEVICE} for ${STEPS} steps..."
 echo "========================================================================"
 
+LOG_DIR="${PROJECT_ROOT}/experiments/logs"
+RESULTS_LOG_DIR="${PROJECT_ROOT}/results/logs"
+mkdir -p "${LOG_DIR}" "${RESULTS_LOG_DIR}"
+
+LOG_FILE="${LOG_DIR}/run_mappo_full.log"
+
 python -u train.py \
     --method "${METHOD}" \
     --ablation "${ABLATION}" \
     --device "${DEVICE}" \
     --total-steps "${STEPS}" \
-    --no-training-video 2>&1 | tee run_mappo_full.log
+    --no-training-video 2>&1 | tee "${LOG_FILE}"
+
+cp "${LOG_FILE}" "${RESULTS_LOG_DIR}/run_mappo_full.log" 2>/dev/null || true
+
 

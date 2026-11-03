@@ -29,7 +29,8 @@ dmjo-multi-uav-mec/
 │   ├── architecture/              # High-level architecture and project trackers
 │   │   ├── REPOSITORY_STRUCTURE.md
 │   │   └── MAPPO_Project_Tracker.md
-│   ├── reports/                   # Publication drafts and course presentation materials
+│   ├── reports/                   # Publication drafts, experiment summaries, presentation materials
+│   │   ├── POST_TRAINING_REPORT.md# Post-training run report and convergence summary
 │   │   ├── paper/                 # IEEE paper LaTeX source, bibtex, figures, and compiled PDF
 │   │   └── templates/             # Secondary templates and baseline reports
 │   └── research_papers/           # Curated scientific literature
@@ -98,8 +99,13 @@ dmjo-multi-uav-mec/
 │   └── smoke/                     # End-to-end execution smoke tests
 │       └── test_method_smoke.py   # 1-step verification for all 6 methods
 │
-├── experiments/                   # Experiment protocols and traceability
-│   ├── README.md
+├── experiments/                   # Experiment protocols, execution logs, and sweeps
+│   ├── README.md                  # Experiments overview
+│   ├── logs/                      # Version-controlled execution logs (MAPPO, Greedys, orchestrator)
+│   │   ├── README.md
+│   │   ├── run_mappo_full.log
+│   │   ├── run_greedy.log
+│   │   └── pipeline_orchestrator.log
 │   └── sweeps/
 │
 ├── results/                       # Empirical outputs (gitignored, persisted locally)
