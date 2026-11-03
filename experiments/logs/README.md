@@ -18,3 +18,4 @@ This directory contains version-controlled runtime execution logs, console outpu
 
 * **`experiments/logs/`** (this directory): Tracked in git for immediate reproducibility and inspection by reviewers without downloading large binary archives.
 * **`results/logs/`**: Local runtime storage for high-volume streaming telemetry (`training_metrics.jsonl`), per-episode reward records (`training_log.jsonl`), cache analytics (`cache_stats.jsonl`), and parameter sweep matrices (`eval_sweeps.json`).
+
