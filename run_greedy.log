@@ -1,0 +1,23 @@
+[Ablation] mode=full | diffusion=False | coop_cache=True | learned_traj=True | K_C=25
+============================================================
+  Multi-UAV MEC Training
+  Method      : GreedyOffloading  -  Nearest-UAV association without caching awareness
+  Ablation    : full
+  Device      : cuda
+  Steps       : 5,000,000
+  Training videos : DISABLED
+  Trajectory plots: ENABLED (2D + 3D every 100,000 steps)
+  Domain rand : every 100,000 steps
+============================================================
+
+Agent: GreedyOffloading  |  off_policy=False  rule_based=True  diffusion=False
+
+Env: obs_dim=259, state_dim=774, action_dim=5, agents=8
+
+
+    [Macro- 401] step=10,001 | UAV positions updated | caches refreshed | K_c=25
+  [   20,000/5,000,000]   0.4% | ep=39 | SPS=184 | Latency=341.0 | NOMA=5 | tx=1 | macro_t=800 | best_R=-46818.1
+
+    [Macro- 801] step=20,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-1201] step=30,001 | UAV positions updated | caches refreshed | K_c=25

@@ -1,0 +1,2110 @@
+[Ablation] mode=full | diffusion=False | coop_cache=True | learned_traj=True | K_C=25
+============================================================
+  Multi-UAV MEC Training
+  Method      : MAPPO  -  MAPPO-based joint offloading, caching, trajectory, and NOMA (ours)
+  Ablation    : full
+  Device      : cuda
+  Steps       : 5,000,000
+  Training videos : DISABLED
+  Trajectory plots: ENABLED (2D + 3D every 100,000 steps)
+  Domain rand : every 100,000 steps
+============================================================
+
+Agent: MAPPO  |  off_policy=False  rule_based=False  diffusion=False
+
+Env: obs_dim=259, state_dim=774, action_dim=5, agents=8
+
+
+    [Macro- 401] step=10,001 | UAV positions updated | caches refreshed | K_c=25
+  [   20,000/5,000,000]   0.4% | ep=39 | SPS=154 | Latency=317.5 | NOMA=3 | tx=0 | macro_t=800 | best_R=-30651.3
+    [Update/MAPPO] actor=0.1150 critic=1220271.3750 entropy=4.5921 kl=0.4817
+
+    [Macro- 801] step=20,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-1201] step=30,001 | UAV positions updated | caches refreshed | K_c=25
+  [   40,000/5,000,000]   0.8% | ep=79 | SPS=159 | Latency=316.8 | NOMA=5 | tx=0 | macro_t=1600 | best_R=-30651.3
+    [Update/MAPPO] actor=0.1230 critic=1445573.1250 entropy=4.5771 kl=0.4930
+
+    [Macro-1601] step=40,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-2001] step=50,001 | UAV positions updated | caches refreshed | K_c=25
+  [   60,000/5,000,000]   1.2% | ep=119 | SPS=159 | Latency=381.4 | NOMA=3 | tx=0 | macro_t=2400 | best_R=-30651.3
+    [Update/MAPPO] actor=0.1096 critic=2134237.7500 entropy=4.5634 kl=0.4370
+
+    [Macro-2401] step=60,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-2801] step=70,001 | UAV positions updated | caches refreshed | K_c=25
+  [   80,000/5,000,000]   1.6% | ep=159 | SPS=158 | Latency=362.4 | NOMA=4 | tx=0 | macro_t=3200 | best_R=-30651.3
+    [Update/MAPPO] actor=0.1008 critic=1810945.2500 entropy=4.5508 kl=0.4782
+
+    [Macro-3201] step=80,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-3601] step=90,001 | UAV positions updated | caches refreshed | K_c=25
+  [  100,000/5,000,000]   2.0% | ep=199 | SPS=158 | Latency=305.2 | NOMA=5 | tx=1 | macro_t=4000 | best_R=-30651.3
+
+  [Video+Trajectory] Triggered at step 100,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_0100000.npz
+    saved P8_2D_trajectory_step100000.png/.pdf
+    legend → P8_trajectory_legend_step100000
+    saved P8_3D_trajectory_step100000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_100000
+
+  [Domain Rand #1] step=100,000
+    users=131, jammers=1, radius=520m, wind=0.3m/s
+
+    [Macro-4001] step=100,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-4401] step=110,001 | UAV positions updated | caches refreshed | K_c=25
+  [  120,000/5,000,000]   2.4% | ep=238 | SPS=152 | Latency=381.2 | NOMA=4 | tx=1 | macro_t=4800 | best_R=-30651.3
+    [Update/MAPPO] actor=0.0535 critic=2036634.8750 entropy=4.5477 kl=0.1551
+
+    [Macro-4801] step=120,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-5201] step=130,001 | UAV positions updated | caches refreshed | K_c=25
+  [  140,000/5,000,000]   2.8% | ep=278 | SPS=150 | Latency=343.1 | NOMA=5 | tx=0 | macro_t=5600 | best_R=-30651.3
+    [Update/MAPPO] actor=0.0407 critic=1579174.6250 entropy=4.5501 kl=0.1336
+
+    [Macro-5601] step=140,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-6001] step=150,001 | UAV positions updated | caches refreshed | K_c=25
+  [  160,000/5,000,000]   3.2% | ep=318 | SPS=148 | Latency=358.3 | NOMA=4 | tx=0 | macro_t=6400 | best_R=-30651.3
+    [Update/MAPPO] actor=0.0396 critic=2131039.7500 entropy=4.5563 kl=0.1516
+
+    [Macro-6401] step=160,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-6801] step=170,001 | UAV positions updated | caches refreshed | K_c=25
+  [  180,000/5,000,000]   3.6% | ep=358 | SPS=147 | Latency=339.7 | NOMA=7 | tx=0 | macro_t=7200 | best_R=-30651.3
+    [Update/MAPPO] actor=0.0271 critic=1482701.7500 entropy=4.5572 kl=0.1182
+
+    [Macro-7201] step=180,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-7601] step=190,001 | UAV positions updated | caches refreshed | K_c=25
+  [  200,000/5,000,000]   4.0% | ep=398 | SPS=146 | Latency=374.3 | NOMA=7 | tx=0 | macro_t=8000 | best_R=-30651.3
+
+  [Video+Trajectory] Triggered at step 200,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_0200000.npz
+    saved P8_2D_trajectory_step200000.png/.pdf
+    legend → P8_trajectory_legend_step200000
+    saved P8_3D_trajectory_step200000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_200000
+
+  [Domain Rand #2] step=200,000
+    users=103, jammers=2, radius=544m, wind=5.0m/s
+
+    [Macro-8001] step=200,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-8401] step=210,001 | UAV positions updated | caches refreshed | K_c=25
+  [  220,000/5,000,000]   4.4% | ep=437 | SPS=146 | Latency=284.5 | NOMA=4 | tx=3 | macro_t=8800 | best_R=-30651.3
+    [Update/MAPPO] actor=0.1167 critic=1162521.6250 entropy=4.5540 kl=0.4902
+
+    [Macro-8801] step=220,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-9201] step=230,001 | UAV positions updated | caches refreshed | K_c=25
+  [  240,000/5,000,000]   4.8% | ep=477 | SPS=147 | Latency=297.7 | NOMA=3 | tx=1 | macro_t=9600 | best_R=-30651.3
+    [Update/MAPPO] actor=0.1126 critic=969573.2500 entropy=4.5379 kl=0.4455
+
+    [Macro-9601] step=240,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-10001] step=250,001 | UAV positions updated | caches refreshed | K_c=25
+  [  260,000/5,000,000]   5.2% | ep=517 | SPS=148 | Latency=359.4 | NOMA=2 | tx=0 | macro_t=10400 | best_R=-30651.3
+    [Update/MAPPO] actor=0.1151 critic=1712902.0000 entropy=4.5246 kl=0.4670
+
+    [Macro-10401] step=260,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-10801] step=270,001 | UAV positions updated | caches refreshed | K_c=25
+  [  280,000/5,000,000]   5.6% | ep=557 | SPS=150 | Latency=282.9 | NOMA=3 | tx=0 | macro_t=11200 | best_R=-30651.3
+    [Update/MAPPO] actor=0.1120 critic=1080571.3750 entropy=4.5111 kl=0.4627
+
+    [Macro-11201] step=280,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-11601] step=290,001 | UAV positions updated | caches refreshed | K_c=25
+  [  300,000/5,000,000]   6.0% | ep=597 | SPS=151 | Latency=300.6 | NOMA=2 | tx=0 | macro_t=12000 | best_R=-30651.3
+
+  [Video+Trajectory] Triggered at step 300,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_0300000.npz
+    saved P8_2D_trajectory_step300000.png/.pdf
+    legend → P8_trajectory_legend_step300000
+    saved P8_3D_trajectory_step300000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_300000
+
+  [Domain Rand #3] step=300,000
+    users=137, jammers=2, radius=505m, wind=4.9m/s
+
+    [Macro-12001] step=300,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-12401] step=310,001 | UAV positions updated | caches refreshed | K_c=25
+  [  320,000/5,000,000]   6.4% | ep=636 | SPS=150 | Latency=321.6 | NOMA=4 | tx=0 | macro_t=12800 | best_R=-30651.3
+    [Update/MAPPO] actor=0.0339 critic=1316821.3750 entropy=4.4997 kl=0.2026
+
+    [Macro-12801] step=320,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-13201] step=330,001 | UAV positions updated | caches refreshed | K_c=25
+  [  340,000/5,000,000]   6.8% | ep=676 | SPS=150 | Latency=338.6 | NOMA=6 | tx=1 | macro_t=13600 | best_R=-30651.3
+    [Update/MAPPO] actor=0.0296 critic=1578738.2500 entropy=4.5016 kl=0.1454
+
+    [Macro-13601] step=340,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-14001] step=350,001 | UAV positions updated | caches refreshed | K_c=25
+  [  360,000/5,000,000]   7.2% | ep=716 | SPS=148 | Latency=318.7 | NOMA=5 | tx=2 | macro_t=14400 | best_R=-30651.3
+    [Update/MAPPO] actor=0.0286 critic=1318742.7500 entropy=4.5077 kl=0.1392
+
+    [Macro-14401] step=360,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-14801] step=370,001 | UAV positions updated | caches refreshed | K_c=25
+  [  380,000/5,000,000]   7.6% | ep=756 | SPS=147 | Latency=307.4 | NOMA=4 | tx=0 | macro_t=15200 | best_R=-30651.3
+    [Update/MAPPO] actor=0.0314 critic=1058252.2500 entropy=4.5145 kl=0.1733
+
+    [Macro-15201] step=380,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-15601] step=390,001 | UAV positions updated | caches refreshed | K_c=25
+  [  400,000/5,000,000]   8.0% | ep=796 | SPS=147 | Latency=347.4 | NOMA=3 | tx=0 | macro_t=16000 | best_R=-30651.3
+
+  [Video+Trajectory] Triggered at step 400,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_0400000.npz
+    saved P8_2D_trajectory_step400000.png/.pdf
+    legend → P8_trajectory_legend_step400000
+    saved P8_3D_trajectory_step400000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_400000
+
+  [Domain Rand #4] step=400,000
+    users=141, jammers=2, radius=518m, wind=0.9m/s
+
+    [Macro-16001] step=400,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-16401] step=410,001 | UAV positions updated | caches refreshed | K_c=25
+  [  420,000/5,000,000]   8.4% | ep=835 | SPS=146 | Latency=319.4 | NOMA=3 | tx=1 | macro_t=16800 | best_R=-30651.3
+    [Update/MAPPO] actor=0.1104 critic=1090358.5000 entropy=4.5112 kl=0.4390
+
+    [Macro-16801] step=420,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-17201] step=430,001 | UAV positions updated | caches refreshed | K_c=25
+  [  440,000/5,000,000]   8.8% | ep=875 | SPS=146 | Latency=296.5 | NOMA=4 | tx=0 | macro_t=17600 | best_R=-29065.0
+    [Update/MAPPO] actor=0.1191 critic=882602.2500 entropy=4.4821 kl=0.4404
+
+    [Macro-17601] step=440,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-18001] step=450,001 | UAV positions updated | caches refreshed | K_c=25
+  [  460,000/5,000,000]   9.2% | ep=915 | SPS=147 | Latency=305.3 | NOMA=5 | tx=0 | macro_t=18400 | best_R=-29065.0
+    [Update/MAPPO] actor=0.1245 critic=1353555.3750 entropy=4.4597 kl=0.4310
+
+    [Macro-18401] step=460,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-18801] step=470,001 | UAV positions updated | caches refreshed | K_c=25
+  [  480,000/5,000,000]   9.6% | ep=955 | SPS=147 | Latency=343.3 | NOMA=4 | tx=1 | macro_t=19200 | best_R=-29065.0
+    [Update/MAPPO] actor=0.1198 critic=1195628.2500 entropy=4.4374 kl=0.4274
+
+    [Macro-19201] step=480,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-19601] step=490,001 | UAV positions updated | caches refreshed | K_c=25
+  [  500,000/5,000,000]  10.0% | ep=995 | SPS=147 | Latency=289.6 | NOMA=2 | tx=0 | macro_t=20000 | best_R=-29065.0
+  [Checkpoint] results/checkpoints/MAPPO/full/model_step500000.pt
+
+  [Video+Trajectory] Triggered at step 500,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_0500000.npz
+    saved P8_2D_trajectory_step500000.png/.pdf
+    legend → P8_trajectory_legend_step500000
+    saved P8_3D_trajectory_step500000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_500000
+
+  [Domain Rand #5] step=500,000
+    users=83, jammers=2, radius=477m, wind=1.2m/s
+
+    [Macro-20001] step=500,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-20401] step=510,001 | UAV positions updated | caches refreshed | K_c=25
+  [  520,000/5,000,000]  10.4% | ep=1034 | SPS=148 | Latency=253.7 | NOMA=3 | tx=0 | macro_t=20800 | best_R=-28343.4
+    [Update/MAPPO] actor=0.1932 critic=690820.9375 entropy=4.3611 kl=0.6594
+
+    [Macro-20801] step=520,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-21201] step=530,001 | UAV positions updated | caches refreshed | K_c=25
+  [  540,000/5,000,000]  10.8% | ep=1074 | SPS=149 | Latency=259.7 | NOMA=3 | tx=0 | macro_t=21600 | best_R=-28343.4
+    [Update/MAPPO] actor=0.1765 critic=688990.6250 entropy=4.3030 kl=0.6308
+
+    [Macro-21601] step=540,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-22001] step=550,001 | UAV positions updated | caches refreshed | K_c=25
+  [  560,000/5,000,000]  11.2% | ep=1114 | SPS=150 | Latency=304.2 | NOMA=3 | tx=0 | macro_t=22400 | best_R=-28343.4
+    [Update/MAPPO] actor=0.1592 critic=897260.4375 entropy=4.2342 kl=0.5394
+
+    [Macro-22401] step=560,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-22801] step=570,001 | UAV positions updated | caches refreshed | K_c=25
+  [  580,000/5,000,000]  11.6% | ep=1154 | SPS=151 | Latency=247.8 | NOMA=3 | tx=0 | macro_t=23200 | best_R=-28343.4
+    [Update/MAPPO] actor=0.1645 critic=487679.9062 entropy=4.1683 kl=0.5234
+
+    [Macro-23201] step=580,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-23601] step=590,001 | UAV positions updated | caches refreshed | K_c=25
+  [  600,000/5,000,000]  12.0% | ep=1194 | SPS=152 | Latency=259.4 | NOMA=3 | tx=2 | macro_t=24000 | best_R=-27220.3
+
+  [Video+Trajectory] Triggered at step 600,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_0600000.npz
+    saved P8_2D_trajectory_step600000.png/.pdf
+    legend → P8_trajectory_legend_step600000
+    saved P8_3D_trajectory_step600000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_600000
+
+  [Domain Rand #6] step=600,000
+    users=123, jammers=2, radius=582m, wind=1.6m/s
+
+    [Macro-24001] step=600,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-24401] step=610,001 | UAV positions updated | caches refreshed | K_c=25
+  [  620,000/5,000,000]  12.4% | ep=1233 | SPS=151 | Latency=336.9 | NOMA=7 | tx=0 | macro_t=24800 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0238 critic=1045751.1875 entropy=4.0719 kl=0.1343
+
+    [Macro-24801] step=620,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-25201] step=630,001 | UAV positions updated | caches refreshed | K_c=25
+  [  640,000/5,000,000]  12.8% | ep=1273 | SPS=150 | Latency=331.9 | NOMA=5 | tx=0 | macro_t=25600 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0366 critic=984758.5625 entropy=4.0830 kl=0.1290
+
+    [Macro-25601] step=640,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-26001] step=650,001 | UAV positions updated | caches refreshed | K_c=25
+  [  660,000/5,000,000]  13.2% | ep=1313 | SPS=149 | Latency=317.0 | NOMA=5 | tx=0 | macro_t=26400 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0394 critic=871242.0625 entropy=4.0885 kl=0.1149
+
+    [Macro-26401] step=660,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-26801] step=670,001 | UAV positions updated | caches refreshed | K_c=25
+  [  680,000/5,000,000]  13.6% | ep=1353 | SPS=148 | Latency=317.7 | NOMA=4 | tx=0 | macro_t=27200 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0439 critic=800105.8125 entropy=4.0865 kl=0.1670
+
+    [Macro-27201] step=680,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-27601] step=690,001 | UAV positions updated | caches refreshed | K_c=25
+  [  700,000/5,000,000]  14.0% | ep=1393 | SPS=148 | Latency=290.1 | NOMA=5 | tx=0 | macro_t=28000 | best_R=-27220.3
+
+  [Video+Trajectory] Triggered at step 700,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_0700000.npz
+    saved P8_2D_trajectory_step700000.png/.pdf
+    legend → P8_trajectory_legend_step700000
+    saved P8_3D_trajectory_step700000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_700000
+
+  [Domain Rand #7] step=700,000
+    users=83, jammers=1, radius=490m, wind=3.6m/s
+
+    [Macro-28001] step=700,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-28401] step=710,001 | UAV positions updated | caches refreshed | K_c=25
+  [  720,000/5,000,000]  14.4% | ep=1432 | SPS=147 | Latency=316.4 | NOMA=4 | tx=0 | macro_t=28800 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0380 critic=698079.0000 entropy=4.0832 kl=0.1017
+
+    [Macro-28801] step=720,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-29201] step=730,001 | UAV positions updated | caches refreshed | K_c=25
+  [  740,000/5,000,000]  14.8% | ep=1472 | SPS=147 | Latency=346.7 | NOMA=3 | tx=0 | macro_t=29600 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0288 critic=1113382.6250 entropy=4.0820 kl=0.1006
+
+    [Macro-29601] step=740,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-30001] step=750,001 | UAV positions updated | caches refreshed | K_c=25
+  [  760,000/5,000,000]  15.2% | ep=1512 | SPS=146 | Latency=312.2 | NOMA=3 | tx=0 | macro_t=30400 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0296 critic=877411.1875 entropy=4.0812 kl=0.1071
+
+    [Macro-30401] step=760,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-30801] step=770,001 | UAV positions updated | caches refreshed | K_c=25
+  [  780,000/5,000,000]  15.6% | ep=1552 | SPS=146 | Latency=324.6 | NOMA=6 | tx=0 | macro_t=31200 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0380 critic=790377.8750 entropy=4.0746 kl=0.1083
+
+    [Macro-31201] step=780,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-31601] step=790,001 | UAV positions updated | caches refreshed | K_c=25
+  [  800,000/5,000,000]  16.0% | ep=1592 | SPS=146 | Latency=273.3 | NOMA=3 | tx=1 | macro_t=32000 | best_R=-27220.3
+
+  [Video+Trajectory] Triggered at step 800,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_0800000.npz
+    saved P8_2D_trajectory_step800000.png/.pdf
+    legend → P8_trajectory_legend_step800000
+    saved P8_3D_trajectory_step800000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_800000
+
+  [Domain Rand #8] step=800,000
+    users=141, jammers=2, radius=508m, wind=3.0m/s
+
+    [Macro-32001] step=800,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-32401] step=810,001 | UAV positions updated | caches refreshed | K_c=25
+  [  820,000/5,000,000]  16.4% | ep=1631 | SPS=145 | Latency=299.4 | NOMA=3 | tx=0 | macro_t=32800 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0382 critic=741206.0000 entropy=4.0674 kl=0.1063
+
+    [Macro-32801] step=820,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-33201] step=830,001 | UAV positions updated | caches refreshed | K_c=25
+  [  840,000/5,000,000]  16.8% | ep=1671 | SPS=145 | Latency=368.2 | NOMA=2 | tx=0 | macro_t=33600 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0374 critic=1116412.2500 entropy=4.0716 kl=0.1012
+
+    [Macro-33601] step=840,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-34001] step=850,001 | UAV positions updated | caches refreshed | K_c=25
+  [  860,000/5,000,000]  17.2% | ep=1711 | SPS=144 | Latency=342.6 | NOMA=4 | tx=0 | macro_t=34400 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0294 critic=930632.9375 entropy=4.0691 kl=0.0865
+
+    [Macro-34401] step=860,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-34801] step=870,001 | UAV positions updated | caches refreshed | K_c=25
+  [  880,000/5,000,000]  17.6% | ep=1751 | SPS=144 | Latency=320.0 | NOMA=5 | tx=0 | macro_t=35200 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0263 critic=686945.1250 entropy=4.0713 kl=0.0925
+
+    [Macro-35201] step=880,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-35601] step=890,001 | UAV positions updated | caches refreshed | K_c=25
+  [  900,000/5,000,000]  18.0% | ep=1791 | SPS=144 | Latency=296.9 | NOMA=7 | tx=0 | macro_t=36000 | best_R=-27220.3
+
+  [Video+Trajectory] Triggered at step 900,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_0900000.npz
+    saved P8_2D_trajectory_step900000.png/.pdf
+    legend → P8_trajectory_legend_step900000
+    saved P8_3D_trajectory_step900000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_900000
+
+  [Domain Rand #9] step=900,000
+    users=108, jammers=1, radius=485m, wind=0.1m/s
+
+    [Macro-36001] step=900,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-36401] step=910,001 | UAV positions updated | caches refreshed | K_c=25
+  [  920,000/5,000,000]  18.4% | ep=1830 | SPS=143 | Latency=294.6 | NOMA=7 | tx=0 | macro_t=36800 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0243 critic=541668.6875 entropy=4.0805 kl=0.1037
+
+    [Macro-36801] step=920,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-37201] step=930,001 | UAV positions updated | caches refreshed | K_c=25
+  [  940,000/5,000,000]  18.8% | ep=1870 | SPS=143 | Latency=313.5 | NOMA=5 | tx=0 | macro_t=37600 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0339 critic=680742.0625 entropy=4.0808 kl=0.1176
+
+    [Macro-37601] step=940,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-38001] step=950,001 | UAV positions updated | caches refreshed | K_c=25
+  [  960,000/5,000,000]  19.2% | ep=1910 | SPS=143 | Latency=375.4 | NOMA=5 | tx=0 | macro_t=38400 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0319 critic=1104817.3750 entropy=4.0800 kl=0.0959
+
+    [Macro-38401] step=960,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-38801] step=970,001 | UAV positions updated | caches refreshed | K_c=25
+  [  980,000/5,000,000]  19.6% | ep=1950 | SPS=143 | Latency=335.6 | NOMA=2 | tx=0 | macro_t=39200 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0355 critic=641935.1250 entropy=4.0827 kl=0.1037
+
+    [Macro-39201] step=980,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-39601] step=990,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,000,000/5,000,000]  20.0% | ep=1990 | SPS=143 | Latency=325.8 | NOMA=3 | tx=0 | macro_t=40000 | best_R=-27220.3
+  [Checkpoint] results/checkpoints/MAPPO/full/model_step1000000.pt
+
+  [Video+Trajectory] Triggered at step 1,000,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_1000000.npz
+    saved P8_2D_trajectory_step1000000.png/.pdf
+    legend → P8_trajectory_legend_step1000000
+    saved P8_3D_trajectory_step1000000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_1000000
+
+  [Domain Rand #10] step=1,000,000
+    users=87, jammers=1, radius=415m, wind=4.3m/s
+
+    [Macro-40001] step=1,000,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-40401] step=1,010,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,020,000/5,000,000]  20.4% | ep=2029 | SPS=143 | Latency=323.7 | NOMA=5 | tx=0 | macro_t=40800 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0995 critic=573906.5625 entropy=4.0672 kl=0.2948
+
+    [Macro-40801] step=1,020,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-41201] step=1,030,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,040,000/5,000,000]  20.8% | ep=2069 | SPS=143 | Latency=304.8 | NOMA=3 | tx=0 | macro_t=41600 | best_R=-27220.3
+    [Update/MAPPO] actor=0.1006 critic=433182.9062 entropy=4.0380 kl=0.3036
+
+    [Macro-41601] step=1,040,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-42001] step=1,050,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,060,000/5,000,000]  21.2% | ep=2109 | SPS=144 | Latency=305.0 | NOMA=2 | tx=0 | macro_t=42400 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0938 critic=466896.3750 entropy=4.0050 kl=0.2853
+
+    [Macro-42401] step=1,060,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-42801] step=1,070,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,080,000/5,000,000]  21.6% | ep=2149 | SPS=144 | Latency=301.7 | NOMA=3 | tx=2 | macro_t=43200 | best_R=-27220.3
+    [Update/MAPPO] actor=0.1061 critic=538539.3750 entropy=3.9772 kl=0.2579
+
+    [Macro-43201] step=1,080,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-43601] step=1,090,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,100,000/5,000,000]  22.0% | ep=2189 | SPS=145 | Latency=265.3 | NOMA=5 | tx=1 | macro_t=44000 | best_R=-27220.3
+
+  [Video+Trajectory] Triggered at step 1,100,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_1100000.npz
+    saved P8_2D_trajectory_step1100000.png/.pdf
+    legend → P8_trajectory_legend_step1100000
+    saved P8_3D_trajectory_step1100000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_1100000
+
+  [Domain Rand #11] step=1,100,000
+    users=113, jammers=2, radius=534m, wind=1.4m/s
+
+    [Macro-44001] step=1,100,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-44401] step=1,110,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,120,000/5,000,000]  22.4% | ep=2228 | SPS=145 | Latency=250.1 | NOMA=3 | tx=0 | macro_t=44800 | best_R=-27220.3
+    [Update/MAPPO] actor=0.1084 critic=231763.1406 entropy=3.8914 kl=0.3863
+
+    [Macro-44801] step=1,120,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-45201] step=1,130,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,140,000/5,000,000]  22.8% | ep=2268 | SPS=146 | Latency=231.4 | NOMA=3 | tx=1 | macro_t=45600 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0808 critic=337373.4062 entropy=3.8294 kl=0.3555
+
+    [Macro-45601] step=1,140,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-46001] step=1,150,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,160,000/5,000,000]  23.2% | ep=2308 | SPS=146 | Latency=227.9 | NOMA=3 | tx=1 | macro_t=46400 | best_R=-27220.3
+    [Update/MAPPO] actor=0.0880 critic=244464.8750 entropy=3.7633 kl=0.3444
+
+    [Macro-46401] step=1,160,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-46801] step=1,170,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,180,000/5,000,000]  23.6% | ep=2348 | SPS=147 | Latency=245.9 | NOMA=2 | tx=0 | macro_t=47200 | best_R=-26959.5
+    [Update/MAPPO] actor=0.0926 critic=289685.5625 entropy=3.6982 kl=0.3183
+
+    [Macro-47201] step=1,180,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-47601] step=1,190,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,200,000/5,000,000]  24.0% | ep=2388 | SPS=147 | Latency=246.7 | NOMA=3 | tx=0 | macro_t=48000 | best_R=-26959.5
+
+  [Video+Trajectory] Triggered at step 1,200,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_1200000.npz
+    saved P8_2D_trajectory_step1200000.png/.pdf
+    legend → P8_trajectory_legend_step1200000
+    saved P8_3D_trajectory_step1200000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_1200000
+
+  [Domain Rand #12] step=1,200,000
+    users=126, jammers=1, radius=447m, wind=3.6m/s
+
+    [Macro-48001] step=1,200,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-48401] step=1,210,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,220,000/5,000,000]  24.4% | ep=2427 | SPS=148 | Latency=260.9 | NOMA=4 | tx=0 | macro_t=48800 | best_R=-26959.5
+    [Update/MAPPO] actor=0.0557 critic=352915.1875 entropy=3.5871 kl=0.1756
+
+    [Macro-48801] step=1,220,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-49201] step=1,230,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,240,000/5,000,000]  24.8% | ep=2467 | SPS=148 | Latency=283.0 | NOMA=5 | tx=1 | macro_t=49600 | best_R=-26959.5
+    [Update/MAPPO] actor=0.0594 critic=326120.4688 entropy=3.5495 kl=0.1693
+
+    [Macro-49601] step=1,240,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-50001] step=1,250,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,260,000/5,000,000]  25.2% | ep=2507 | SPS=148 | Latency=255.8 | NOMA=5 | tx=0 | macro_t=50400 | best_R=-26959.5
+    [Update/MAPPO] actor=0.0466 critic=351886.5625 entropy=3.5132 kl=0.1615
+
+    [Macro-50401] step=1,260,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-50801] step=1,270,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,280,000/5,000,000]  25.6% | ep=2547 | SPS=148 | Latency=319.3 | NOMA=3 | tx=0 | macro_t=51200 | best_R=-26959.5
+    [Update/MAPPO] actor=0.0486 critic=450742.8438 entropy=3.4817 kl=0.1536
+
+    [Macro-51201] step=1,280,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-51601] step=1,290,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,300,000/5,000,000]  26.0% | ep=2587 | SPS=148 | Latency=305.9 | NOMA=5 | tx=1 | macro_t=52000 | best_R=-26959.5
+
+  [Video+Trajectory] Triggered at step 1,300,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_1300000.npz
+    saved P8_2D_trajectory_step1300000.png/.pdf
+    legend → P8_trajectory_legend_step1300000
+    saved P8_3D_trajectory_step1300000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_1300000
+
+  [Domain Rand #13] step=1,300,000
+    users=130, jammers=2, radius=539m, wind=2.7m/s
+
+    [Macro-52001] step=1,300,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-52401] step=1,310,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,320,000/5,000,000]  26.4% | ep=2626 | SPS=148 | Latency=245.7 | NOMA=3 | tx=0 | macro_t=52800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0444 critic=332703.5000 entropy=3.3969 kl=0.2321
+
+    [Macro-52801] step=1,320,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-53201] step=1,330,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,340,000/5,000,000]  26.8% | ep=2666 | SPS=149 | Latency=236.7 | NOMA=3 | tx=0 | macro_t=53600 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0486 critic=165905.4844 entropy=3.3353 kl=0.1699
+
+    [Macro-53601] step=1,340,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-54001] step=1,350,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,360,000/5,000,000]  27.2% | ep=2706 | SPS=149 | Latency=273.4 | NOMA=3 | tx=0 | macro_t=54400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0732 critic=147646.8125 entropy=3.2547 kl=0.1395
+
+    [Macro-54401] step=1,360,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-54801] step=1,370,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,380,000/5,000,000]  27.6% | ep=2746 | SPS=150 | Latency=288.9 | NOMA=3 | tx=0 | macro_t=55200 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0724 critic=126171.6172 entropy=3.1623 kl=0.1129
+
+    [Macro-55201] step=1,380,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-55601] step=1,390,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,400,000/5,000,000]  28.0% | ep=2786 | SPS=150 | Latency=258.0 | NOMA=3 | tx=0 | macro_t=56000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 1,400,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_1400000.npz
+    saved P8_2D_trajectory_step1400000.png/.pdf
+    legend → P8_trajectory_legend_step1400000
+    saved P8_3D_trajectory_step1400000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_1400000
+
+  [Domain Rand #14] step=1,400,000
+    users=92, jammers=1, radius=586m, wind=4.4m/s
+
+    [Macro-56001] step=1,400,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-56401] step=1,410,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,420,000/5,000,000]  28.4% | ep=2825 | SPS=150 | Latency=278.1 | NOMA=5 | tx=0 | macro_t=56800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0214 critic=166349.1094 entropy=2.9839 kl=0.0351
+
+    [Macro-56801] step=1,420,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-57201] step=1,430,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,440,000/5,000,000]  28.8% | ep=2865 | SPS=150 | Latency=308.1 | NOMA=5 | tx=0 | macro_t=57600 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0354 critic=176715.9531 entropy=2.9136 kl=0.0364
+
+    [Macro-57601] step=1,440,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-58001] step=1,450,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,460,000/5,000,000]  29.2% | ep=2905 | SPS=150 | Latency=314.6 | NOMA=5 | tx=0 | macro_t=58400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0198 critic=129292.1598 entropy=2.4888 kl=0.0097
+
+    [Macro-58401] step=1,460,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-58801] step=1,470,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,480,000/5,000,000]  29.6% | ep=2945 | SPS=150 | Latency=319.0 | NOMA=3 | tx=1 | macro_t=59200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0319 critic=84468.8770 entropy=2.1669 kl=0.0245
+
+    [Macro-59201] step=1,480,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-59601] step=1,490,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,500,000/5,000,000]  30.0% | ep=2985 | SPS=150 | Latency=270.5 | NOMA=5 | tx=0 | macro_t=60000 | best_R=-25843.3
+  [Checkpoint] results/checkpoints/MAPPO/full/model_step1500000.pt
+
+  [Video+Trajectory] Triggered at step 1,500,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_1500000.npz
+    saved P8_2D_trajectory_step1500000.png/.pdf
+    legend → P8_trajectory_legend_step1500000
+    saved P8_3D_trajectory_step1500000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_1500000
+
+  [Domain Rand #15] step=1,500,000
+    users=123, jammers=2, radius=465m, wind=4.5m/s
+
+    [Macro-60001] step=1,500,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-60401] step=1,510,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,520,000/5,000,000]  30.4% | ep=3024 | SPS=150 | Latency=332.3 | NOMA=5 | tx=1 | macro_t=60800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0345 critic=161907.0000 entropy=2.2103 kl=0.0183
+
+    [Macro-60801] step=1,520,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-61201] step=1,530,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,540,000/5,000,000]  30.8% | ep=3064 | SPS=150 | Latency=328.5 | NOMA=4 | tx=0 | macro_t=61600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0312 critic=66420.7672 entropy=2.2511 kl=0.0176
+
+    [Macro-61601] step=1,540,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-62001] step=1,550,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,560,000/5,000,000]  31.2% | ep=3104 | SPS=149 | Latency=312.1 | NOMA=5 | tx=0 | macro_t=62400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0204 critic=126418.7246 entropy=2.2800 kl=0.0241
+
+    [Macro-62401] step=1,560,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-62801] step=1,570,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,580,000/5,000,000]  31.6% | ep=3144 | SPS=149 | Latency=347.6 | NOMA=5 | tx=0 | macro_t=63200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0237 critic=167816.0453 entropy=2.2810 kl=0.0117
+
+    [Macro-63201] step=1,580,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-63601] step=1,590,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,600,000/5,000,000]  32.0% | ep=3184 | SPS=149 | Latency=324.0 | NOMA=5 | tx=0 | macro_t=64000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 1,600,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_1600000.npz
+    saved P8_2D_trajectory_step1600000.png/.pdf
+    legend → P8_trajectory_legend_step1600000
+    saved P8_3D_trajectory_step1600000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_1600000
+
+  [Domain Rand #16] step=1,600,000
+    users=106, jammers=2, radius=461m, wind=2.4m/s
+
+    [Macro-64001] step=1,600,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-64401] step=1,610,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,620,000/5,000,000]  32.4% | ep=3223 | SPS=149 | Latency=308.4 | NOMA=3 | tx=0 | macro_t=64800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0130 critic=39836.8867 entropy=2.2482 kl=0.0518
+
+    [Macro-64801] step=1,620,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-65201] step=1,630,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,640,000/5,000,000]  32.8% | ep=3263 | SPS=149 | Latency=335.9 | NOMA=3 | tx=0 | macro_t=65600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0660 critic=90420.4339 entropy=2.1936 kl=0.0215
+
+    [Macro-65601] step=1,640,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-66001] step=1,650,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,660,000/5,000,000]  33.2% | ep=3303 | SPS=150 | Latency=316.0 | NOMA=3 | tx=1 | macro_t=66400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0761 critic=65405.5430 entropy=2.2198 kl=0.2291
+
+    [Macro-66401] step=1,660,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-66801] step=1,670,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,680,000/5,000,000]  33.6% | ep=3343 | SPS=150 | Latency=311.0 | NOMA=3 | tx=0 | macro_t=67200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0356 critic=195799.1172 entropy=2.2293 kl=0.0246
+
+    [Macro-67201] step=1,680,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-67601] step=1,690,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,700,000/5,000,000]  34.0% | ep=3383 | SPS=151 | Latency=329.1 | NOMA=2 | tx=0 | macro_t=68000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 1,700,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_1700000.npz
+    saved P8_2D_trajectory_step1700000.png/.pdf
+    legend → P8_trajectory_legend_step1700000
+    saved P8_3D_trajectory_step1700000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_1700000
+
+  [Domain Rand #17] step=1,700,000
+    users=123, jammers=2, radius=512m, wind=1.3m/s
+
+    [Macro-68001] step=1,700,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-68401] step=1,710,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,720,000/5,000,000]  34.4% | ep=3422 | SPS=150 | Latency=337.8 | NOMA=4 | tx=1 | macro_t=68800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0159 critic=41692.1055 entropy=2.2383 kl=0.0602
+
+    [Macro-68801] step=1,720,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-69201] step=1,730,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,740,000/5,000,000]  34.8% | ep=3462 | SPS=150 | Latency=363.7 | NOMA=4 | tx=0 | macro_t=69600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0034 critic=144207.8539 entropy=2.2766 kl=0.0108
+
+    [Macro-69601] step=1,740,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-70001] step=1,750,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,760,000/5,000,000]  35.2% | ep=3502 | SPS=150 | Latency=329.4 | NOMA=3 | tx=0 | macro_t=70400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0013 critic=149238.1994 entropy=2.2940 kl=0.0100
+
+    [Macro-70401] step=1,760,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-70801] step=1,770,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,780,000/5,000,000]  35.6% | ep=3542 | SPS=150 | Latency=320.5 | NOMA=4 | tx=0 | macro_t=71200 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0134 critic=24265.5521 entropy=2.2765 kl=0.0303
+
+    [Macro-71201] step=1,780,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-71601] step=1,790,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,800,000/5,000,000]  36.0% | ep=3582 | SPS=150 | Latency=336.5 | NOMA=3 | tx=0 | macro_t=72000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 1,800,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_1800000.npz
+    saved P8_2D_trajectory_step1800000.png/.pdf
+    legend → P8_trajectory_legend_step1800000
+    saved P8_3D_trajectory_step1800000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_1800000
+
+  [Domain Rand #18] step=1,800,000
+    users=118, jammers=1, radius=457m, wind=2.5m/s
+
+    [Macro-72001] step=1,800,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-72401] step=1,810,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,820,000/5,000,000]  36.4% | ep=3621 | SPS=151 | Latency=296.0 | NOMA=3 | tx=0 | macro_t=72800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0418 critic=44712.8477 entropy=2.2874 kl=0.5408
+
+    [Macro-72801] step=1,820,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-73201] step=1,830,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,840,000/5,000,000]  36.8% | ep=3661 | SPS=151 | Latency=327.4 | NOMA=2 | tx=0 | macro_t=73600 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0307 critic=82352.7266 entropy=2.2933 kl=0.0383
+
+    [Macro-73601] step=1,840,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-74001] step=1,850,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,860,000/5,000,000]  37.2% | ep=3701 | SPS=151 | Latency=292.2 | NOMA=2 | tx=1 | macro_t=74400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0200 critic=220679.1406 entropy=2.2599 kl=0.0256
+
+    [Macro-74401] step=1,860,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-74801] step=1,870,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,880,000/5,000,000]  37.6% | ep=3741 | SPS=152 | Latency=306.1 | NOMA=3 | tx=0 | macro_t=75200 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0035 critic=249098.1875 entropy=2.2450 kl=0.1336
+
+    [Macro-75201] step=1,880,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-75601] step=1,890,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,900,000/5,000,000]  38.0% | ep=3781 | SPS=152 | Latency=311.7 | NOMA=3 | tx=0 | macro_t=76000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 1,900,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_1900000.npz
+    saved P8_2D_trajectory_step1900000.png/.pdf
+    legend → P8_trajectory_legend_step1900000
+    saved P8_3D_trajectory_step1900000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_1900000
+
+  [Domain Rand #19] step=1,900,000
+    users=80, jammers=2, radius=498m, wind=3.4m/s
+
+    [Macro-76001] step=1,900,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-76401] step=1,910,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,920,000/5,000,000]  38.4% | ep=3820 | SPS=152 | Latency=340.7 | NOMA=3 | tx=0 | macro_t=76800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0025 critic=231022.0945 entropy=2.2978 kl=0.0075
+
+    [Macro-76801] step=1,920,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-77201] step=1,930,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,940,000/5,000,000]  38.8% | ep=3860 | SPS=152 | Latency=331.3 | NOMA=3 | tx=0 | macro_t=77600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0336 critic=72841.0732 entropy=2.2860 kl=0.0107
+
+    [Macro-77601] step=1,940,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-78001] step=1,950,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,960,000/5,000,000]  39.2% | ep=3900 | SPS=152 | Latency=337.5 | NOMA=2 | tx=0 | macro_t=78400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0472 critic=56416.0352 entropy=2.2949 kl=0.0331
+
+    [Macro-78401] step=1,960,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-78801] step=1,970,001 | UAV positions updated | caches refreshed | K_c=25
+  [1,980,000/5,000,000]  39.6% | ep=3940 | SPS=152 | Latency=328.7 | NOMA=2 | tx=0 | macro_t=79200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0098 critic=294514.3469 entropy=2.3121 kl=0.0153
+
+    [Macro-79201] step=1,980,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-79601] step=1,990,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,000,000/5,000,000]  40.0% | ep=3980 | SPS=152 | Latency=363.1 | NOMA=2 | tx=1 | macro_t=80000 | best_R=-25843.3
+  [Checkpoint] results/checkpoints/MAPPO/full/model_step2000000.pt
+
+  [Video+Trajectory] Triggered at step 2,000,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_2000000.npz
+    saved P8_2D_trajectory_step2000000.png/.pdf
+    legend → P8_trajectory_legend_step2000000
+    saved P8_3D_trajectory_step2000000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_2000000
+
+  [Domain Rand #20] step=2,000,000
+    users=96, jammers=2, radius=480m, wind=0.8m/s
+
+    [Macro-80001] step=2,000,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-80401] step=2,010,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,020,000/5,000,000]  40.4% | ep=4019 | SPS=152 | Latency=344.1 | NOMA=2 | tx=0 | macro_t=80800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0081 critic=186771.0961 entropy=2.2559 kl=0.0090
+
+    [Macro-80801] step=2,020,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-81201] step=2,030,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,040,000/5,000,000]  40.8% | ep=4059 | SPS=152 | Latency=353.0 | NOMA=4 | tx=0 | macro_t=81600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0070 critic=110439.1074 entropy=2.3071 kl=0.0097
+
+    [Macro-81601] step=2,040,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-82001] step=2,050,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,060,000/5,000,000]  41.2% | ep=4099 | SPS=152 | Latency=341.8 | NOMA=3 | tx=1 | macro_t=82400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0025 critic=178808.7004 entropy=2.4314 kl=0.0085
+
+    [Macro-82401] step=2,060,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-82801] step=2,070,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,080,000/5,000,000]  41.6% | ep=4139 | SPS=152 | Latency=354.1 | NOMA=3 | tx=0 | macro_t=83200 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0012 critic=97711.8727 entropy=2.3582 kl=0.0103
+
+    [Macro-83201] step=2,080,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-83601] step=2,090,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,100,000/5,000,000]  42.0% | ep=4179 | SPS=152 | Latency=345.1 | NOMA=3 | tx=0 | macro_t=84000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 2,100,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_2100000.npz
+    saved P8_2D_trajectory_step2100000.png/.pdf
+    legend → P8_trajectory_legend_step2100000
+    saved P8_3D_trajectory_step2100000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_2100000
+
+  [Domain Rand #21] step=2,100,000
+    users=82, jammers=2, radius=403m, wind=3.2m/s
+
+    [Macro-84001] step=2,100,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-84401] step=2,110,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,120,000/5,000,000]  42.4% | ep=4218 | SPS=152 | Latency=304.9 | NOMA=4 | tx=0 | macro_t=84800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0141 critic=138716.2086 entropy=2.2571 kl=0.0095
+
+    [Macro-84801] step=2,120,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-85201] step=2,130,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,140,000/5,000,000]  42.8% | ep=4258 | SPS=152 | Latency=346.0 | NOMA=4 | tx=0 | macro_t=85600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0153 critic=57559.9662 entropy=2.2351 kl=0.0104
+
+    [Macro-85601] step=2,140,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-86001] step=2,150,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,160,000/5,000,000]  43.2% | ep=4298 | SPS=151 | Latency=317.4 | NOMA=4 | tx=0 | macro_t=86400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0119 critic=129266.0289 entropy=2.3134 kl=0.0083
+
+    [Macro-86401] step=2,160,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-86801] step=2,170,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,180,000/5,000,000]  43.6% | ep=4338 | SPS=151 | Latency=317.2 | NOMA=4 | tx=0 | macro_t=87200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0025 critic=20462.3596 entropy=2.3557 kl=0.0073
+
+    [Macro-87201] step=2,180,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-87601] step=2,190,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,200,000/5,000,000]  44.0% | ep=4378 | SPS=151 | Latency=277.8 | NOMA=3 | tx=1 | macro_t=88000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 2,200,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_2200000.npz
+    saved P8_2D_trajectory_step2200000.png/.pdf
+    legend → P8_trajectory_legend_step2200000
+    saved P8_3D_trajectory_step2200000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_2200000
+
+  [Domain Rand #22] step=2,200,000
+    users=112, jammers=2, radius=468m, wind=4.4m/s
+
+    [Macro-88001] step=2,200,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-88401] step=2,210,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,220,000/5,000,000]  44.4% | ep=4417 | SPS=151 | Latency=262.1 | NOMA=4 | tx=0 | macro_t=88800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0163 critic=135322.4986 entropy=2.2607 kl=0.0144
+
+    [Macro-88801] step=2,220,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-89201] step=2,230,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,240,000/5,000,000]  44.8% | ep=4457 | SPS=152 | Latency=284.6 | NOMA=3 | tx=0 | macro_t=89600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0064 critic=19011.1971 entropy=2.2606 kl=0.0127
+
+    [Macro-89601] step=2,240,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-90001] step=2,250,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,260,000/5,000,000]  45.2% | ep=4497 | SPS=152 | Latency=307.9 | NOMA=4 | tx=2 | macro_t=90400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0669 critic=53922.3438 entropy=2.2918 kl=0.1828
+
+    [Macro-90401] step=2,260,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-90801] step=2,270,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,280,000/5,000,000]  45.6% | ep=4537 | SPS=152 | Latency=326.7 | NOMA=2 | tx=0 | macro_t=91200 | best_R=-25843.3
+    [Update/MAPPO] actor=0.1367 critic=302347.4375 entropy=2.3227 kl=0.8382
+
+    [Macro-91201] step=2,280,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-91601] step=2,290,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,300,000/5,000,000]  46.0% | ep=4577 | SPS=152 | Latency=261.7 | NOMA=4 | tx=0 | macro_t=92000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 2,300,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_2300000.npz
+    saved P8_2D_trajectory_step2300000.png/.pdf
+    legend → P8_trajectory_legend_step2300000
+    saved P8_3D_trajectory_step2300000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_2300000
+
+  [Domain Rand #23] step=2,300,000
+    users=95, jammers=2, radius=506m, wind=4.5m/s
+
+    [Macro-92001] step=2,300,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-92401] step=2,310,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,320,000/5,000,000]  46.4% | ep=4616 | SPS=152 | Latency=309.0 | NOMA=2 | tx=2 | macro_t=92800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0020 critic=21109.1375 entropy=2.2934 kl=0.0110
+
+    [Macro-92801] step=2,320,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-93201] step=2,330,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,340,000/5,000,000]  46.8% | ep=4656 | SPS=152 | Latency=318.5 | NOMA=3 | tx=0 | macro_t=93600 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0193 critic=51669.6758 entropy=2.3030 kl=0.0457
+
+    [Macro-93601] step=2,340,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-94001] step=2,350,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,360,000/5,000,000]  47.2% | ep=4696 | SPS=153 | Latency=326.1 | NOMA=3 | tx=0 | macro_t=94400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0303 critic=57493.9512 entropy=2.3076 kl=0.0092
+
+    [Macro-94401] step=2,360,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-94801] step=2,370,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,380,000/5,000,000]  47.6% | ep=4736 | SPS=153 | Latency=315.9 | NOMA=2 | tx=1 | macro_t=95200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0192 critic=72600.9463 entropy=2.2919 kl=0.0168
+
+    [Macro-95201] step=2,380,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-95601] step=2,390,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,400,000/5,000,000]  48.0% | ep=4776 | SPS=153 | Latency=325.8 | NOMA=2 | tx=1 | macro_t=96000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 2,400,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_2400000.npz
+    saved P8_2D_trajectory_step2400000.png/.pdf
+    legend → P8_trajectory_legend_step2400000
+    saved P8_3D_trajectory_step2400000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_2400000
+
+  [Domain Rand #24] step=2,400,000
+    users=88, jammers=1, radius=569m, wind=4.4m/s
+
+    [Macro-96001] step=2,400,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-96401] step=2,410,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,420,000/5,000,000]  48.4% | ep=4815 | SPS=153 | Latency=302.3 | NOMA=2 | tx=0 | macro_t=96800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0030 critic=19236.3504 entropy=2.2743 kl=0.0082
+
+    [Macro-96801] step=2,420,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-97201] step=2,430,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,440,000/5,000,000]  48.8% | ep=4855 | SPS=153 | Latency=285.2 | NOMA=2 | tx=0 | macro_t=97600 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0287 critic=118010.4145 entropy=2.2414 kl=0.0187
+
+    [Macro-97601] step=2,440,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-98001] step=2,450,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,460,000/5,000,000]  49.2% | ep=4895 | SPS=154 | Latency=289.1 | NOMA=3 | tx=0 | macro_t=98400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0921 critic=58877.5391 entropy=2.2645 kl=0.0367
+
+    [Macro-98401] step=2,460,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-98801] step=2,470,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,480,000/5,000,000]  49.6% | ep=4935 | SPS=154 | Latency=291.3 | NOMA=2 | tx=0 | macro_t=99200 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0056 critic=32917.0812 entropy=2.2576 kl=0.0113
+
+    [Macro-99201] step=2,480,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-99601] step=2,490,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,500,000/5,000,000]  50.0% | ep=4975 | SPS=154 | Latency=276.2 | NOMA=3 | tx=1 | macro_t=100000 | best_R=-25843.3
+  [Checkpoint] results/checkpoints/MAPPO/full/model_step2500000.pt
+
+  [Video+Trajectory] Triggered at step 2,500,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_2500000.npz
+    saved P8_2D_trajectory_step2500000.png/.pdf
+    legend → P8_trajectory_legend_step2500000
+    saved P8_3D_trajectory_step2500000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_2500000
+
+  [Domain Rand #25] step=2,500,000
+    users=115, jammers=2, radius=420m, wind=0.8m/s
+
+    [Macro-100001] step=2,500,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-100401] step=2,510,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,520,000/5,000,000]  50.4% | ep=5014 | SPS=154 | Latency=334.6 | NOMA=2 | tx=0 | macro_t=100800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0037 critic=123027.8492 entropy=2.2914 kl=0.0107
+
+    [Macro-100801] step=2,520,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-101201] step=2,530,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,540,000/5,000,000]  50.8% | ep=5054 | SPS=154 | Latency=318.3 | NOMA=2 | tx=0 | macro_t=101600 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0161 critic=28240.9880 entropy=2.3073 kl=0.0143
+
+    [Macro-101601] step=2,540,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-102001] step=2,550,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,560,000/5,000,000]  51.2% | ep=5094 | SPS=154 | Latency=315.0 | NOMA=2 | tx=0 | macro_t=102400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0018 critic=31130.8641 entropy=2.3418 kl=0.0094
+
+    [Macro-102401] step=2,560,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-102801] step=2,570,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,580,000/5,000,000]  51.6% | ep=5134 | SPS=154 | Latency=361.4 | NOMA=3 | tx=1 | macro_t=103200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0260 critic=37796.3074 entropy=2.3108 kl=0.0094
+
+    [Macro-103201] step=2,580,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-103601] step=2,590,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,600,000/5,000,000]  52.0% | ep=5174 | SPS=154 | Latency=334.2 | NOMA=4 | tx=0 | macro_t=104000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 2,600,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_2600000.npz
+    saved P8_2D_trajectory_step2600000.png/.pdf
+    legend → P8_trajectory_legend_step2600000
+    saved P8_3D_trajectory_step2600000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_2600000
+
+  [Domain Rand #26] step=2,600,000
+    users=133, jammers=2, radius=435m, wind=0.9m/s
+
+    [Macro-104001] step=2,600,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-104401] step=2,610,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,620,000/5,000,000]  52.4% | ep=5213 | SPS=154 | Latency=310.3 | NOMA=2 | tx=0 | macro_t=104800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0004 critic=232753.5047 entropy=2.3201 kl=0.0116
+
+    [Macro-104801] step=2,620,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-105201] step=2,630,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,640,000/5,000,000]  52.8% | ep=5253 | SPS=154 | Latency=329.9 | NOMA=3 | tx=1 | macro_t=105600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0301 critic=241464.0125 entropy=2.3127 kl=0.0089
+
+    [Macro-105601] step=2,640,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-106001] step=2,650,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,660,000/5,000,000]  53.2% | ep=5293 | SPS=154 | Latency=313.9 | NOMA=3 | tx=0 | macro_t=106400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0068 critic=61794.1482 entropy=2.3048 kl=0.0134
+
+    [Macro-106401] step=2,660,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-106801] step=2,670,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,680,000/5,000,000]  53.6% | ep=5333 | SPS=155 | Latency=309.9 | NOMA=3 | tx=0 | macro_t=107200 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0108 critic=202867.8641 entropy=2.3636 kl=0.0057
+
+    [Macro-107201] step=2,680,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-107601] step=2,690,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,700,000/5,000,000]  54.0% | ep=5373 | SPS=155 | Latency=347.5 | NOMA=2 | tx=1 | macro_t=108000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 2,700,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_2700000.npz
+    saved P8_2D_trajectory_step2700000.png/.pdf
+    legend → P8_trajectory_legend_step2700000
+    saved P8_3D_trajectory_step2700000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_2700000
+
+  [Domain Rand #27] step=2,700,000
+    users=87, jammers=1, radius=509m, wind=1.3m/s
+
+    [Macro-108001] step=2,700,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-108401] step=2,710,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,720,000/5,000,000]  54.4% | ep=5412 | SPS=155 | Latency=344.9 | NOMA=2 | tx=0 | macro_t=108800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0229 critic=67974.9303 entropy=2.3165 kl=0.0113
+
+    [Macro-108801] step=2,720,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-109201] step=2,730,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,740,000/5,000,000]  54.8% | ep=5452 | SPS=155 | Latency=331.5 | NOMA=2 | tx=0 | macro_t=109600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0126 critic=27054.4976 entropy=2.3016 kl=0.0112
+
+    [Macro-109601] step=2,740,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-110001] step=2,750,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,760,000/5,000,000]  55.2% | ep=5492 | SPS=155 | Latency=320.5 | NOMA=2 | tx=0 | macro_t=110400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0017 critic=41498.3037 entropy=2.2841 kl=0.0066
+
+    [Macro-110401] step=2,760,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-110801] step=2,770,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,780,000/5,000,000]  55.6% | ep=5532 | SPS=155 | Latency=337.2 | NOMA=2 | tx=0 | macro_t=111200 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0319 critic=48845.3086 entropy=2.3051 kl=0.3357
+
+    [Macro-111201] step=2,780,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-111601] step=2,790,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,800,000/5,000,000]  56.0% | ep=5572 | SPS=155 | Latency=331.8 | NOMA=3 | tx=0 | macro_t=112000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 2,800,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_2800000.npz
+    saved P8_2D_trajectory_step2800000.png/.pdf
+    legend → P8_trajectory_legend_step2800000
+    saved P8_3D_trajectory_step2800000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_2800000
+
+  [Domain Rand #28] step=2,800,000
+    users=130, jammers=1, radius=501m, wind=1.0m/s
+
+    [Macro-112001] step=2,800,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-112401] step=2,810,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,820,000/5,000,000]  56.4% | ep=5611 | SPS=155 | Latency=346.6 | NOMA=2 | tx=0 | macro_t=112800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0255 critic=51470.8599 entropy=2.3236 kl=0.0234
+
+    [Macro-112801] step=2,820,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-113201] step=2,830,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,840,000/5,000,000]  56.8% | ep=5651 | SPS=155 | Latency=317.6 | NOMA=2 | tx=0 | macro_t=113600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0108 critic=44301.5512 entropy=2.3345 kl=0.0086
+
+    [Macro-113601] step=2,840,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-114001] step=2,850,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,860,000/5,000,000]  57.2% | ep=5691 | SPS=156 | Latency=326.7 | NOMA=2 | tx=0 | macro_t=114400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0178 critic=40918.7590 entropy=2.3650 kl=0.0148
+
+    [Macro-114401] step=2,860,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-114801] step=2,870,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,880,000/5,000,000]  57.6% | ep=5731 | SPS=156 | Latency=318.0 | NOMA=2 | tx=0 | macro_t=115200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0110 critic=56739.8455 entropy=2.4876 kl=0.0068
+
+    [Macro-115201] step=2,880,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-115601] step=2,890,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,900,000/5,000,000]  58.0% | ep=5771 | SPS=156 | Latency=332.4 | NOMA=2 | tx=0 | macro_t=116000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 2,900,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_2900000.npz
+    saved P8_2D_trajectory_step2900000.png/.pdf
+    legend → P8_trajectory_legend_step2900000
+    saved P8_3D_trajectory_step2900000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_2900000
+
+  [Domain Rand #29] step=2,900,000
+    users=98, jammers=1, radius=409m, wind=1.4m/s
+
+    [Macro-116001] step=2,900,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-116401] step=2,910,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,920,000/5,000,000]  58.4% | ep=5810 | SPS=156 | Latency=355.5 | NOMA=2 | tx=0 | macro_t=116800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0015 critic=144684.0039 entropy=2.3017 kl=0.0146
+
+    [Macro-116801] step=2,920,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-117201] step=2,930,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,940,000/5,000,000]  58.8% | ep=5850 | SPS=156 | Latency=314.4 | NOMA=2 | tx=1 | macro_t=117600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0046 critic=54110.7891 entropy=2.3215 kl=0.0320
+
+    [Macro-117601] step=2,940,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-118001] step=2,950,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,960,000/5,000,000]  59.2% | ep=5890 | SPS=156 | Latency=324.3 | NOMA=3 | tx=0 | macro_t=118400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0308 critic=116684.7449 entropy=2.3033 kl=0.0075
+
+    [Macro-118401] step=2,960,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-118801] step=2,970,001 | UAV positions updated | caches refreshed | K_c=25
+  [2,980,000/5,000,000]  59.6% | ep=5930 | SPS=156 | Latency=334.1 | NOMA=2 | tx=1 | macro_t=119200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0205 critic=195156.3453 entropy=2.3019 kl=0.0112
+
+    [Macro-119201] step=2,980,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-119601] step=2,990,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,000,000/5,000,000]  60.0% | ep=5970 | SPS=156 | Latency=349.7 | NOMA=3 | tx=0 | macro_t=120000 | best_R=-25843.3
+  [Checkpoint] results/checkpoints/MAPPO/full/model_step3000000.pt
+
+  [Video+Trajectory] Triggered at step 3,000,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_3000000.npz
+    saved P8_2D_trajectory_step3000000.png/.pdf
+    legend → P8_trajectory_legend_step3000000
+    saved P8_3D_trajectory_step3000000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_3000000
+
+  [Domain Rand #30] step=3,000,000
+    users=116, jammers=1, radius=514m, wind=1.5m/s
+
+    [Macro-120001] step=3,000,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-120401] step=3,010,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,020,000/5,000,000]  60.4% | ep=6009 | SPS=156 | Latency=347.7 | NOMA=4 | tx=0 | macro_t=120800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0032 critic=94255.2242 entropy=2.5584 kl=0.0060
+
+    [Macro-120801] step=3,020,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-121201] step=3,030,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,040,000/5,000,000]  60.8% | ep=6049 | SPS=156 | Latency=339.2 | NOMA=4 | tx=0 | macro_t=121600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0023 critic=16185.2312 entropy=2.6258 kl=0.0094
+
+    [Macro-121601] step=3,040,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-122001] step=3,050,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,060,000/5,000,000]  61.2% | ep=6089 | SPS=156 | Latency=316.9 | NOMA=3 | tx=1 | macro_t=122400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0022 critic=42364.6699 entropy=2.6903 kl=0.0084
+
+    [Macro-122401] step=3,060,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-122801] step=3,070,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,080,000/5,000,000]  61.6% | ep=6129 | SPS=156 | Latency=330.4 | NOMA=5 | tx=0 | macro_t=123200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0047 critic=24104.6118 entropy=2.6774 kl=0.0105
+
+    [Macro-123201] step=3,080,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-123601] step=3,090,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,100,000/5,000,000]  62.0% | ep=6169 | SPS=156 | Latency=372.3 | NOMA=2 | tx=0 | macro_t=124000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 3,100,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_3100000.npz
+    saved P8_2D_trajectory_step3100000.png/.pdf
+    legend → P8_trajectory_legend_step3100000
+    saved P8_3D_trajectory_step3100000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_3100000
+
+  [Domain Rand #31] step=3,100,000
+    users=112, jammers=2, radius=479m, wind=0.4m/s
+
+    [Macro-124001] step=3,100,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-124401] step=3,110,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,120,000/5,000,000]  62.4% | ep=6208 | SPS=156 | Latency=336.4 | NOMA=3 | tx=1 | macro_t=124800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0208 critic=15699.6702 entropy=2.2906 kl=0.0099
+
+    [Macro-124801] step=3,120,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-125201] step=3,130,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,140,000/5,000,000]  62.8% | ep=6248 | SPS=156 | Latency=338.8 | NOMA=2 | tx=0 | macro_t=125600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0131 critic=62192.2797 entropy=2.3287 kl=0.0079
+
+    [Macro-125601] step=3,140,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-126001] step=3,150,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,160,000/5,000,000]  63.2% | ep=6288 | SPS=156 | Latency=326.4 | NOMA=3 | tx=0 | macro_t=126400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0017 critic=27427.4840 entropy=2.2926 kl=0.0067
+
+    [Macro-126401] step=3,160,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-126801] step=3,170,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,180,000/5,000,000]  63.6% | ep=6328 | SPS=156 | Latency=297.1 | NOMA=3 | tx=0 | macro_t=127200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0078 critic=30499.4907 entropy=2.3112 kl=0.0244
+
+    [Macro-127201] step=3,180,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-127601] step=3,190,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,200,000/5,000,000]  64.0% | ep=6368 | SPS=156 | Latency=339.3 | NOMA=2 | tx=0 | macro_t=128000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 3,200,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_3200000.npz
+    saved P8_2D_trajectory_step3200000.png/.pdf
+    legend → P8_trajectory_legend_step3200000
+    saved P8_3D_trajectory_step3200000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_3200000
+
+  [Domain Rand #32] step=3,200,000
+    users=126, jammers=1, radius=575m, wind=3.5m/s
+
+    [Macro-128001] step=3,200,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-128401] step=3,210,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,220,000/5,000,000]  64.4% | ep=6407 | SPS=156 | Latency=283.9 | NOMA=2 | tx=0 | macro_t=128800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0001 critic=17171.1203 entropy=2.3611 kl=0.0084
+
+    [Macro-128801] step=3,220,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-129201] step=3,230,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,240,000/5,000,000]  64.8% | ep=6447 | SPS=156 | Latency=306.5 | NOMA=2 | tx=0 | macro_t=129600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0067 critic=30818.4789 entropy=2.3608 kl=0.0040
+
+    [Macro-129601] step=3,240,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-130001] step=3,250,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,260,000/5,000,000]  65.2% | ep=6487 | SPS=156 | Latency=299.8 | NOMA=2 | tx=0 | macro_t=130400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0345 critic=22703.7473 entropy=2.2825 kl=0.0129
+
+    [Macro-130401] step=3,260,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-130801] step=3,270,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,280,000/5,000,000]  65.6% | ep=6527 | SPS=156 | Latency=268.7 | NOMA=2 | tx=1 | macro_t=131200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0551 critic=19230.7930 entropy=2.2959 kl=0.0313
+
+    [Macro-131201] step=3,280,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-131601] step=3,290,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,300,000/5,000,000]  66.0% | ep=6567 | SPS=157 | Latency=321.6 | NOMA=4 | tx=0 | macro_t=132000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 3,300,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_3300000.npz
+    saved P8_2D_trajectory_step3300000.png/.pdf
+    legend → P8_trajectory_legend_step3300000
+    saved P8_3D_trajectory_step3300000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_3300000
+
+  [Domain Rand #33] step=3,300,000
+    users=121, jammers=1, radius=522m, wind=3.1m/s
+
+    [Macro-132001] step=3,300,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-132401] step=3,310,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,320,000/5,000,000]  66.4% | ep=6606 | SPS=157 | Latency=287.1 | NOMA=2 | tx=0 | macro_t=132800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0099 critic=6503.0122 entropy=2.2864 kl=0.2930
+
+    [Macro-132801] step=3,320,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-133201] step=3,330,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,340,000/5,000,000]  66.8% | ep=6646 | SPS=157 | Latency=308.0 | NOMA=2 | tx=0 | macro_t=133600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0105 critic=28369.4473 entropy=2.3051 kl=0.1395
+
+    [Macro-133601] step=3,340,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-134001] step=3,350,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,360,000/5,000,000]  67.2% | ep=6686 | SPS=157 | Latency=257.7 | NOMA=3 | tx=0 | macro_t=134400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0365 critic=32690.4989 entropy=2.3272 kl=0.0086
+
+    [Macro-134401] step=3,360,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-134801] step=3,370,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,380,000/5,000,000]  67.6% | ep=6726 | SPS=157 | Latency=287.5 | NOMA=2 | tx=1 | macro_t=135200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0382 critic=14774.8380 entropy=2.2850 kl=0.0127
+
+    [Macro-135201] step=3,380,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-135601] step=3,390,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,400,000/5,000,000]  68.0% | ep=6766 | SPS=157 | Latency=271.7 | NOMA=4 | tx=0 | macro_t=136000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 3,400,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_3400000.npz
+    saved P8_2D_trajectory_step3400000.png/.pdf
+    legend → P8_trajectory_legend_step3400000
+    saved P8_3D_trajectory_step3400000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_3400000
+
+  [Domain Rand #34] step=3,400,000
+    users=87, jammers=1, radius=475m, wind=0.2m/s
+
+    [Macro-136001] step=3,400,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-136401] step=3,410,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,420,000/5,000,000]  68.4% | ep=6805 | SPS=157 | Latency=315.0 | NOMA=4 | tx=0 | macro_t=136800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0025 critic=166384.3227 entropy=2.3271 kl=0.0053
+
+    [Macro-136801] step=3,420,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-137201] step=3,430,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,440,000/5,000,000]  68.8% | ep=6845 | SPS=157 | Latency=310.2 | NOMA=4 | tx=0 | macro_t=137600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0049 critic=145669.3367 entropy=2.3398 kl=0.0062
+
+    [Macro-137601] step=3,440,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-138001] step=3,450,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,460,000/5,000,000]  69.2% | ep=6885 | SPS=157 | Latency=272.6 | NOMA=5 | tx=1 | macro_t=138400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0055 critic=12726.5128 entropy=2.5166 kl=0.0075
+
+    [Macro-138401] step=3,460,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-138801] step=3,470,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,480,000/5,000,000]  69.6% | ep=6925 | SPS=157 | Latency=305.9 | NOMA=3 | tx=0 | macro_t=139200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0041 critic=54223.2330 entropy=2.6997 kl=0.0106
+
+    [Macro-139201] step=3,480,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-139601] step=3,490,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,500,000/5,000,000]  70.0% | ep=6965 | SPS=157 | Latency=291.4 | NOMA=3 | tx=1 | macro_t=140000 | best_R=-25843.3
+  [Checkpoint] results/checkpoints/MAPPO/full/model_step3500000.pt
+
+  [Video+Trajectory] Triggered at step 3,500,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_3500000.npz
+    saved P8_2D_trajectory_step3500000.png/.pdf
+    legend → P8_trajectory_legend_step3500000
+    saved P8_3D_trajectory_step3500000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_3500000
+
+  [Domain Rand #35] step=3,500,000
+    users=142, jammers=2, radius=406m, wind=1.8m/s
+
+    [Macro-140001] step=3,500,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-140401] step=3,510,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,520,000/5,000,000]  70.4% | ep=7004 | SPS=157 | Latency=327.3 | NOMA=4 | tx=0 | macro_t=140800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0037 critic=140281.1164 entropy=2.7112 kl=0.0098
+
+    [Macro-140801] step=3,520,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-141201] step=3,530,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,540,000/5,000,000]  70.8% | ep=7044 | SPS=156 | Latency=292.2 | NOMA=5 | tx=0 | macro_t=141600 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0012 critic=30722.4379 entropy=2.7072 kl=0.0113
+
+    [Macro-141601] step=3,540,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-142001] step=3,550,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,560,000/5,000,000]  71.2% | ep=7084 | SPS=156 | Latency=330.1 | NOMA=3 | tx=0 | macro_t=142400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0014 critic=172421.5664 entropy=2.7096 kl=0.0072
+
+    [Macro-142401] step=3,560,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-142801] step=3,570,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,580,000/5,000,000]  71.6% | ep=7124 | SPS=156 | Latency=357.3 | NOMA=5 | tx=0 | macro_t=143200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0069 critic=30433.9719 entropy=2.6701 kl=0.0082
+
+    [Macro-143201] step=3,580,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-143601] step=3,590,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,600,000/5,000,000]  72.0% | ep=7164 | SPS=156 | Latency=290.1 | NOMA=6 | tx=1 | macro_t=144000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 3,600,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_3600000.npz
+    saved P8_2D_trajectory_step3600000.png/.pdf
+    legend → P8_trajectory_legend_step3600000
+    saved P8_3D_trajectory_step3600000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_3600000
+
+  [Domain Rand #36] step=3,600,000
+    users=87, jammers=2, radius=525m, wind=2.7m/s
+
+    [Macro-144001] step=3,600,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-144401] step=3,610,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,620,000/5,000,000]  72.4% | ep=7203 | SPS=156 | Latency=345.7 | NOMA=3 | tx=0 | macro_t=144800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0015 critic=180108.4844 entropy=2.7175 kl=0.0064
+
+    [Macro-144801] step=3,620,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-145201] step=3,630,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,640,000/5,000,000]  72.8% | ep=7243 | SPS=155 | Latency=328.1 | NOMA=3 | tx=0 | macro_t=145600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0007 critic=91888.6941 entropy=2.7175 kl=0.0066
+
+    [Macro-145601] step=3,640,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-146001] step=3,650,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,660,000/5,000,000]  73.2% | ep=7283 | SPS=155 | Latency=349.1 | NOMA=5 | tx=0 | macro_t=146400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0033 critic=101624.3500 entropy=2.7025 kl=0.0071
+
+    [Macro-146401] step=3,660,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-146801] step=3,670,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,680,000/5,000,000]  73.6% | ep=7323 | SPS=155 | Latency=324.2 | NOMA=4 | tx=0 | macro_t=147200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0024 critic=24257.9110 entropy=2.7197 kl=0.0094
+
+    [Macro-147201] step=3,680,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-147601] step=3,690,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,700,000/5,000,000]  74.0% | ep=7363 | SPS=155 | Latency=309.1 | NOMA=5 | tx=0 | macro_t=148000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 3,700,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_3700000.npz
+    saved P8_2D_trajectory_step3700000.png/.pdf
+    legend → P8_trajectory_legend_step3700000
+    saved P8_3D_trajectory_step3700000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_3700000
+
+  [Domain Rand #37] step=3,700,000
+    users=134, jammers=2, radius=503m, wind=1.4m/s
+
+    [Macro-148001] step=3,700,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-148401] step=3,710,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,720,000/5,000,000]  74.4% | ep=7402 | SPS=155 | Latency=295.7 | NOMA=5 | tx=0 | macro_t=148800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0000 critic=51295.9436 entropy=2.4854 kl=0.0099
+
+    [Macro-148801] step=3,720,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-149201] step=3,730,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,740,000/5,000,000]  74.8% | ep=7442 | SPS=154 | Latency=287.6 | NOMA=6 | tx=2 | macro_t=149600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0146 critic=16020.7362 entropy=2.4496 kl=0.0139
+
+    [Macro-149601] step=3,740,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-150001] step=3,750,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,760,000/5,000,000]  75.2% | ep=7482 | SPS=154 | Latency=359.4 | NOMA=4 | tx=0 | macro_t=150400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0011 critic=85318.4316 entropy=2.3966 kl=0.0080
+
+    [Macro-150401] step=3,760,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-150801] step=3,770,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,780,000/5,000,000]  75.6% | ep=7522 | SPS=154 | Latency=270.1 | NOMA=5 | tx=2 | macro_t=151200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0076 critic=113795.8648 entropy=2.3586 kl=0.0078
+
+    [Macro-151201] step=3,780,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-151601] step=3,790,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,800,000/5,000,000]  76.0% | ep=7562 | SPS=154 | Latency=308.1 | NOMA=4 | tx=0 | macro_t=152000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 3,800,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_3800000.npz
+    saved P8_2D_trajectory_step3800000.png/.pdf
+    legend → P8_trajectory_legend_step3800000
+    saved P8_3D_trajectory_step3800000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_3800000
+
+  [Domain Rand #38] step=3,800,000
+    users=134, jammers=1, radius=416m, wind=0.3m/s
+
+    [Macro-152001] step=3,800,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-152401] step=3,810,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,820,000/5,000,000]  76.4% | ep=7601 | SPS=154 | Latency=246.6 | NOMA=3 | tx=0 | macro_t=152800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0030 critic=278065.2366 entropy=2.2939 kl=0.0240
+
+    [Macro-152801] step=3,820,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-153201] step=3,830,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,840,000/5,000,000]  76.8% | ep=7641 | SPS=154 | Latency=286.0 | NOMA=3 | tx=0 | macro_t=153600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0374 critic=53347.0000 entropy=2.3141 kl=0.2039
+
+    [Macro-153601] step=3,840,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-154001] step=3,850,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,860,000/5,000,000]  77.2% | ep=7681 | SPS=154 | Latency=255.7 | NOMA=4 | tx=0 | macro_t=154400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0090 critic=86618.0422 entropy=2.3251 kl=0.0100
+
+    [Macro-154401] step=3,860,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-154801] step=3,870,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,880,000/5,000,000]  77.6% | ep=7721 | SPS=154 | Latency=294.3 | NOMA=2 | tx=0 | macro_t=155200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0077 critic=72793.9953 entropy=2.2582 kl=0.0131
+
+    [Macro-155201] step=3,880,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-155601] step=3,890,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,900,000/5,000,000]  78.0% | ep=7761 | SPS=154 | Latency=268.7 | NOMA=3 | tx=1 | macro_t=156000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 3,900,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_3900000.npz
+    saved P8_2D_trajectory_step3900000.png/.pdf
+    legend → P8_trajectory_legend_step3900000
+    saved P8_3D_trajectory_step3900000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_3900000
+
+  [Domain Rand #39] step=3,900,000
+    users=113, jammers=2, radius=528m, wind=2.2m/s
+
+    [Macro-156001] step=3,900,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-156401] step=3,910,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,920,000/5,000,000]  78.4% | ep=7800 | SPS=154 | Latency=258.0 | NOMA=3 | tx=0 | macro_t=156800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0065 critic=40044.6609 entropy=2.3264 kl=0.0134
+
+    [Macro-156801] step=3,920,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-157201] step=3,930,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,940,000/5,000,000]  78.8% | ep=7840 | SPS=155 | Latency=239.8 | NOMA=3 | tx=1 | macro_t=157600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0183 critic=17554.5820 entropy=2.2953 kl=0.2584
+
+    [Macro-157601] step=3,940,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-158001] step=3,950,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,960,000/5,000,000]  79.2% | ep=7880 | SPS=155 | Latency=275.4 | NOMA=3 | tx=1 | macro_t=158400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0109 critic=30919.3965 entropy=2.2967 kl=0.0838
+
+    [Macro-158401] step=3,960,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-158801] step=3,970,001 | UAV positions updated | caches refreshed | K_c=25
+  [3,980,000/5,000,000]  79.6% | ep=7920 | SPS=155 | Latency=233.0 | NOMA=3 | tx=0 | macro_t=159200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0362 critic=166124.9203 entropy=2.3214 kl=0.0153
+
+    [Macro-159201] step=3,980,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-159601] step=3,990,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,000,000/5,000,000]  80.0% | ep=7960 | SPS=155 | Latency=261.4 | NOMA=2 | tx=0 | macro_t=160000 | best_R=-25843.3
+  [Checkpoint] results/checkpoints/MAPPO/full/model_step4000000.pt
+
+  [Video+Trajectory] Triggered at step 4,000,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_4000000.npz
+    saved P8_2D_trajectory_step4000000.png/.pdf
+    legend → P8_trajectory_legend_step4000000
+    saved P8_3D_trajectory_step4000000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_4000000
+
+  [Domain Rand #40] step=4,000,000
+    users=146, jammers=2, radius=552m, wind=0.2m/s
+
+    [Macro-160001] step=4,000,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-160401] step=4,010,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,020,000/5,000,000]  80.4% | ep=7999 | SPS=155 | Latency=309.9 | NOMA=3 | tx=0 | macro_t=160800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0055 critic=108662.4918 entropy=2.3505 kl=0.0037
+
+    [Macro-160801] step=4,020,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-161201] step=4,030,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,040,000/5,000,000]  80.8% | ep=8039 | SPS=155 | Latency=275.4 | NOMA=4 | tx=0 | macro_t=161600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0004 critic=14871.0396 entropy=2.3619 kl=0.0063
+
+    [Macro-161601] step=4,040,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-162001] step=4,050,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,060,000/5,000,000]  81.2% | ep=8079 | SPS=154 | Latency=294.8 | NOMA=3 | tx=0 | macro_t=162400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0006 critic=99340.9535 entropy=2.3298 kl=0.0052
+
+    [Macro-162401] step=4,060,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-162801] step=4,070,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,080,000/5,000,000]  81.6% | ep=8119 | SPS=154 | Latency=317.6 | NOMA=4 | tx=0 | macro_t=163200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0019 critic=118795.3105 entropy=2.3885 kl=0.0031
+
+    [Macro-163201] step=4,080,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-163601] step=4,090,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,100,000/5,000,000]  82.0% | ep=8159 | SPS=154 | Latency=298.7 | NOMA=4 | tx=1 | macro_t=164000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 4,100,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_4100000.npz
+    saved P8_2D_trajectory_step4100000.png/.pdf
+    legend → P8_trajectory_legend_step4100000
+    saved P8_3D_trajectory_step4100000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_4100000
+
+  [Domain Rand #41] step=4,100,000
+    users=141, jammers=1, radius=420m, wind=0.9m/s
+
+    [Macro-164001] step=4,100,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-164401] step=4,110,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,120,000/5,000,000]  82.4% | ep=8198 | SPS=154 | Latency=280.1 | NOMA=3 | tx=0 | macro_t=164800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0045 critic=261911.6180 entropy=2.3649 kl=0.0090
+
+    [Macro-164801] step=4,120,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-165201] step=4,130,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,140,000/5,000,000]  82.8% | ep=8238 | SPS=154 | Latency=289.2 | NOMA=4 | tx=0 | macro_t=165600 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0015 critic=108126.7375 entropy=2.4291 kl=0.0047
+
+    [Macro-165601] step=4,140,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-166001] step=4,150,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,160,000/5,000,000]  83.2% | ep=8278 | SPS=154 | Latency=304.3 | NOMA=5 | tx=0 | macro_t=166400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0081 critic=92042.0314 entropy=2.3256 kl=0.0118
+
+    [Macro-166401] step=4,160,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-166801] step=4,170,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,180,000/5,000,000]  83.6% | ep=8318 | SPS=154 | Latency=325.3 | NOMA=5 | tx=0 | macro_t=167200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0059 critic=36582.7330 entropy=2.3157 kl=0.0071
+
+    [Macro-167201] step=4,180,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-167601] step=4,190,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,200,000/5,000,000]  84.0% | ep=8358 | SPS=154 | Latency=327.8 | NOMA=4 | tx=0 | macro_t=168000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 4,200,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_4200000.npz
+    saved P8_2D_trajectory_step4200000.png/.pdf
+    legend → P8_trajectory_legend_step4200000
+    saved P8_3D_trajectory_step4200000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_4200000
+
+  [Domain Rand #42] step=4,200,000
+    users=102, jammers=2, radius=577m, wind=4.7m/s
+
+    [Macro-168001] step=4,200,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-168401] step=4,210,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,220,000/5,000,000]  84.4% | ep=8397 | SPS=154 | Latency=272.9 | NOMA=3 | tx=1 | macro_t=168800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0093 critic=50832.3467 entropy=2.3520 kl=0.0070
+
+    [Macro-168801] step=4,220,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-169201] step=4,230,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,240,000/5,000,000]  84.8% | ep=8437 | SPS=154 | Latency=283.6 | NOMA=4 | tx=0 | macro_t=169600 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0167 critic=11689.2487 entropy=2.4664 kl=0.0088
+
+    [Macro-169601] step=4,240,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-170001] step=4,250,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,260,000/5,000,000]  85.2% | ep=8477 | SPS=154 | Latency=298.5 | NOMA=2 | tx=0 | macro_t=170400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0179 critic=61989.0906 entropy=2.3967 kl=0.0061
+
+    [Macro-170401] step=4,260,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-170801] step=4,270,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,280,000/5,000,000]  85.6% | ep=8517 | SPS=154 | Latency=244.4 | NOMA=3 | tx=0 | macro_t=171200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0038 critic=30655.5739 entropy=2.5955 kl=0.0122
+
+    [Macro-171201] step=4,280,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-171601] step=4,290,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,300,000/5,000,000]  86.0% | ep=8557 | SPS=154 | Latency=247.6 | NOMA=3 | tx=1 | macro_t=172000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 4,300,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_4300000.npz
+    saved P8_2D_trajectory_step4300000.png/.pdf
+    legend → P8_trajectory_legend_step4300000
+    saved P8_3D_trajectory_step4300000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_4300000
+
+  [Domain Rand #43] step=4,300,000
+    users=148, jammers=2, radius=589m, wind=3.2m/s
+
+    [Macro-172001] step=4,300,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-172401] step=4,310,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,320,000/5,000,000]  86.4% | ep=8596 | SPS=154 | Latency=293.9 | NOMA=5 | tx=0 | macro_t=172800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0003 critic=26482.6520 entropy=2.5678 kl=0.0092
+
+    [Macro-172801] step=4,320,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-173201] step=4,330,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,340,000/5,000,000]  86.8% | ep=8636 | SPS=153 | Latency=350.6 | NOMA=3 | tx=1 | macro_t=173600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0049 critic=71908.5006 entropy=2.6587 kl=0.0100
+
+    [Macro-173601] step=4,340,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-174001] step=4,350,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,360,000/5,000,000]  87.2% | ep=8676 | SPS=153 | Latency=341.0 | NOMA=3 | tx=0 | macro_t=174400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0000 critic=18579.6701 entropy=2.6892 kl=0.0082
+
+    [Macro-174401] step=4,360,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-174801] step=4,370,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,380,000/5,000,000]  87.6% | ep=8716 | SPS=153 | Latency=301.2 | NOMA=4 | tx=1 | macro_t=175200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0035 critic=36255.7321 entropy=2.7135 kl=0.0084
+
+    [Macro-175201] step=4,380,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-175601] step=4,390,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,400,000/5,000,000]  88.0% | ep=8756 | SPS=153 | Latency=317.1 | NOMA=3 | tx=0 | macro_t=176000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 4,400,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_4400000.npz
+    saved P8_2D_trajectory_step4400000.png/.pdf
+    legend → P8_trajectory_legend_step4400000
+    saved P8_3D_trajectory_step4400000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_4400000
+
+  [Domain Rand #44] step=4,400,000
+    users=91, jammers=1, radius=492m, wind=1.9m/s
+
+    [Macro-176001] step=4,400,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-176401] step=4,410,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,420,000/5,000,000]  88.4% | ep=8795 | SPS=153 | Latency=273.4 | NOMA=3 | tx=1 | macro_t=176800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0077 critic=16891.9082 entropy=2.2998 kl=0.0309
+
+    [Macro-176801] step=4,420,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-177201] step=4,430,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,440,000/5,000,000]  88.8% | ep=8835 | SPS=153 | Latency=253.3 | NOMA=4 | tx=0 | macro_t=177600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0120 critic=11455.0118 entropy=2.3157 kl=0.0141
+
+    [Macro-177601] step=4,440,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-178001] step=4,450,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,460,000/5,000,000]  89.2% | ep=8875 | SPS=153 | Latency=295.8 | NOMA=2 | tx=1 | macro_t=178400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0471 critic=105653.7215 entropy=2.3170 kl=0.0113
+
+    [Macro-178401] step=4,460,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-178801] step=4,470,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,480,000/5,000,000]  89.6% | ep=8915 | SPS=153 | Latency=278.4 | NOMA=4 | tx=0 | macro_t=179200 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0110 critic=12198.3923 entropy=2.3153 kl=0.0224
+
+    [Macro-179201] step=4,480,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-179601] step=4,490,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,500,000/5,000,000]  90.0% | ep=8955 | SPS=153 | Latency=229.3 | NOMA=2 | tx=1 | macro_t=180000 | best_R=-25843.3
+  [Checkpoint] results/checkpoints/MAPPO/full/model_step4500000.pt
+
+  [Video+Trajectory] Triggered at step 4,500,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_4500000.npz
+    saved P8_2D_trajectory_step4500000.png/.pdf
+    legend → P8_trajectory_legend_step4500000
+    saved P8_3D_trajectory_step4500000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_4500000
+
+  [Domain Rand #45] step=4,500,000
+    users=122, jammers=1, radius=420m, wind=3.4m/s
+
+    [Macro-180001] step=4,500,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-180401] step=4,510,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,520,000/5,000,000]  90.4% | ep=8994 | SPS=153 | Latency=255.8 | NOMA=5 | tx=0 | macro_t=180800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0129 critic=39848.1672 entropy=2.3306 kl=0.0082
+
+    [Macro-180801] step=4,520,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-181201] step=4,530,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,540,000/5,000,000]  90.8% | ep=9034 | SPS=153 | Latency=248.4 | NOMA=5 | tx=1 | macro_t=181600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0023 critic=229423.8266 entropy=2.4303 kl=0.0069
+
+    [Macro-181601] step=4,540,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-182001] step=4,550,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,560,000/5,000,000]  91.2% | ep=9074 | SPS=153 | Latency=304.1 | NOMA=5 | tx=0 | macro_t=182400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0093 critic=66137.6854 entropy=2.5770 kl=0.0104
+
+    [Macro-182401] step=4,560,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-182801] step=4,570,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,580,000/5,000,000]  91.6% | ep=9114 | SPS=153 | Latency=348.1 | NOMA=4 | tx=0 | macro_t=183200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0024 critic=146035.8699 entropy=2.6780 kl=0.0095
+
+    [Macro-183201] step=4,580,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-183601] step=4,590,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,600,000/5,000,000]  92.0% | ep=9154 | SPS=153 | Latency=292.3 | NOMA=3 | tx=0 | macro_t=184000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 4,600,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_4600000.npz
+    saved P8_2D_trajectory_step4600000.png/.pdf
+    legend → P8_trajectory_legend_step4600000
+    saved P8_3D_trajectory_step4600000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_4600000
+
+  [Domain Rand #46] step=4,600,000
+    users=87, jammers=2, radius=468m, wind=3.5m/s
+
+    [Macro-184001] step=4,600,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-184401] step=4,610,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,620,000/5,000,000]  92.4% | ep=9193 | SPS=152 | Latency=277.4 | NOMA=2 | tx=0 | macro_t=184800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0009 critic=184641.4418 entropy=2.6882 kl=0.0062
+
+    [Macro-184801] step=4,620,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-185201] step=4,630,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,640,000/5,000,000]  92.8% | ep=9233 | SPS=152 | Latency=340.3 | NOMA=5 | tx=0 | macro_t=185600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0009 critic=96288.8727 entropy=2.7111 kl=0.0061
+
+    [Macro-185601] step=4,640,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-186001] step=4,650,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,660,000/5,000,000]  93.2% | ep=9273 | SPS=152 | Latency=326.1 | NOMA=2 | tx=0 | macro_t=186400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0034 critic=270391.0070 entropy=2.7228 kl=0.0075
+
+    [Macro-186401] step=4,660,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-186801] step=4,670,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,680,000/5,000,000]  93.6% | ep=9313 | SPS=152 | Latency=280.7 | NOMA=5 | tx=0 | macro_t=187200 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0001 critic=102260.3867 entropy=2.6953 kl=0.0095
+
+    [Macro-187201] step=4,680,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-187601] step=4,690,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,700,000/5,000,000]  94.0% | ep=9353 | SPS=152 | Latency=363.6 | NOMA=4 | tx=0 | macro_t=188000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 4,700,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_4700000.npz
+    saved P8_2D_trajectory_step4700000.png/.pdf
+    legend → P8_trajectory_legend_step4700000
+    saved P8_3D_trajectory_step4700000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_4700000
+
+  [Domain Rand #47] step=4,700,000
+    users=108, jammers=1, radius=456m, wind=4.0m/s
+
+    [Macro-188001] step=4,700,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-188401] step=4,710,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,720,000/5,000,000]  94.4% | ep=9392 | SPS=152 | Latency=305.6 | NOMA=3 | tx=0 | macro_t=188800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0104 critic=225807.8305 entropy=2.4445 kl=0.0096
+
+    [Macro-188801] step=4,720,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-189201] step=4,730,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,740,000/5,000,000]  94.8% | ep=9432 | SPS=152 | Latency=329.0 | NOMA=3 | tx=0 | macro_t=189600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0208 critic=22911.3235 entropy=2.3017 kl=0.0093
+
+    [Macro-189601] step=4,740,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-190001] step=4,750,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,760,000/5,000,000]  95.2% | ep=9472 | SPS=152 | Latency=293.5 | NOMA=3 | tx=0 | macro_t=190400 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0102 critic=19396.4031 entropy=2.3325 kl=0.0058
+
+    [Macro-190401] step=4,760,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-190801] step=4,770,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,780,000/5,000,000]  95.6% | ep=9512 | SPS=152 | Latency=285.8 | NOMA=3 | tx=0 | macro_t=191200 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0029 critic=247218.0258 entropy=2.3809 kl=0.0106
+
+    [Macro-191201] step=4,780,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-191601] step=4,790,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,800,000/5,000,000]  96.0% | ep=9552 | SPS=152 | Latency=301.9 | NOMA=4 | tx=0 | macro_t=192000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 4,800,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_4800000.npz
+    saved P8_2D_trajectory_step4800000.png/.pdf
+    legend → P8_trajectory_legend_step4800000
+    saved P8_3D_trajectory_step4800000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_4800000
+
+  [Domain Rand #48] step=4,800,000
+    users=115, jammers=1, radius=468m, wind=2.1m/s
+
+    [Macro-192001] step=4,800,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-192401] step=4,810,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,820,000/5,000,000]  96.4% | ep=9591 | SPS=152 | Latency=280.1 | NOMA=2 | tx=0 | macro_t=192800 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0373 critic=26328.5566 entropy=2.2964 kl=0.1233
+
+    [Macro-192801] step=4,820,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-193201] step=4,830,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,840,000/5,000,000]  96.8% | ep=9631 | SPS=152 | Latency=322.8 | NOMA=2 | tx=0 | macro_t=193600 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0049 critic=132935.1539 entropy=2.3177 kl=0.0111
+
+    [Macro-193601] step=4,840,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-194001] step=4,850,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,860,000/5,000,000]  97.2% | ep=9671 | SPS=152 | Latency=270.1 | NOMA=2 | tx=0 | macro_t=194400 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0076 critic=154573.7113 entropy=2.3102 kl=0.0122
+
+    [Macro-194401] step=4,860,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-194801] step=4,870,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,880,000/5,000,000]  97.6% | ep=9711 | SPS=152 | Latency=290.1 | NOMA=2 | tx=0 | macro_t=195200 | best_R=-25843.3
+    [Update/MAPPO] actor=0.0103 critic=94411.6699 entropy=2.3067 kl=0.0046
+
+    [Macro-195201] step=4,880,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-195601] step=4,890,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,900,000/5,000,000]  98.0% | ep=9751 | SPS=152 | Latency=318.1 | NOMA=3 | tx=0 | macro_t=196000 | best_R=-25843.3
+
+  [Video+Trajectory] Triggered at step 4,900,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_4900000.npz
+    saved P8_2D_trajectory_step4900000.png/.pdf
+    legend → P8_trajectory_legend_step4900000
+    saved P8_3D_trajectory_step4900000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_4900000
+
+  [Domain Rand #49] step=4,900,000
+    users=109, jammers=1, radius=565m, wind=1.9m/s
+
+    [Macro-196001] step=4,900,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-196401] step=4,910,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,920,000/5,000,000]  98.4% | ep=9790 | SPS=152 | Latency=278.9 | NOMA=3 | tx=0 | macro_t=196800 | best_R=-25843.3
+    [Update/MAPPO] actor=-0.0402 critic=43880.3672 entropy=2.3040 kl=0.0842
+
+    [Macro-196801] step=4,920,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-197201] step=4,930,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,940,000/5,000,000]  98.8% | ep=9830 | SPS=153 | Latency=215.4 | NOMA=3 | tx=1 | macro_t=197600 | best_R=-24837.8
+    [Update/MAPPO] actor=-0.0031 critic=28924.7782 entropy=2.3372 kl=0.0130
+
+    [Macro-197601] step=4,940,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-198001] step=4,950,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,960,000/5,000,000]  99.2% | ep=9870 | SPS=153 | Latency=181.2 | NOMA=2 | tx=1 | macro_t=198400 | best_R=-23672.5
+    [Update/MAPPO] actor=-0.0361 critic=59561.7383 entropy=2.3368 kl=0.2310
+
+    [Macro-198401] step=4,960,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-198801] step=4,970,001 | UAV positions updated | caches refreshed | K_c=25
+  [4,980,000/5,000,000]  99.6% | ep=9910 | SPS=153 | Latency=194.2 | NOMA=3 | tx=1 | macro_t=199200 | best_R=-23672.5
+    [Update/MAPPO] actor=-0.0418 critic=42590.2109 entropy=2.2674 kl=0.0387
+
+    [Macro-199201] step=4,980,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-199601] step=4,990,001 | UAV positions updated | caches refreshed | K_c=25
+  [5,000,000/5,000,000] 100.0% | ep=9950 | SPS=153 | Latency=213.5 | NOMA=2 | tx=0 | macro_t=200000 | best_R=-23275.8
+  [Checkpoint] results/checkpoints/MAPPO/full/model_step5000000.pt
+
+  [Video+Trajectory] Triggered at step 5,000,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_5000000.npz
+    saved P8_2D_trajectory_step5000000.png/.pdf
+    legend → P8_trajectory_legend_step5000000
+    saved P8_3D_trajectory_step5000000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_5000000
+
+  [Domain Rand #50] step=5,000,000
+    users=98, jammers=1, radius=590m, wind=3.2m/s
+
+============================================================
+  Training complete!  [MAPPO]
+  Total steps    : 5,000,000
+  Episodes       : 9950
+  Time           : 9.1h
+  Best reward    : -23275.82
+  Domain changes : 50
+============================================================
+
+  Recording final evaluation video (default env) ...
+  [3D-Video] 200 env steps x 4 sub-frames = 800 frames (33s @ 24fps) ...
+  [3D-Video] Saved -> results/videos/3d_step5000000_final_default.mp4
+  Recording final evaluation video (randomised env) ...
+  [3D-Video] 200 env steps x 4 sub-frames = 800 frames (33s @ 24fps) ...
+  [3D-Video] Saved -> results/videos/3d_step5000000_final_random.mp4
+  Saving final trajectory snapshot ...
+  Generating final 2D + 3D trajectory plots ...
+    saved P8_2D_trajectory_step5000000.png/.pdf
+    legend → P8_trajectory_legend_step5000000
+    saved P8_3D_trajectory_step5000000.png/.pdf
+  P8 complete
+  Final trajectory plots saved to results/plots/
+
+  Running parameter sweeps for all plots (P2-P11) ...
+  Running parameter sweeps for plots...
+    P2: sweeping N...
+    P3: sweeping M...
+    P4: sweeping J...
+    P6: sweeping cache...
+    P7: sweeping Zipf...
+    P9: sweeping jammer power...
+    P10: sweeping task size...
+    P11: sweeping TX power...
+  Sweeps saved to /home/narya/dmjo-multi-uav-mec/results/logs/eval_sweeps.json
+  Sweeps complete. Run 'python plot_ieee.py' to generate all plots.
