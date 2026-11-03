@@ -67,3 +67,4 @@ Ablations are applied dynamically via `apply_ablation(name)`:
 * `no_mappo_traj`: UAVs follow static circular flight orbits.
 * `no_coop_cache`: Local execution and terrestrial BS only (no A2A cache tier).
 * `minimal`: Plain MAPPO actor without cooperative cache.
+

@@ -38,3 +38,4 @@ jobs:
     - name: Run training smoke test
       run: |
         python train.py --method MAPPO --ablation full --total-steps 2 --device cpu --no-training-video --smoke-test
+

@@ -27,3 +27,4 @@ echo "========================================================================"
 python -u train.py --method LocalExecution --ablation full --device "${DEVICE}" --no-training-video 2>&1 | tee run_local.log
 
 echo "All rule-based baseline runs finished successfully."
+

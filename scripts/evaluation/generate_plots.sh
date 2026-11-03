@@ -18,3 +18,4 @@ echo "Generating IEEE publication plots (P1a through P11)..."
 python plot_ieee.py "$@"
 
 echo "Plots generated in results/plots/ and ready for IEEE paper inclusion."
+

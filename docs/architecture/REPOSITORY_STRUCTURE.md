@@ -128,3 +128,4 @@ dmjo-multi-uav-mec/
 3. **`dmjo_mec.algorithms`**: Sub-tier optimization:
    * Two-timescale cooperative caching across Local UAV cache, Air-to-Air (A2A) peer links, and Base Station (BS).
 4. **`dmjo_mec.visualization`**: Generates publication-grade IEEE vector figures with explicit legends and exact metric curves.
+

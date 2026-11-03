@@ -25,3 +25,4 @@ python test_custom.py \
     --num-jammers 2 \
     --episodes 20 \
     --device "${DEVICE}"
+

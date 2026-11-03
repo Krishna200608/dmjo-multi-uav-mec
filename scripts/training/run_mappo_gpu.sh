@@ -30,3 +30,4 @@ python -u train.py \
     --device "${DEVICE}" \
     --total-steps "${STEPS}" \
     --no-training-video 2>&1 | tee run_mappo_full.log
+
