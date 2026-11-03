@@ -3,12 +3,21 @@ __pycache__/
 *.pyc
 *.pyo
 .ipynb_checkpoints/
+.pytest_cache/
 
 # Ignore complete results folder
 results
 results/
 
+# Build and package artifacts
 *.egg-info/
+build/
+dist/
+
+# Environment and secrets
 .env
 .DS_Store
+
+# Archives and extraction artifacts
 *.zip
+dmjo_final_results/

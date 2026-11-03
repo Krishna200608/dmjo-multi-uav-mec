@@ -1,25 +1,7 @@
-# src/baselines/__init__.py
-# ----------------------------------------------------------------
-# Baseline agents for comparison against the MAPPO method.
-# All agents expose the same interface as MAPPOAgent:
-#   get_actions(obs_all, state, num_active)  → actions, log_probs, values
-#   get_values(state)                        → values
-#   update(buffer)                           → metrics dict
-#   save(path) / load(path)
-#
-# Import via the factory:
-#   from src.agent_factory import make_agent
-# ----------------------------------------------------------------
-from src.baselines.mappo_baseline   import MAPPOBaseline
-from src.baselines.maddpg_agent     import MADDPGAgent
-from src.baselines.matd3_agent      import MATD3Agent
-from src.baselines.greedy_agent     import GreedyOffloadingAgent
-from src.baselines.local_agent      import LocalExecutionAgent
-
-__all__ = [
-    "MAPPOBaseline",
-    "MADDPGAgent",
-    "MATD3Agent",
-    "GreedyOffloadingAgent",
-    "LocalExecutionAgent",
-]
+"""Backward-compatibility shim for dmjo_mec.baselines."""
+from dmjo_mec.baselines import *
+from dmjo_mec.baselines.mappo_baseline import MAPPOBaseline
+from dmjo_mec.baselines.maddpg_agent import MADDPGAgent
+from dmjo_mec.baselines.matd3_agent import MATD3Agent
+from dmjo_mec.baselines.greedy_agent import GreedyOffloadingAgent
+from dmjo_mec.baselines.local_agent import LocalExecutionAgent

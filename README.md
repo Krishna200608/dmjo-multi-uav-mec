@@ -45,7 +45,7 @@ This system builds upon and expands the physical and mathematical foundation of:
 > **Base Literature:**  
 > Min Li, Miao Dong, Hong Wang, and Heng Wang, *"3-D Trajectory Design Based on Deep Reinforcement Learning for UAV-Assisted Communication Networks"*, **IEEE Transactions on Network Science and Engineering**, vol. 13, pp. 10551–10571, 2026.  
 > DOI: [10.1109/TNSE.2026.3715712](https://doi.org/10.1109/TNSE.2026.3715712)  
-> *Document location: `docs/Base Paper/3-D_Trajectory_Design_Based_on_Deep_Reinforcement_Learning_for_UAV-Assisted_Communication_Networks.pdf`*
+> *Document location: `docs/research_papers/base_papers/3-D_Trajectory_Design_Based_on_Deep_Reinforcement_Learning_for_UAV-Assisted_Communication_Networks.pdf`*
 
 ### System Dimension Comparison
 
@@ -164,6 +164,37 @@ dmjo-multi-uav-mec/
         |-- greedy_agent.py    # Priority-heuristic greedy offloading
         `-- local_agent.py     # Local-only computation baseline
 ```
+
+---
+
+## Repository Structure
+
+The codebase is organized as a modular, research-grade Python package with separated concerns:
+
+```text
+dmjo-multi-uav-mec/
+├── src/dmjo_mec/                  # Primary installable package
+│   ├── agents/                    # MAPPO agent & factory
+│   ├── baselines/                 # Comparison agents (Greedy, Local, MADDPG, MATD3)
+│   ├── environment/               # Physical 3D kinematics, A2G channels, NOMA bisection
+│   ├── algorithms/                # Cooperative caching & diffusion models
+│   ├── training/                  # Core training pipeline
+│   ├── evaluation/                # MetricsTracker & custom evaluation
+│   ├── utils/                     # Rollout buffers & training loggers
+│   └── visualization/             # IEEE publication plotting suite
+├── configs/                       # System configuration & parameter documentation
+├── docs/                          # Architecture, methodology, setup, reports & papers
+│   ├── setup/                     # GPU runbook (RUN_ON_CAMPUS_MACHINE.md)
+│   ├── methodology/               # Full mathematical technical handoff
+│   ├── architecture/              # REPOSITORY_STRUCTURE.md & tracker
+│   ├── reports/paper/             # IEEE paper LaTeX draft & figures
+│   └── research_papers/           # Base papers & reference literature
+├── scripts/                       # Executable runners for training, evaluation, utilities
+├── tests/                         # Unit, integration, and smoke tests
+├── experiments/                   # Experiment protocols & sweep traceability
+└── results/                       # Trained models (.pt), logs (.jsonl), IEEE plots
+```
+For a detailed component-by-component breakdown, see [`docs/architecture/REPOSITORY_STRUCTURE.md`](docs/architecture/REPOSITORY_STRUCTURE.md).
 
 ---
 

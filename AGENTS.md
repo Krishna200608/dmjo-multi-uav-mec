@@ -9,20 +9,21 @@ Read this file before making code, documentation, experiment, or result changes.
 - `MAPPO` is the main method and default CLI method.
 - `DMJO` is only a backward-compatible alias for the same MAPPO implementation.
 - `--ablation no_diffusion` is only a compatibility label. It is not a final scientific ablation because the full method is already non-diffusion.
-- `src/diffusion.py` is legacy optional experiment code. Do not describe it as part of the final method.
+- `src/dmjo_mec/algorithms/diffusion.py` is legacy optional experiment code. Do not describe it as part of the final method.
 - Fresh result production should use `python train.py --method MAPPO ...`.
 - Old diffusion-labelled checkpoints, plots, and result folders are stale.
 
 ## Files To Read First
 
 1. `README.md` - human-facing overview, install, train, evaluate.
-2. `docs/AI_AGENT_CONTEXT.md` - full technical handoff for AI agents.
-3. `docs/MAPPO_Project_Tracker.md` - locked project direction and assumptions.
-4. `docs/RUN_ON_CAMPUS_MACHINE.md` - exact run commands for GPU/campus machine.
-5. `config.py` - constants, ablations, runtime flags.
-6. `src/env.py` - environment dynamics, action semantics, policy modes.
-7. `src/mappo_agent.py` - final MAPPO policy implementation.
-8. `train.py` - public CLI entrypoint.
+2. `docs/architecture/REPOSITORY_STRUCTURE.md` - repository organization and package map.
+3. `docs/methodology/AI_AGENT_CONTEXT.md` - full technical handoff for AI agents.
+4. `docs/architecture/MAPPO_Project_Tracker.md` - locked project direction and assumptions.
+5. `docs/setup/RUN_ON_CAMPUS_MACHINE.md` - exact run commands for GPU/campus machine.
+6. `src/dmjo_mec/config.py` (and root `config.py`) - constants, ablations, runtime flags.
+7. `src/dmjo_mec/environment/env.py` - environment dynamics, action semantics, policy modes.
+8. `src/dmjo_mec/agents/mappo_agent.py` - final MAPPO policy implementation.
+9. `train.py` - public CLI entrypoint.
 
 ## Public Interfaces To Preserve
 
@@ -77,16 +78,16 @@ full, single_timescale, no_diffusion, no_mappo_traj, no_coop_cache, minimal
 Local syntax check:
 
 ```bash
-python -m compileall config.py src train.py test_custom.py
+python -m compileall config.py src train.py test_custom.py plot_ieee.py
 ```
 
-Unit tests:
+Unit & integration tests:
 
 ```bash
-python -m pytest tests -q
+pytest tests -v
 ```
 
-Tiny smoke:
+Tiny smoke test:
 
 ```bash
 python train.py --method MAPPO --ablation full --total-steps 2 --device cpu --no-training-video --smoke-test

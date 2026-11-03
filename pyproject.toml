@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dmjo-mec"
+version = "1.0.0"
+description = "Priority-Aware Multi-UAV Mobile Edge Computing (PA-MUJO) using MAPPO under CTDE"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Kushagra Gupta", email = "iit2023133@iiita.ac.in" },
+    { name = "Krishna Sikheriya", email = "iit2023139@iiita.ac.in" },
+    { name = "Aditya Pankaj Sharma", email = "iit2023162@iiita.ac.in" }
+]
+keywords = ["uav", "mec", "mappo", "marl", "noma", "edge-computing", "iot"]
+dependencies = [
+    "numpy>=1.24.0",
+    "torch>=2.0.0",
+    "matplotlib>=3.7.0",
+    "imageio>=2.31.0",
+    "imageio-ffmpeg>=0.4.8"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov"
+]
+
+[project.scripts]
+dmjo-train = "dmjo_mec.training.train:main"
+dmjo-plot = "dmjo_mec.visualization.plot_ieee:main"
+dmjo-eval = "dmjo_mec.evaluation.test_custom:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["dmjo_mec*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "src"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning"
+]
