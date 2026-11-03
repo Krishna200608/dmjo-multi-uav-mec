@@ -21,3 +21,85 @@ Env: obs_dim=259, state_dim=774, action_dim=5, agents=8
     [Macro- 801] step=20,001 | UAV positions updated | caches refreshed | K_c=25
 
     [Macro-1201] step=30,001 | UAV positions updated | caches refreshed | K_c=25
+  [   40,000/5,000,000]   0.8% | ep=79 | SPS=185 | Latency=348.1 | NOMA=5 | tx=0 | macro_t=1600 | best_R=-46114.9
+
+    [Macro-1601] step=40,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-2001] step=50,001 | UAV positions updated | caches refreshed | K_c=25
+  [   60,000/5,000,000]   1.2% | ep=119 | SPS=185 | Latency=323.5 | NOMA=5 | tx=0 | macro_t=2400 | best_R=-45015.1
+
+    [Macro-2401] step=60,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-2801] step=70,001 | UAV positions updated | caches refreshed | K_c=25
+  [   80,000/5,000,000]   1.6% | ep=159 | SPS=186 | Latency=344.2 | NOMA=5 | tx=0 | macro_t=3200 | best_R=-45015.1
+
+    [Macro-3201] step=80,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-3601] step=90,001 | UAV positions updated | caches refreshed | K_c=25
+  [  100,000/5,000,000]   2.0% | ep=199 | SPS=186 | Latency=346.9 | NOMA=5 | tx=0 | macro_t=4000 | best_R=-45015.1
+
+  [Video+Trajectory] Triggered at step 100,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_0100000.npz
+    saved P8_2D_trajectory_step5000000.png/.pdf
+    legend → P8_trajectory_legend_step5000000
+    saved P8_3D_trajectory_step5000000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_100000
+
+  [Domain Rand #1] step=100,000
+    users=131, jammers=1, radius=520m, wind=0.3m/s
+
+    [Macro-4001] step=100,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-4401] step=110,001 | UAV positions updated | caches refreshed | K_c=25
+  [  120,000/5,000,000]   2.4% | ep=238 | SPS=176 | Latency=355.0 | NOMA=7 | tx=0 | macro_t=4800 | best_R=-45015.1
+
+    [Macro-4801] step=120,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-5201] step=130,001 | UAV positions updated | caches refreshed | K_c=25
+  [  140,000/5,000,000]   2.8% | ep=278 | SPS=171 | Latency=343.4 | NOMA=7 | tx=0 | macro_t=5600 | best_R=-45015.1
+
+    [Macro-5601] step=140,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-6001] step=150,001 | UAV positions updated | caches refreshed | K_c=25
+  [  160,000/5,000,000]   3.2% | ep=318 | SPS=167 | Latency=340.9 | NOMA=7 | tx=1 | macro_t=6400 | best_R=-45015.1
+
+    [Macro-6401] step=160,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-6801] step=170,001 | UAV positions updated | caches refreshed | K_c=25
+  [  180,000/5,000,000]   3.6% | ep=358 | SPS=164 | Latency=335.0 | NOMA=7 | tx=1 | macro_t=7200 | best_R=-45015.1
+
+    [Macro-7201] step=180,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-7601] step=190,001 | UAV positions updated | caches refreshed | K_c=25
+  [  200,000/5,000,000]   4.0% | ep=398 | SPS=163 | Latency=339.0 | NOMA=7 | tx=2 | macro_t=8000 | best_R=-45015.1
+
+  [Video+Trajectory] Triggered at step 200,000
+  [Video] Skipped (ENABLE_TRAINING_VIDEO=False)
+  [Trajectory] Saved /home/narya/dmjo-multi-uav-mec/results/trajectories/flight_path_0200000.npz
+    saved P8_2D_trajectory_step5000000.png/.pdf
+    legend → P8_trajectory_legend_step5000000
+    saved P8_3D_trajectory_step5000000.png/.pdf
+  P8 complete
+  [Trajectory Plots] Saved to /home/narya/dmjo-multi-uav-mec/results/trajectory_plots/step_200000
+
+  [Domain Rand #2] step=200,000
+    users=103, jammers=2, radius=544m, wind=5.0m/s
+
+    [Macro-8001] step=200,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-8401] step=210,001 | UAV positions updated | caches refreshed | K_c=25
+  [  220,000/5,000,000]   4.4% | ep=437 | SPS=163 | Latency=314.6 | NOMA=5 | tx=2 | macro_t=8800 | best_R=-45015.1
+
+    [Macro-8801] step=220,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-9201] step=230,001 | UAV positions updated | caches refreshed | K_c=25
+  [  240,000/5,000,000]   4.8% | ep=477 | SPS=163 | Latency=352.7 | NOMA=5 | tx=0 | macro_t=9600 | best_R=-45015.1
+
+    [Macro-9601] step=240,001 | UAV positions updated | caches refreshed | K_c=25
+
+    [Macro-10001] step=250,001 | UAV positions updated | caches refreshed | K_c=25
+  [  260,000/5,000,000]   5.2% | ep=517 | SPS=164 | Latency=350.7 | NOMA=5 | tx=1 | macro_t=10400 | best_R=-45015.1
+
+    [Macro-10401] step=260,001 | UAV positions updated | caches refreshed | K_c=25

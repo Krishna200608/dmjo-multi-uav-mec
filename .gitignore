@@ -5,6 +5,7 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Ignore complete results folder
+results
 results/
 
 *.egg-info/
