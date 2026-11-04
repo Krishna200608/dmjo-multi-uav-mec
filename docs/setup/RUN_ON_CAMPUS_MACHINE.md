@@ -391,7 +391,7 @@ results/logs/
 results/plots/
 results/test_results/
 results/trajectories/
-run_*.log
+experiments/logs/
 ```
 
 Most important:

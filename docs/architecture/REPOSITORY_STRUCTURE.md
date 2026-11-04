@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `dmjo-multi-uav-mec` repository implements the **Priority-Aware Multi-UAV Joint Optimization (PA-MUJO)** framework for aerial mobile edge computing. The codebase is organized into modular Python packages with separated concerns, full research traceability, and dual backward-compatibility entrypoints.
+The `dmjo-multi-uav-mec` repository implements the **Priority-Aware Multi-UAV Joint Optimization (PA-MUJO)** framework for aerial mobile edge computing. The codebase is organized as a research-grade Python package with separated concerns, full research traceability, comprehensive documentation, and transparent backward-compatibility entrypoints.
 
 ---
 
@@ -12,7 +12,10 @@ The `dmjo-multi-uav-mec` repository implements the **Priority-Aware Multi-UAV Jo
 dmjo-multi-uav-mec/
 ├── README.md                      # Primary project overview, setup, training & evaluation
 ├── AGENTS.md                      # AI agent operational instructions and interface invariants
-├── POST_TRAINING_REPORT.md        # Executive report on converged 5M-step GPU training results
+├── config.py                      # Root configuration forwarder shim
+├── train.py                       # Root training CLI forwarder shim
+├── test_custom.py                 # Root evaluation CLI forwarder shim
+├── plot_ieee.py                   # Root IEEE plotting forwarder shim
 ├── requirements.txt               # Pinned Python package dependencies
 ├── pyproject.toml                 # Standard setuptools packaging & pytest configuration
 ├── .gitignore                     # Git tracking exclusions
@@ -39,7 +42,7 @@ dmjo-multi-uav-mec/
 │
 ├── src/                           # Python source tree
 │   ├── dmjo_mec/                  # Primary installable package
-│   │   ├── __init__.py            # Package root exports
+│   │   ├── __init__.py            # Package root exports (MultiUAVMECEnv, MAPPOAgent, make_agent)
 │   │   ├── config.py              # Single source of truth for all simulation constants
 │   │   ├── agents/                # MAPPO agent & factory pattern
 │   │   │   ├── __init__.py
@@ -103,16 +106,18 @@ dmjo-multi-uav-mec/
 │   ├── README.md                  # Experiments overview
 │   ├── logs/                      # Version-controlled execution logs (MAPPO, Greedys, orchestrator)
 │   │   ├── README.md
-│   │   ├── run_mappo_full.log
-│   │   ├── run_greedy.log
-│   │   └── pipeline_orchestrator.log
+│   │   ├── run_mappo_full.log     # 5M-step MAPPO console log
+│   │   ├── run_greedy.log         # 5M-step GreedyOffloading console log
+│   │   ├── run_local.log          # 5M-step LocalExecution console log
+│   │   ├── run_plot.log           # Plotting execution trace
+│   │   └── pipeline_orchestrator.log # End-to-end automation trace
 │   └── sweeps/
 │
 ├── results/                       # Empirical outputs (gitignored, persisted locally)
-│   ├── checkpoints/               # Saved model weights (.pt)
-│   ├── logs/                      # Training history & eval_sweeps.json
-│   ├── plots/                     # 11 IEEE figures + standalone legends (PDF & PNG)
-│   └── trajectories/              # 3D aerial flight paths (.npz)
+│   ├── checkpoints/               # 39 saved model checkpoints (.pt and .json)
+│   ├── logs/                      # Full telemetry (training_metrics.jsonl, eval_sweeps.json)
+│   ├── plots/                     # 56 IEEE figures + standalone legends (PDF & PNG)
+│   └── trajectories/              # 51 3D aerial flight paths (.npz)
 │
 └── .github/
     └── workflows/
@@ -134,4 +139,3 @@ dmjo-multi-uav-mec/
 3. **`dmjo_mec.algorithms`**: Sub-tier optimization:
    * Two-timescale cooperative caching across Local UAV cache, Air-to-Air (A2A) peer links, and Base Station (BS).
 4. **`dmjo_mec.visualization`**: Generates publication-grade IEEE vector figures with explicit legends and exact metric curves.
-

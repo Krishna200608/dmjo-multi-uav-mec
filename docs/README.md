@@ -21,19 +21,21 @@ Welcome to the comprehensive documentation for the **Priority-Aware Multi-UAV Jo
 * **[`docs/architecture/REPOSITORY_STRUCTURE.md`](architecture/REPOSITORY_STRUCTURE.md)**:
   * Complete directory breakdown, module responsibilities, and import conventions.
 * **[`docs/architecture/MAPPO_Project_Tracker.md`](architecture/MAPPO_Project_Tracker.md)**:
-  * Algorithmic direction, locked interfaces, and verification scope.
+  * Algorithmic direction, locked interfaces, design decisions, and verification scope.
 
 ### 4. Academic Reports & IEEE Publications
+* **[`docs/reports/POST_TRAINING_REPORT.md`](reports/POST_TRAINING_REPORT.md)**:
+  * Executive report detailing the completed 5,000,000-step training runs on NVIDIA RTX 5000 Ada GPU across MAPPO, GreedyOffloading, and LocalExecution.
 * **[`docs/reports/paper/`](reports/paper/)**:
-  * Publication draft formatted in IEEEtran double-column style (`paper.tex`).
-  * System model diagrams, priority computation flowcharts, and bibliography (`ref.bib`).
-  * Author biography metadata and pre-compiled PDF (`paper.pdf`).
+  * Publication draft formatted in IEEEtran double-column style ([`paper.tex`](reports/paper/paper.tex)).
+  * Fully populated Section V (Simulation Results) embedding all 15 figures and comparison tables.
+  * System model diagrams, priority computation flowcharts, bibliography ([`ref.bib`](reports/paper/ref.bib)), and compiled PDF ([`paper.pdf`](reports/paper/paper.pdf)).
 * **[`docs/reports/templates/`](reports/templates/)**:
   * Course presentation template and legacy benchmark files.
 
 ### 5. Scientific Literature
 * **[`docs/research_papers/base_papers/`](research_papers/base_papers/)**:
-  * Foundational literature on 3D DRL UAV trajectory design (Li et al.) and services computing.
+  * Foundational literature on 3D DRL UAV trajectory design (Li et al., IEEE TNSE 2026) and services computing.
 * **[`docs/research_papers/reference_papers/`](research_papers/reference_papers/)**:
   * 16 reference papers covering NOMA aerial networks, priority-differentiated scheduling, rotary-wing aerodynamics, and Gauss-Markov mobility.
 
@@ -43,5 +45,5 @@ Welcome to the comprehensive documentation for the **Priority-Aware Multi-UAV Jo
 * **Root Execution Entrypoint**: [`train.py`](../train.py)
 * **Configuration Parameters**: [`src/dmjo_mec/config.py`](../src/dmjo_mec/config.py)
 * **IEEE Figure Generator**: [`plot_ieee.py`](../plot_ieee.py)
-* **Recent GPU Training Report**: [`docs/reports/POST_TRAINING_REPORT.md`](reports/POST_TRAINING_REPORT.md)
-
+* **Experiments Traceability**: [`experiments/README.md`](../experiments/README.md)
+* **Execution Logs Catalog**: [`experiments/logs/README.md`](../experiments/logs/README.md)
