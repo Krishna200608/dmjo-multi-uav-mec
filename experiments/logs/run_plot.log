@@ -1,0 +1,42 @@
+Generating all plots from /home/narya/kent-ai/project/dmjo-multi-uav-mec/results/logs/
+Output -> /home/narya/kent-ai/project/dmjo-multi-uav-mec/results/plots/
+
+  P1:
+    saved P1a_reward.png/.pdf
+    legend -> P1a_reward_legend
+    saved P1b_latency.png/.pdf
+    legend -> P1b_latency_legend
+  P2:
+    saved P2_latency_vs_N.png/.pdf
+    legend -> P2_latency_vs_N_legend
+  P3:
+    saved P3_latency_vs_M.png/.pdf
+    legend -> P3_latency_vs_M_legend
+  P4:
+    saved P4_latency_vs_J.png/.pdf
+    legend -> P4_latency_vs_J_legend
+  P5:
+    saved P5_energy.png/.pdf
+    legend -> P5_energy_legend
+  P6:
+    saved P6_latency_vs_cache.png/.pdf
+    legend -> P6_latency_vs_cache_legend
+  P7:
+    saved P7_cache_vs_zipf.png/.pdf
+    legend -> P7_cache_vs_zipf_legend
+  P8:
+    saved P8_2D_trajectory.png/.pdf
+    legend -> P8_trajectory_legend
+    saved P8_3D_trajectory.png/.pdf
+  P8 complete
+  P9:
+    saved P9_latency_vs_jammer_power.png/.pdf
+    legend -> P9_latency_vs_jammer_power_legend
+  P10:
+    saved P10_latency_vs_task_size.png/.pdf
+    legend -> P10_latency_vs_task_size_legend
+  P11:
+    saved P11_latency_vs_tx_power.png/.pdf
+    legend -> P11_latency_vs_tx_power_legend
+
+Done -> /home/narya/kent-ai/project/dmjo-multi-uav-mec/results/plots/
